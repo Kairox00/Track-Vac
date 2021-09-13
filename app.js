@@ -1,15 +1,34 @@
 const express = require('express'),
 app = express(),
 methodOverride = require('method-override'),
-bodyParser = require('body-parser'),
-mongoose = require('mongoose'); 
+// bodyParser = require('body-parser'),
+mongoose = require('mongoose'),
+passport = require('passport'),
+LocalStrategy = require('passport-local');
 
 
 const port = 3000 || process.env.PORT;
+const Mod = require('./models/mod');
 
 app.set('view engine','ejs')
+app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
+
+//=================
+// PASSPORT CONFIG
+//=================
+
+app.use(require("express-session")({
+    secret:"Secter whatev",
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(Mod.authenticate()));
+passport.serializeUser(Mod.serializeUser());
+passport.deserializeUser(Mod.deserializeUser());
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
@@ -58,6 +77,10 @@ app.get('/about',(req,res)=>{
 
 app.get('/modLogin',(req,res)=>{
     res.render('login')
+})
+
+app.post('/login',passport.authenticate('local',{failureRedirect: '/login'}),(req,res)=>{
+    res.redirect('/');
 })
 
 
