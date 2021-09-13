@@ -17,7 +17,7 @@ footer {
     margin-top: 40em; 
 }
 
-.container, .container-fluid {
+.footer {
     padding-left: 0;
     padding-right: 0;
 }
