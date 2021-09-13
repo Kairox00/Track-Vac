@@ -1,7 +1,23 @@
 body{
-    background-color:F6FBEF ;
+    background-color:#F6FBEF ;
   
 }
 h1{
-    color: 99A0A8;
+    margin-top: 6%;
+    color: #99A0A8;
+}
+
+footer {
+
+    background-color: #99A0A8;
+    width: 100%;
+    position: relative; 
+    z-index: 1; 
+    height: -3em; 
+    margin-top: 40em; 
+}
+
+.container, .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
 }
