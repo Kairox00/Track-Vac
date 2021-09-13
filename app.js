@@ -4,11 +4,14 @@ methodOverride = require('method-override'),
 bodyParser = require('body-parser'),
 mongoose = require('mongoose'); 
 
+
 const port = 3000 || process.env.PORT;
 
 app.set('view engine','ejs')
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
+
+mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 //===============
 // PUBLIC ROUTES
@@ -56,6 +59,7 @@ app.get('/about',(req,res)=>{
 app.get('/modLogin',(req,res)=>{
     res.render('login')
 })
+
 
 
 app.listen(port,()=>{
