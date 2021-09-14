@@ -6,8 +6,16 @@ body{
 
 h1{
 
-    margin-top: 10%;
+    margin-top: 8%;
     color: #3A3556;
+
+}
+h3{
+
+    margin-top: 6%;
+    color: #3A3556;
+    font-size: xx-large;
+    font-weight:500;
 
 }
 
