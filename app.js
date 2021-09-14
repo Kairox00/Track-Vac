@@ -75,7 +75,7 @@ app.get('/about',(req,res)=>{
 // MODERATOR ROUTES
 //==================
 
-app.get('/modLogin',(req,res)=>{
+app.get('/login',(req,res)=>{
     res.render('login')
 })
 
