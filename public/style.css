@@ -5,11 +5,25 @@ body{
 
 
 h1{
-    color: #8A8188;
+
+    margin-top: 8%;
+    color: #3A3556;
+
+}
+h3{
+
+    margin-top: 6%;
+    color: #3A3556;
+    font-size: xx-large;
+    font-weight:500;
+
 }
 
 h2 {
-    color: #8A8188;
+    color: #3A3556;
+}
+a{
+    text-decoration: none;
 }
 
 p {
@@ -38,12 +52,16 @@ footer {
 .box {
     padding: 20px;
     background-color: white; 
-    box-shadow: 12px 12px 3px 1px rgba(153,160,168, .2);
+    box-shadow: 12px 12px 3px 1px rgba(102, 120, 138, .3);
     transition: 500ms;
+    border: #3A3556;
+    margin: 60px;
+    
 }
 
 .box:hover {
-    box-shadow: 12px 12px 1px 3px rgba(153,160,168, .2);
+    box-shadow: 12px 12px 1px 3px rgba(102, 120, 138, .3);
     padding: 24px;
 
 }
+
