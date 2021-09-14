@@ -3,8 +3,8 @@ body{
   
 }
 h1{
-    margin-top: 6%;
-    color: #8A8188;
+    padding-top: 6%;
+    color: #F6FBEF;
 }
 
 h2 {
@@ -22,7 +22,7 @@ footer {
     position: relative; 
     z-index: 1; 
     height: -3em; 
-    margin-top: 40em; 
+    /*margin-top: 40em; */
 }
 
 .footer {
@@ -32,6 +32,7 @@ footer {
 
 .row {
     margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .box {
@@ -43,6 +44,26 @@ footer {
 
 .box:hover {
     box-shadow: 12px 12px 1px 3px rgba(153,160,168, .2);
-    padding: 24px;
 
+}
+
+.title {
+    font-weight: 300;
+    text-shadow: 2px 2px 2px #99A0A8;}
+
+
+.about {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWJvdXQlMjBwYWdlfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 20px;
+}
+
+.centers {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG9zcGl0YWxzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 20px;
 }
