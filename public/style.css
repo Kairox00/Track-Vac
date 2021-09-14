@@ -58,6 +58,15 @@ footer {
     margin: 60px;
     
 }
+.box2 {
+    padding: 20px;
+    padding-top: 80px;
+    background-color:#99a0a870  ; 
+    border: #3A3556;
+    margin: 60px;
+    border-radius: 8%;
+    
+}
 
 .box:hover {
 
