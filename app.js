@@ -15,6 +15,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 
+
+
+//=================
+// Error validation
+//=================
+const ExpressError=require('./utils/ExpressError')
+const {reviewSchema}= require('./schemas.js')
+const Joi = require('joi');
+const review=require('./models/review');
+const catchAsync=require('./utils/catchAsync');
+const validateReview=(req,res,next)=>{
+    const {error} = reviewSchema.validate(req.body);
+    if(error){
+        const msg= error.details.map(el=>el.message).join(',');
+        throw new ExpressError(msg,400)
+    }
+    else{
+        next();
+    }
+}
+
 //=================
 // PASSPORT CONFIG
 //=================
@@ -30,7 +51,14 @@ passport.use(new LocalStrategy(Mod.authenticate()));
 passport.serializeUser(Mod.serializeUser());
 passport.deserializeUser(Mod.deserializeUser());
 
-mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connect('mongodb://localhost:27017/trackVac', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("MONGO CONNECTION OPEN!!!")
+    })
+    .catch(err => {
+        console.log("OH NO MONGO CONNECTION ERROR!!!!")
+        console.log(err)
+    })
 
 //===============
 // PUBLIC ROUTES

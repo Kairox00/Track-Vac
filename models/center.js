@@ -9,3 +9,4 @@ const centerSchema = new mongoose.Schema({
     }],
     map: String
 })
+module.exports=mongoose.model('center',centerSchema);
