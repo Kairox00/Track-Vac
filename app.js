@@ -59,6 +59,10 @@ app.get('/centers/:centerId/addReview', (req, res) => {
     let centerId = req.params.centerId
     res.render('addReview')
 })
+app.get('/addReview',(req,res)=>{
+    let centerId = req.params.centerId
+    res.render('addReview')
+})
 
 app.get('/addReview', (req, res) => {
     //let centerId = req.params.centerId
