@@ -1,7 +1,7 @@
 const express = require('express'),
 app = express(),
 methodOverride = require('method-override'),
-// bodyParser = require('body-parser'),
+bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
 passport = require('passport'),
 LocalStrategy = require('passport-local');
@@ -11,7 +11,7 @@ const port = 3000 || process.env.PORT;
 const Mod = require('./models/mod');
 
 app.set('view engine','ejs')
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 
@@ -30,7 +30,15 @@ passport.use(new LocalStrategy(Mod.authenticate()));
 passport.serializeUser(Mod.serializeUser());
 passport.deserializeUser(Mod.deserializeUser());
 
-mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+app.use((req,res,next)=>{
+    res.locals.currentUser = req.user;
+    next();
+});
+
+mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
+{ useNewUrlParser: true , 
+    useUnifiedTopology: true
+});
 
 //===============
 // PUBLIC ROUTES
@@ -75,13 +83,37 @@ app.get('/about',(req,res)=>{
 // MODERATOR ROUTES
 //==================
 
+app.get('/register',(req,res)=>{
+    res.render("register");
+});
+
+app.post("/register", function(req, res){
+    console.log(req.body.username);
+    console.log(req.body.password);
+    var newMod = {username: req.body.username, password:req.body.password};
+    Mod.register(newMod, req.body.password, function(err, mod){
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        passport.authenticate("local")(req, res, function(){
+           res.redirect("/"); 
+        });
+        
+    });
+});
+
 app.get('/login',(req,res)=>{
     res.render('login')
 })
 
-app.post('/login',passport.authenticate('local',{failureRedirect: '/login'}),(req,res)=>{
+app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
     res.redirect('/');
-})
+  });
 
 
 
