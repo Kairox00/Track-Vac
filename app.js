@@ -1,7 +1,7 @@
 const express = require('express'),
 app = express(),
 methodOverride = require('method-override'),
-bodyParser = require('body-parser'),
+//bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
 passport = require('passport'),
 LocalStrategy = require('passport-local');
@@ -11,7 +11,7 @@ const port = 3000 || process.env.PORT;
 const Mod = require('./models/mod');
 
 app.set('view engine','ejs')
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 
@@ -108,7 +108,7 @@ app.get('/login',(req,res)=>{
 })
 
 app.post('/login',
-  passport.authenticate('local'),
+  passport.authenticate('local',{failureRedirect:'/login'}),
   function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
