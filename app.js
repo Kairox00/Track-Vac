@@ -1,5 +1,4 @@
 const express = require('express'),
-
 app = express(),
 methodOverride = require('method-override'),
 //bodyParser = require('body-parser'),
@@ -10,6 +9,11 @@ LocalStrategy = require('passport-local');
 
 const port = 3000 || process.env.PORT;
 const Mod = require('./models/mod');
+const helper = require("./helper");
+const Center = require('./models/center');
+const cities = require("./cities.json");
+const cityNames = helper.getCityNames();
+
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +56,14 @@ app.get('/', (req, res) => {
 
 //Choose Center Page
 app.get('/centers', (req, res) => {
+    Center.find({},(err,centers)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.render('centers',{centers: centers})
+        }
+    })
     res.render('centers')
 })
 
@@ -66,17 +78,10 @@ app.get('/centers/:centerId', (req, res) => {
 //Create Review Page
 app.get('/centers/:centerId/addReview', (req, res) => {
     let centerId = req.params.centerId
-    res.render('addReview')
-})
-app.get('/addReview',(req,res)=>{
-    let centerId = req.params.centerId
-    res.render('addReview')
+    res.render('addReview',{centerId: centerId})
+
 })
 
-app.get('/addReview', (req, res) => {
-    //let centerId = req.params.centerId
-    res.render('addReview')
-})
 
 app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
@@ -89,10 +94,13 @@ app.get('/about', (req, res) => {
     res.render('about')
 })
 
+app.get('/addReview',(req,res)=>{
+    res.render('addReview')
+})
+
 //==================
 // MODERATOR ROUTES
 //==================
-
 
 app.get('/register',(req,res)=>{
     res.render("register");
@@ -124,7 +132,11 @@ app.post('/login',
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.redirect('/');
-  });
+});
+
+app.get('/addCenter',(req,res)=>{
+    res.render('addCenter',{cityNames: cityNames, helper: helper});
+})
 
 
 
