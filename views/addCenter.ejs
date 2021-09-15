@@ -13,7 +13,7 @@
         </div>
         <div>
             <label for="cityNames" class="form-label fs-5">Governorate</label>
-            <input class="form-control" list="cityList" id="cityNames" onchange="getValue();" placeholder="Type City Name to search...">
+            <input class="form-control" list="cityList" id="cityNames" onchange=getValue(); onfocus="this.value=''" placeholder="Type City Name to search...">
                 <datalist id="cityList">
                     <% for(let i=0; i<cityNames.length; i++) { %>
                         <option value="<%=cityNames[i] %>">
@@ -21,19 +21,17 @@
                 </datalist>
         </div>
         <div>
-            <label for="districtNames" class="form-label fs-5">Governorate</label>
-            <input class="form-control" list="districtList" id="districtNames" placeholder="Type District Name to search...">
+            <label for="districtNames" class="form-label fs-5">District</label>
+            <input class="form-control" list="districtList" id="districtNames"  placeholder="Type District Name to search...">
             <datalist id="districtList"> 
             </datalist>
         </div>
     </form>
 </div>
-<script>
-    let value = "";
-    function getValue(){
-        value = document.getElementById("cityNames").value;
-        console.log(value);
-    }
-</script>
+
+    <script src='script.js'> </script>
+
+
+
 
 <%- include ("partials/footer") %>
