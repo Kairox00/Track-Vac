@@ -9,7 +9,11 @@ LocalStrategy = require('passport-local');
 
 const port = 3000 || process.env.PORT;
 const Mod = require('./models/mod');
+const helper = require("./helper");
 const Center = require('./models/center');
+const cities = require("./cities.json");
+const cityNames = helper.getCityNames();
+
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
@@ -131,9 +135,8 @@ app.post('/login',
 });
 
 app.get('/addCenter',(req,res)=>{
-    res.render('addCenter');
+    res.render('addCenter',{cityNames: cityNames, helper: helper});
 })
-
 
 
 
