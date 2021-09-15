@@ -12,24 +12,28 @@
             <input type="file" id="myImage" name="image" accept="image/*">
         </div>
         <div>
-            <select name="City" id="cityNames" form='centerForm'>
-                <option value="" disabled selected>Select your city</option>
-                <option value="Cairo">Cairo</option>
-                <option value="Alex">Alex</option>
-                <option value="Giza">Giza</option>
-                <option value="Luxor">Luxor</option>
-            </select>
+            <label for="cityNames" class="form-label fs-5">Governorate</label>
+            <input class="form-control" list="cityList" id="cityNames" onchange="getValue();" placeholder="Type City Name to search...">
+                <datalist id="cityList">
+                    <% for(let i=0; i<cityNames.length; i++) { %>
+                        <option value="<%=cityNames[i] %>">
+                    <% } %>
+                </datalist>
         </div>
         <div>
-            <select name="District" id="distritNames" form='centerForm'>
-                <option value="" disabled selected>Select your District</option>
-                <option value="Cairo">Heliopolis</option>
-                <option value="Alex">Nasr City</option>
-                <option value="Giza">New Cairo</option>
-                <option value="Luxor">Maadi</option>
-            </select>
+            <label for="districtNames" class="form-label fs-5">Governorate</label>
+            <input class="form-control" list="districtList" id="districtNames" placeholder="Type District Name to search...">
+            <datalist id="districtList"> 
+            </datalist>
         </div>
     </form>
 </div>
+<script>
+    let value = "";
+    function getValue(){
+        value = document.getElementById("cityNames").value;
+        console.log(value);
+    }
+</script>
 
 <%- include ("partials/footer") %>

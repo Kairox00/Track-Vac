@@ -1,0 +1,16 @@
+[
+{
+    "name": "Cairo",
+    "districts":["Heliopolis","Nasr City","New Cairo"]
+},
+{
+    "name": "Giza",
+    "districts": [
+        "Dokki",
+        "Mohandiseen",
+        "Agouza"
+    ]
+}
+]
+      
+    
