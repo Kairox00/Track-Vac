@@ -1,0 +1,39 @@
+<%- include ("partials/header") %>
+
+<div class="container">
+    <h1>Add new center</h1>
+    <form id='centerForm'>
+        <div>
+            <label>Name</label>
+            <input type='text' name='name'>
+        </div>
+        <div>
+            <label for="myfile">Select an image:</label>
+            <input type="file" id="myImage" name="image" accept="image/*">
+        </div>
+        <div>
+            <label for="cityNames" class="form-label fs-5">Governorate</label>
+            <input class="form-control" list="cityList" id="cityNames" onchange="getValue();" placeholder="Type City Name to search...">
+                <datalist id="cityList">
+                    <% for(let i=0; i<cityNames.length; i++) { %>
+                        <option value="<%=cityNames[i] %>">
+                    <% } %>
+                </datalist>
+        </div>
+        <div>
+            <label for="districtNames" class="form-label fs-5">Governorate</label>
+            <input class="form-control" list="districtList" id="districtNames" placeholder="Type District Name to search...">
+            <datalist id="districtList"> 
+            </datalist>
+        </div>
+    </form>
+</div>
+<script>
+    let value = "";
+    function getValue(){
+        value = document.getElementById("cityNames").value;
+        console.log(value);
+    }
+</script>
+
+<%- include ("partials/footer") %>

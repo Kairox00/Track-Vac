@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
+    title: String,
     text: String,
     date: Date,
     vaccination_code: Number,
