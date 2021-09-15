@@ -102,32 +102,13 @@ app.get('/addReview',(req,res)=>{
 // MODERATOR ROUTES
 //==================
 
-app.get('/register',(req,res)=>{
-    res.render("register");
-});
 
-app.post("/register", function(req, res){
-    console.log(req.body.username);
-    console.log(req.body.password);
-    var newMod = {username: req.body.username, password:req.body.password};
-    Mod.register(newMod, req.body.password, function(err, mod){
-        if(err){
-            console.log(err);
-            res.send(err);
-        }
-        passport.authenticate("local")(req, res, function(){
-           res.redirect("/"); 
-        });
-        
-    });
-});
-
-app.get('/login',(req,res)=>{
-    res.render('login')
+app.get('/moderator',(req,res)=>{
+    res.render('moderator')
 })
 
-app.post('/login',
-  passport.authenticate('local',{failureRedirect:'/login'}),
+app.post('/moderator',
+  passport.authenticate('local',{failureRedirect:'/moderator'}),
   function(req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
