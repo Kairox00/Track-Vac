@@ -1,12 +1,7 @@
 body{
-<<<<<<< Updated upstream
-    background-color:#F6FBEF ;
-    padding-top: 65px;
-=======
     background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,0.8519782913165266) 0%, rgba(178,193,242,1) 100%);
     padding-top: 86px;
->>>>>>> Stashed changes
 }
 
 
@@ -69,8 +64,6 @@ footer {
     margin: 60px;
     
 }
-<<<<<<< Updated upstream
-=======
 .box2 {
     padding: 20px;
     padding-top: 80px;
@@ -83,7 +76,6 @@ footer {
     
 }
 
->>>>>>> Stashed changes
 
 .box:hover {
 
