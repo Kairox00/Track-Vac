@@ -1,6 +1,12 @@
 body{
+<<<<<<< Updated upstream
     background-color:#F6FBEF ;
     padding-top: 65px;
+=======
+    background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,0.8519782913165266) 0%, rgba(178,193,242,1) 100%);
+    padding-top: 86px;
+>>>>>>> Stashed changes
 }
 
 
@@ -8,18 +14,23 @@ h1{
 
     padding-top: 8%;
     color: #3A3556;
+    font-weight: 400;
 
 }
 h3{
     margin-top: 6%;
     color: #3A3556;
     font-size: xx-large;
-    font-weight:500;
+    font-weight:400;
 
+}
+h4{
+    font-weight: 400;
 }
 
 h2 {
     color: #925D8A;
+    font-weight: 400;
 }
 a{
     text-decoration: none;
@@ -31,7 +42,7 @@ p {
 
 footer {
 
-    background-color: #99A0A8;
+    background-color: white;
     width: 100%;
     position: relative; 
     z-index: 1; 
@@ -58,6 +69,21 @@ footer {
     margin: 60px;
     
 }
+<<<<<<< Updated upstream
+=======
+.box2 {
+    padding: 20px;
+    padding-top: 80px;
+    background-color: rgba(255, 255, 255, 0.37);
+    border: white;
+
+    border: none;
+    margin: 60px;
+    border-radius: 20px;
+    
+}
+
+>>>>>>> Stashed changes
 
 .box:hover {
 
@@ -66,13 +92,13 @@ footer {
 }
 
 .title {
-    font-weight: 300;
-    text-shadow: 2px 2px 2px #99A0A8;}
+    font-weight: 400;
+   }
 
 
 .about {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWJvdXQlMjBwYWdlfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-image: 
+    url(https://images.unsplash.com/photo-1611689102033-7f9e0a8eb851?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80);
     background-repeat: no-repeat;
     background-size: cover;
     padding-bottom: 20px;
@@ -149,11 +175,11 @@ input[type='radio']:checked:after {
 }
 
 .centers {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG9zcGl0YWxzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-bottom: 20px;
-}
+   
+    background-repeat:no-repeat;
+    background-size:cover;
+   padding-bottom: 20px;
+    
 
+}
 
