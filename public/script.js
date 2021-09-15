@@ -1,21 +1,10 @@
-const cities = [
-        {
-            name: "Cairo",
-            districts: [
-                "Heliopolis", 
-                "Nasr City", 
-                "New Cairo"
-            ]
-        },
-        {
-            name: "Giza",
-            districts: [
-                "Dokki",
-                "Mohandiseen",
-                "Agouza"
-            ]
-        }
-    ]
+let cities = [];
+fetch("cities")
+.then(response => {
+   return response.json();
+})
+.then(data => cities=data);
+
 const districtList = document.getElementById("districtList");
 const districtDrop = document.getElementById("districtNames");
 const cityDrop = document.getElementById("cityNames");

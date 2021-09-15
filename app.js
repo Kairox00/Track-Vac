@@ -138,6 +138,10 @@ app.get('/addCenter',(req,res)=>{
     res.render('addCenter',{cityNames: cityNames, helper: helper});
 })
 
+app.get('/cities',(req,res)=>{
+    res.json(cities);
+})
+
 
 
 app.listen(port, () => {
