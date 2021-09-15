@@ -75,27 +75,20 @@ app.get('/centers/:centerId', (req, res) => {
     //else display error
 })
 
-//Create Review Page
-app.get('/centers/:centerId/addReview', (req, res) => {
-    let centerId = req.params.centerId
-    res.render('addReview',{centerId: centerId})
-
-})
-
-
 app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
-    //if center not found throw err
-    //else create new review in database
+    res.render('center_page')
+})
+
+//Create Review Page
+app.get('/addReview', (req, res) => {
+    res.render('addReview')
+
 })
 
 //About Page
 app.get('/about', (req, res) => {
     res.render('about')
-})
-
-app.get('/addReview',(req,res)=>{
-    res.render('addReview')
 })
 
 //==================
@@ -108,15 +101,51 @@ app.get('/moderator',(req,res)=>{
 })
 
 app.post('/moderator',
-  passport.authenticate('local',{failureRedirect:'/moderator'}),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/');
-});
+//   passport.authenticate('local',{failureRedirect:'/moderator'}),
+//   function(req, res) {
+//     // If this function gets called, authentication was successful.
+//     // `req.user` contains the authenticated user.
+//     res.redirect('/');
+// }
+    (req,res)=>{
+        console.log(req.body.authKey);
+        if(req.body.authKey === "key"){
+            res.redirect('/modHome');
+    }
+    else{
+        res.redirect('/moderator');
+    }
+    
+
+    }
+);
+
+app.get('/modHome',(req,res)=>{
+    res.render('modHome');
+})
 
 app.get('/addCenter',(req,res)=>{
     res.render('addCenter',{cityNames: cityNames, helper: helper});
+})
+
+app.post('/addCenter',(req,res)=>{
+    const newCenter = {
+        name: req.body.name,
+        image: req.body.image,
+        city: req.body.city,
+        district: req.body.district
+    }
+    Center.create(newCenter,(err)=>{
+        if(err){
+            console.log(err);
+            res.send("400")
+        }
+        else{
+            console.log("center created");
+            res.redirect('/centers')
+        }    
+
+    })
 })
 
 app.get('/cities',(req,res)=>{

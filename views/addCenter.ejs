@@ -2,7 +2,7 @@
 
 <div class="container">
     <h1>Add new center</h1>
-    <form id='centerForm'>
+    <form id='centerForm' action="/addCenter" method="POST">
         <div>
             <label>Name</label>
             <input type='text' name='name'>
@@ -13,7 +13,7 @@
         </div>
         <div>
             <label for="cityNames" class="form-label fs-5">Governorate</label>
-            <input class="form-control" list="cityList" id="cityNames" onchange=getValue(); onfocus="this.value=''" placeholder="Type City Name to search...">
+            <input name="city" class="form-control" list="cityList" id="cityNames" onchange=getValue(); onfocus="this.value=''" placeholder="Type City Name to search...">
                 <datalist id="cityList">
                     <% for(let i=0; i<cityNames.length; i++) { %>
                         <option value="<%=cityNames[i] %>">
@@ -22,9 +22,12 @@
         </div>
         <div>
             <label for="districtNames" class="form-label fs-5">District</label>
-            <input class="form-control" list="districtList" id="districtNames"  placeholder="Type District Name to search...">
+            <input name="district" class="form-control" list="districtList" id="districtNames"  placeholder="Type District Name to search...">
             <datalist id="districtList"> 
             </datalist>
+        </div>
+        <div>
+            <input type="submit" class="btn">
         </div>
     </form>
 </div>
