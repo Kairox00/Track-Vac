@@ -122,7 +122,7 @@ app.get('/about', (req, res) => {
 
 
 app.get('/moderator', (req, res) => {
-    res.render('moderator')
+    res.render('moderator',{page: "moderator"})
 })
 
 app.post('/moderator',
@@ -135,7 +135,7 @@ app.post('/moderator',
     (req, res) => {
         console.log(req.body.authKey);
         if (req.body.authKey === "key") {
-            res.redirect('/modHome');
+            res.render('modHome',{page: "modHome"});
         }
         else {
             res.redirect('/moderator');
@@ -146,14 +146,14 @@ app.post('/moderator',
 );
 
 app.get('/modHome', (req, res) => {
-    res.render('modHome');
+    res.render('modHome',{page: "modHome"});
 })
 app.get('/reports', (req, res) => {
-    res.render('reports');
+    res.render('reports',{page: "reports"});
 })
 
 app.get('/addCenter', (req, res) => {
-    res.render('addCenter', { cityNames: cityNames, helper: helper });
+    res.render('addCenter', { cityNames: cityNames, helper: helper , page:"addCenter"});
 })
 
 app.post('/addCenter', (req, res) => {
