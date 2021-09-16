@@ -85,6 +85,9 @@ app.get('/centers', (req, res) => {
     //         res.render('centers',{centers: centers, cityNames: cityNames})
     //     }
     // })
+    
+   const centers = await Center.find({});
+   res.render('centers',{centers});
     res.render('centers', { cityNames: cityNames })
 })
 
