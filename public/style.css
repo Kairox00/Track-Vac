@@ -81,7 +81,7 @@ footer {
     margin: 60px;
     
 }
-.box2 {
+.box5 {
     padding: 20px;
     padding-top: 80px;
     padding-bottom: 80px;
@@ -92,6 +92,21 @@ footer {
     margin: 60px;
     margin-left:10% ;
     margin-right:10% ;
+    border-radius: 20px;
+    
+}
+.box2 {
+    padding: 20px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: rgba(255, 255, 255, 0.37);
+    border: white;
+
+  
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left:20px ;
+    margin-right:20px ;
     border-radius: 20px;
     
 }
