@@ -110,6 +110,16 @@ footer {
     border-radius: 20px;
     
 }
+.box3 {
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.637);
+    border: white;
+
+  
+   margin: 20px;
+    border-radius: 20px;
+    
+}
 
 
 .box:hover {
