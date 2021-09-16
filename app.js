@@ -72,7 +72,7 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 
 //Home Page
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home',{page:"home"})
 })
 
 //Choose Center Page
@@ -86,9 +86,7 @@ app.get('/centers', (req, res) => {
     //     }
     // })
     
-   const centers = await Center.find({});
-   res.render('centers',{centers});
-    res.render('centers', { cityNames: cityNames })
+    res.render('centers', { cityNames: cityNames, page: "centers" })
 })
 
 //Center Page
@@ -109,13 +107,13 @@ app.get('/center_page', (req, res) => {
 })
 //Create Review Page
 app.get('/addReview', (req, res) => {
-    res.render('addReview')
+    res.render('addReview',{page: "addReview"})
 
 })
 
 //About Page
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', {page: "about"})
 })
 
 //==================
