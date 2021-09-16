@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const centerSchema = new mongoose.Schema({
     name: String,
     image: String,
-    governorate: String,
-    district: String,
+    governrate: String,
+    area: String,
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Review"
