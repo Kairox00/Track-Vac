@@ -2,7 +2,7 @@
 
 <div class="container">
     <h1>Add new center</h1>
-    <form id='centerForm'>
+    <form id='centerForm' action="/addCenter" method="POST">
         <div>
             <label>Name</label>
             <input type='text' name='name'>
@@ -13,27 +13,30 @@
         </div>
         <div>
             <label for="cityNames" class="form-label fs-5">Governorate</label>
-            <input class="form-control" list="cityList" id="cityNames" onchange="getValue();" placeholder="Type City Name to search...">
-                <datalist id="cityList">
-                    <% for(let i=0; i<cityNames.length; i++) { %>
-                        <option value="<%=cityNames[i] %>">
+            <select name="governorate" id="govSelect" onchange=getValue(); class="form-select form-select my-3" aria-label=".form-select-lg example">
+                <option value="" disabled selected>Select Governerate</option>
+                <% for(let i=0; i<cityNames.length; i++) { %>
+                    <% console.log("x "+cityNames[i]) %>
+                                <option value="<%=cityNames[i] %>"> <%= cityNames[i] %>
+                            </option>
                     <% } %>
-                </datalist>
+            </select>
         </div>
         <div>
-            <label for="districtNames" class="form-label fs-5">Governorate</label>
-            <input class="form-control" list="districtList" id="districtNames" placeholder="Type District Name to search...">
-            <datalist id="districtList"> 
-            </datalist>
+            <label for="districtNames" class="form-label fs-5">District</label>
+            <select name="district" id="districtSelect" class="form-select form-select mb-3" aria-label=".form-select-sm example">
+                <option value="" disabled selected>Select District</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" class="btn">
         </div>
     </form>
 </div>
-<script>
-    let value = "";
-    function getValue(){
-        value = document.getElementById("cityNames").value;
-        console.log(value);
-    }
-</script>
+
+    <script src='script.js'> </script>
+
+
+
 
 <%- include ("partials/footer") %>

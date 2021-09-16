@@ -1,10 +1,10 @@
 const express = require('express'),
-app = express(),
-methodOverride = require('method-override'),
-//bodyParser = require('body-parser'),
-mongoose = require('mongoose'),
-passport = require('passport'),
-LocalStrategy = require('passport-local');
+    app = express(),
+    methodOverride = require('method-override'),
+    //bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local');
 
 
 const port = 3000 || process.env.PORT;
@@ -21,6 +21,26 @@ app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 
 //=================
+// Error validation
+//=================
+const ExpressError=require('./utils/ExpressError')
+const {reviewSchema}= require('./schemas.js')
+const Joi = require('joi');
+const review=require('./models/review');
+const catchAsync=require('./utils/catchAsync');
+const validateReview=(req,res,next)=>{
+    const {error} = reviewSchema.validate(req.body);
+    if(error){
+        const msg= error.details.map(el=>el.message).join(',');
+        throw new ExpressError(msg,400)
+    }
+    else{
+        next();
+    }
+}
+
+
+//=================
 // PASSPORT CONFIG
 //=================
 
@@ -29,21 +49,22 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(Mod.authenticate()));
-passport.serializeUser(Mod.serializeUser());
-passport.deserializeUser(Mod.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(Mod.authenticate()));
+// passport.serializeUser(Mod.serializeUser());
+// passport.deserializeUser(Mod.deserializeUser());
 
-app.use((req,res,next)=>{
-    res.locals.currentUser = req.user;
+app.use((req, res, next) => {
+    // res.locals.currentUser = req.user;
     next();
 });
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
-{ useNewUrlParser: true , 
-    useUnifiedTopology: true
-});
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 
 //===============
 // PUBLIC ROUTES
@@ -51,20 +72,21 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 
 //Home Page
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home',{page:"home"})
 })
 
 //Choose Center Page
 app.get('/centers', (req, res) => {
-    Center.find({},(err,centers)=>{
-        if(err){
-            console.log(err)
-        }
-        else{
-            res.render('centers',{centers: centers})
-        }
-    })
-    res.render('centers')
+    // Center.find({},(err,centers)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }
+    //     else{
+    //         res.render('centers',{centers: centers, cityNames: cityNames})
+    //     }
+    // })
+    
+    res.render('centers', { cityNames: cityNames, page: "centers" })
 })
 
 //Center Page
@@ -75,27 +97,23 @@ app.get('/centers/:centerId', (req, res) => {
     //else display error
 })
 
-//Create Review Page
-app.get('/centers/:centerId/addReview', (req, res) => {
-    let centerId = req.params.centerId
-    res.render('addReview',{centerId: centerId})
-
-})
-
-
 app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
-    //if center not found throw err
-    //else create new review in database
+    res.render('center_page')
+})
+// the center page fake route just for testing
+app.get('/center_page', (req, res) => {
+    res.render('center_page')
+})
+//Create Review Page
+app.get('/addReview', (req, res) => {
+    res.render('addReview',{page: "addReview"})
+
 })
 
 //About Page
 app.get('/about', (req, res) => {
-    res.render('about')
-})
-
-app.get('/addReview',(req,res)=>{
-    res.render('addReview')
+    res.render('about', {page: "about"})
 })
 
 //==================
@@ -103,20 +121,60 @@ app.get('/addReview',(req,res)=>{
 //==================
 
 
-app.get('/moderator',(req,res)=>{
+app.get('/moderator', (req, res) => {
     res.render('moderator')
 })
 
 app.post('/moderator',
-  passport.authenticate('local',{failureRedirect:'/moderator'}),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/');
-});
+    //   passport.authenticate('local',{failureRedirect:'/moderator'}),
+    //   function(req, res) {
+    //     // If this function gets called, authentication was successful.
+    //     // `req.user` contains the authenticated user.
+    //     res.redirect('/');
+    // }
+    (req, res) => {
+        console.log(req.body.authKey);
+        if (req.body.authKey === "key") {
+            res.redirect('/modHome');
+        }
+        else {
+            res.redirect('/moderator');
+        }
 
-app.get('/addCenter',(req,res)=>{
-    res.render('addCenter',{cityNames: cityNames, helper: helper});
+
+    }
+);
+
+app.get('/modHome', (req, res) => {
+    res.render('modHome');
+})
+
+app.get('/addCenter', (req, res) => {
+    res.render('addCenter', { cityNames: cityNames, helper: helper });
+})
+
+app.post('/addCenter', (req, res) => {
+    let newCenter = {
+        name: req.body.name,
+        image: req.body.image,
+        governorate: req.body.governorate,
+        district: req.body.district
+    }
+    Center.create(newCenter, (err, newlyCreated) => {
+        if (err) {
+            console.log(err);
+            res.send("400")
+        }
+        else {
+            console.log("center created");
+            res.redirect('/centers')
+        }
+
+    })
+})
+
+app.get('/cities', (req, res) => {
+    res.json(cities);
 })
 
 

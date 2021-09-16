@@ -46,6 +46,22 @@ footer {
     /*margin-top: 40em; */
 }
 
+#footer {
+    background-color: white;
+    width: 100%;
+    position: relative; 
+    z-index: 1; 
+    height: -3em; 
+    margin-top: 12em; 
+}
+/*   when hovering, extra padding is applied and all items moves up :|
+
+.navbar-nav li:hover {
+    box-sizing: border-box;
+    border-bottom: solid white ;
+}
+*/
+
 .footer {
     padding-left: 0;
     padding-right: 0;
@@ -58,7 +74,7 @@ footer {
 
 .box {
     padding: 20px;
-    background-color: white; 
+    background-color: rgba(255, 255, 255, 0.8); 
     box-shadow: 12px 12px 3px 1px rgba(102, 120, 138, .3);
     transition: 500ms;
     border: #3A3556;
@@ -93,7 +109,7 @@ footer {
 
 .about {
     background-image: 
-    url(https://images.unsplash.com/photo-1611689102033-7f9e0a8eb851?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80);
+    url("https://images.unsplash.com/photo-1611689102033-7f9e0a8eb851?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80");
     background-repeat: no-repeat;
     background-size: cover;
     padding-bottom: 20px;
@@ -180,3 +196,14 @@ input[type='radio']:checked:after {
 
 }
 
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.active{
+    color: red !important;
+    border-bottom: 2px solid white;
+}
