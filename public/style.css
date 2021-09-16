@@ -54,6 +54,13 @@ footer {
     height: -3em; 
     margin-top: 12em; 
 }
+/*   when hovering, extra padding is applied and all items moves up :|
+
+.navbar-nav li:hover {
+    box-sizing: border-box;
+    border-bottom: solid white ;
+}
+*/
 
 .footer {
     padding-left: 0;

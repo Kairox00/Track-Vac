@@ -1,10 +1,10 @@
 const express = require('express'),
-app = express(),
-methodOverride = require('method-override'),
-//bodyParser = require('body-parser'),
-mongoose = require('mongoose'),
-passport = require('passport'),
-LocalStrategy = require('passport-local');
+    app = express(),
+    methodOverride = require('method-override'),
+    //bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local');
 
 
 const port = 3000 || process.env.PORT;
@@ -21,6 +21,26 @@ app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 
 //=================
+// Error validation
+//=================
+const ExpressError=require('./utils/ExpressError')
+const {reviewSchema}= require('./schemas.js')
+const Joi = require('joi');
+const review=require('./models/review');
+const catchAsync=require('./utils/catchAsync');
+const validateReview=(req,res,next)=>{
+    const {error} = reviewSchema.validate(req.body);
+    if(error){
+        const msg= error.details.map(el=>el.message).join(',');
+        throw new ExpressError(msg,400)
+    }
+    else{
+        next();
+    }
+}
+
+
+//=================
 // PASSPORT CONFIG
 //=================
 
@@ -35,15 +55,16 @@ app.use(require("express-session")({
 // passport.serializeUser(Mod.serializeUser());
 // passport.deserializeUser(Mod.deserializeUser());
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     // res.locals.currentUser = req.user;
     next();
 });
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
-{ useNewUrlParser: true , 
-    useUnifiedTopology: true
-});
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 
 //===============
 // PUBLIC ROUTES
@@ -64,7 +85,7 @@ app.get('/centers', (req, res) => {
     //         res.render('centers',{centers: centers, cityNames: cityNames})
     //     }
     // })
-    res.render('centers',{cityNames: cityNames})
+    res.render('centers', { cityNames: cityNames })
 })
 
 //Center Page
@@ -79,7 +100,10 @@ app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
     res.render('center_page')
 })
-
+// the center page fake route just for testing
+app.get('/center_page', (req, res) => {
+    res.render('center_page')
+})
 //Create Review Page
 app.get('/addReview', (req, res) => {
     res.render('addReview')
@@ -96,59 +120,59 @@ app.get('/about', (req, res) => {
 //==================
 
 
-app.get('/moderator',(req,res)=>{
+app.get('/moderator', (req, res) => {
     res.render('moderator')
 })
 
 app.post('/moderator',
-//   passport.authenticate('local',{failureRedirect:'/moderator'}),
-//   function(req, res) {
-//     // If this function gets called, authentication was successful.
-//     // `req.user` contains the authenticated user.
-//     res.redirect('/');
-// }
-    (req,res)=>{
+    //   passport.authenticate('local',{failureRedirect:'/moderator'}),
+    //   function(req, res) {
+    //     // If this function gets called, authentication was successful.
+    //     // `req.user` contains the authenticated user.
+    //     res.redirect('/');
+    // }
+    (req, res) => {
         console.log(req.body.authKey);
-        if(req.body.authKey === "key"){
+        if (req.body.authKey === "key") {
             res.redirect('/modHome');
-    }
-    else{
-        res.redirect('/moderator');
-    }
-    
+        }
+        else {
+            res.redirect('/moderator');
+        }
+
 
     }
 );
 
-app.get('/modHome',(req,res)=>{
+app.get('/modHome', (req, res) => {
     res.render('modHome');
 })
 
-app.get('/addCenter',(req,res)=>{
-    res.render('addCenter',{cityNames: cityNames, helper: helper});
+app.get('/addCenter', (req, res) => {
+    res.render('addCenter', { cityNames: cityNames, helper: helper });
 })
 
-app.post('/addCenter',(req,res)=>{
+app.post('/addCenter', (req, res) => {
     let newCenter = {
         name: req.body.name,
         image: req.body.image,
         governorate: req.body.governorate,
         district: req.body.district
     }
-    Center.create(newCenter,(err,newlyCreated)=>{
-        if(err){
+    Center.create(newCenter, (err, newlyCreated) => {
+        if (err) {
             console.log(err);
             res.send("400")
         }
-        else{
+        else {
             console.log("center created");
             res.redirect('/centers')
-        }    
+        }
 
     })
 })
 
-app.get('/cities',(req,res)=>{
+app.get('/cities', (req, res) => {
     res.json(cities);
 })
 
