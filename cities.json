@@ -1,22 +1,254 @@
 [
-{
-    "name": "Cairo",
-    "districts":["Heliopolis","Nasr City","New Cairo"]
-},
-{
-    "name": "Giza",
-    "districts": [
-        "Dokki",
-        "Mohandiseen",
-        "Agouza"
-    ]
-},
-{
-    "name": "Alexandria",
-    "districts": [
-        "San Stefano"
-    ]
-}
-]
-      
+    {
+        "name": "Cairo",
+        "districts": [
+            "El Nozha",
+            "New Cairo",
+            "Shobra",
+            "Heliopolis",
+            "Mataria",
+            "Zaytoun",
+            "El Salam Al-Awl",
+            "El Salam Al-Thany",
+            "El Marag",
+            "Ain Shams",
+            "El Qobbah",
+            "Nasr City",
+            "Badr",
+            "El Shorouk",
+            "El Waily",
+            "Abdeen",
+            "El Mokttam",
+            "El Sahel",
+            "El Khalifa",
+            "El Sayeda Zainab",
+            "Masr ElAdeema",
+            "Al Basateen",
+            "Maadi",
+            "Tora",
+            "15th of May",
+            "Helwan"
+        ]
+    },
+    {
+        "name": "Giza",
+        "districts": [
+            "Mohandiseen",
+            "Sheikh Zayed",
+            "Meet Okba",
+            "6th of October",
+            "El Saf",
+            "Al Haram",
+            "Boulaq",
+            "South Giza",
+            "North Giza",
+            "Al Waraq",
+            "Al Omraneya",
+            "Kirdasa",
+            "Abo El Nemrs",
+            "Atfeeh",
+            "North El Ayaat",
+            "El Badr Sheen",
+            "Sharq El Qanater",
+            "Awseem",
+            "El Wahat",
+            "Gharb El Qanater"
+
+        ]
+    },
+    {
+        "name": "Alexandria",
+        "districts": [
+            "Al Atareen",
+            "Mena El Basal",
+            "El Montazah",
+            "Sharq",
+            "Wasat",
+            "El Gomrok",
+            "Gharb",
+            "El Amreya",
+            "El Agamy",
+            "Borg El Arab"
+        ]
+    },
+    {
+        "name":"Qalyubia",
+        "districts":[
+            "Shobra",
+            "Kafr Shokr",
+            "Sindiyun"
+        ]
+    },
+    {
+        "name": "Port Said",
+        "districts": [
+            "Port Said"
+        ]
+    },
+    {
+        "name": "Ismailia",
+        "districts": [
+            "Ismailia"
+        ]
+    },
+    {
+        "name": "South Sinai",
+        "districts": [
+            "Sharm El Sheikh"
+        ]
+    },
+    {
+        "name": "North Sinai",
+        "districts": [
+            "El Areesh"
+        ]
+    },
+    {
+        "name": "Monofeya",
+        "districts": [
+            "Shbeen El Koum",
+            "Ashmoon",
+            "El Sadat",
+            "Minuf"
+        ]
+    },
+    {
+        "name": "Gharbeya",
+        "districts": [
+            "Tanta Thany",
+            "Zifta",
+            "Kotour",
+            "Basyun",
+            "Samannoud",
+            "Kafr Zayat",
+            "Mahla Thany"
+        ]
+    },
+    {
+        "name": "Kafr El Sheikh",
+        "districts": [
+            "El Hamoul",
+            "Kafr El Sheikh",
+            "Desouk",
+            "Qilin"
+        ]
+    },
+    {
+        "name": "Marsa Matrouh",
+        "districts": [
+            "Marsa Matrouh"
+        ]
+    },
+    {
+        "name": "Behira",
+        "districts": [
+            "Damanhour"
+        ]
+    },
+    {
+        "name": "Damietta",
+        "districts": [
+            "Damietta"
+        ]
+    },
+    {
+        "name": "Dakahlia",
+        "districts": [
+            "Meet Ghamr",
+            "El Senbellawein"
+        ]
+    },
+    {
+        "name": "Fayoum",
+        "districts": [
+            "Bandar El Fayoum"
+        ]
+    },
+    {
+        "name": "Beni Suef",
+        "districts": [
+            "Bandar El Fayoum"
+        ]
+    },
+    {
+        "name": "Suez",
+        "districts": [
+            "Faisal"
+        ]
+    },
+    {
+        "name": "Minya",
+        "districts": [
+            "New Minya",
+            "Mallawi",
+            "Beni Mazar",
+            "Samalout"
+        ]
+    },
+    {
+        "name": "Asyut",
+        "districts": [
+            "Gharb Asyut",
+            "Sharq Asyut",
+            "El Kawseya",
+            "Abo Tig"
+        ]
+    },
+    {
+        "name": "Sohag",
+        "districts": [
+            "Sohag"
+        ]
+    },
+    {
+        "name": "Qina",
+        "districts": [
+            "Qina"
+        ]
+    },
+    {
+        "name": "Sharqia",
+        "districts": [
+            "Sharqia",
+            "Faqous",
+            "Bilbeis",
+            "Abo Hamad",
+            "Al Asher men Ramadan",
+            "Hihya",
+            "Al Sadeen"
+        ]
+    },
+    {
+        "name": "Luxor",
+        "districts": [
+            "Luxor"
+        ]
+    },
+    {
+        "name": "Aswan",
+        "districts": [
+            "Aswan"
+        ]
+    },
+    {
+        "name": "Bahr El Ahmar",
+        "districts": [
+            "Hurghada"
+        ]
+    },
+    {
+        "name": "El Wady El Gdeed",
+        "districts": [
+            "El Khargeya",
+            "El Dakhleya",
+            "El Farafra"
+        ]
+    }
     
+
+    
+
+    
+
+
+]
