@@ -29,14 +29,14 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(Mod.authenticate()));
-passport.serializeUser(Mod.serializeUser());
-passport.deserializeUser(Mod.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(Mod.authenticate()));
+// passport.serializeUser(Mod.serializeUser());
+// passport.deserializeUser(Mod.deserializeUser());
 
 app.use((req,res,next)=>{
-    res.locals.currentUser = req.user;
+    // res.locals.currentUser = req.user;
     next();
 });
 
@@ -56,15 +56,15 @@ app.get('/', (req, res) => {
 
 //Choose Center Page
 app.get('/centers', (req, res) => {
-    Center.find({},(err,centers)=>{
-        if(err){
-            console.log(err)
-        }
-        else{
-            res.render('centers',{centers: centers})
-        }
-    })
-    res.render('centers')
+    // Center.find({},(err,centers)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }
+    //     else{
+    //         res.render('centers',{centers: centers, cityNames: cityNames})
+    //     }
+    // })
+    res.render('centers',{cityNames: cityNames})
 })
 
 //Center Page
@@ -129,13 +129,13 @@ app.get('/addCenter',(req,res)=>{
 })
 
 app.post('/addCenter',(req,res)=>{
-    const newCenter = {
+    let newCenter = {
         name: req.body.name,
         image: req.body.image,
-        city: req.body.city,
+        governorate: req.body.governorate,
         district: req.body.district
     }
-    Center.create(newCenter,(err)=>{
+    Center.create(newCenter,(err,newlyCreated)=>{
         if(err){
             console.log(err);
             res.send("400")
