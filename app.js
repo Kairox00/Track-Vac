@@ -148,6 +148,9 @@ app.post('/moderator',
 app.get('/modHome', (req, res) => {
     res.render('modHome');
 })
+app.get('/reports', (req, res) => {
+    res.render('reports');
+})
 
 app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper });
