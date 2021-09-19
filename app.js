@@ -1,10 +1,12 @@
+require('dotenv').config()
 const express = require('express'),
     app = express(),
     methodOverride = require('method-override'),
     //bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local');
+    LocalStrategy = require('passport-local'),
+    mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
 
 const port = 3000 || process.env.PORT;
@@ -13,7 +15,8 @@ const helper = require("./helper");
 const Center = require('./models/center');
 const cities = require("./cities.json");
 const cityNames = helper.getCityNames();
-
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
@@ -169,12 +172,20 @@ app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper , page:"addCenter"});
 })
 
-app.post('/addCenter', (req, res) => {
+app.post('/addCenter', async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.address,
+        limit: 1
+    }).send()
+
+    console.log(geoData.body.features[0].geometry.coordinates);
+
     let newCenter = {
         name: req.body.name,
         image: req.body.image,
         governorate: req.body.governorate,
-        district: req.body.district
+        district: req.body.district,
+        address: geoData.body.features[0].geometry
     }
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {

@@ -9,7 +9,19 @@ const centerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Review"
     }],
-    map: String
+    address:{
+        type: {
+            type: String,
+            enum: ['Point'],
+            required :true
+        },
+        coordinates: {
+            type:[Number],
+            required: true
+        }
+    }
+     
+
 }) 
 
 module.exports = mongoose.model("Center", centerSchema);
