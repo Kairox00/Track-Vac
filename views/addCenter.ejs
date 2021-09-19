@@ -1,19 +1,23 @@
-<%- include ("partials/header") %>
+<%- include ("partials/headerMod") %>
 
 <div class="container">
-    <h1>Add new center</h1>
-    <form id='centerForm' action="/addCenter" method="POST">
-        <div>
-            <label>Name</label>
-            <input type='text' name='name'>
-        </div>
-        <div>
-            <label for="myfile">Select an image:</label>
-            <input type="file" id="myImage" name="image" accept="image/*">
-        </div>
-        <div>
+    <h1 class="text-center">Add New Center</h1>
+    <hr>
+    <form class="container-fluid" id='centerForm' action="/addCenter" method="POST">
+        <div class="row align-items-top justify-content-around d-flex justify-content-center box5">
+            <div class="col-7">
+                <div class="mb-4">
+                    <label for="in1" class="form-label fs-5">Name</label>
+                    <input id="in1" required="true" class="form-control" name='name' type="text" placeholder="Name" >
+               </div>
+           
+               <div class="mb-4">
+                    <label for="myfile" class="form-label fs-5" >Select an image:</label>
+                    <input type="file" id="myImage" class="form-control" name="image" accept="image/*">
+              </div>
+        <div class="mb-4">
             <label for="cityNames" class="form-label fs-5">Governorate</label>
-            <select name="governorate" id="govSelect" onchange=getValue(); class="form-select form-select my-3" aria-label=".form-select-lg example">
+            <select name="governorate" required="true" id="govSelect" onchange=getValue(); class="form-select form-control" aria-label=".form-select-lg example">
                 <option value="" disabled selected>Select Governerate</option>
                 <% for(let i=0; i<cityNames.length; i++) { %>
                     <% console.log("x "+cityNames[i]) %>
@@ -22,19 +26,24 @@
                     <% } %>
             </select>
         </div>
-        <div>
+        <div class="mb-4">
             <label for="districtNames" class="form-label fs-5">District</label>
-            <select name="district" id="districtSelect" class="form-select form-select mb-3" aria-label=".form-select-sm example">
+            <select name="district" id="districtSelect" class="form-select control " aria-label=".form-select-sm example">
                 <option value="" disabled selected>Select District</option>
             </select>
         </div>
+
         <div class="mb-4">
             <label for="in1" class="form-label fs-5">Address</label>
-            <input id="in1" required="true" class="form-control" name='address' type="text" placeholder="Name">
+            <input id="in1" required="true" class="form-control" name='address' type="text" placeholder="Address">
         </div>
         <div class="d-flex justify-content-center mb-4 " style="margin-top: 70px;">
             <input type="submit" class="btn btn-lg btn-dark " style="background-color: #925D8A">
-          </div>
+        </div>
+
+        
+       </div>
+      </div>
     </form>
 </div>
 
