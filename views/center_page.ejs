@@ -6,24 +6,26 @@
                 <img src="Images/guc.jpg" class="rounded" style="height: 15rem; width: 100%;" alt="">
 
             </div>
-            <div class="col-md-7">
-                <h1 style="font-weight: 300;">GUC</h1>
+            <div id='map' class="col-md-3" style='width: 350px; height: 250px;'></div>
+            <div class="col-md-4">
+                <h1 style="font-weight: 300;"><b>GUC</b></h1>
                 <hr>
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Total reviews
                         <span class="badge bg-primary rounded-pill">3</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Average rating
                         <span class="badge bg-primary rounded-pill">7</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Cleanliness
                         <span class="badge bg-primary rounded-pill">8</span>
                     </li>
                 </ul>
             </div>
+
 
         </div>
 
@@ -32,8 +34,8 @@
         <div class="list-group my-3">
             <div class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Very good</h5>
-                    <small>20 total up votes | 1 day ago</small>
+                    <h5 class="mb-1 title">Very good</h5>
+                    <small class="text-muted">20 total up votes | 1 day ago</small>
                 </div>
                 <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quis labore, nulla eius
                     laudantium cumque dolor aliquam minus quae enim alias totam fugit omnis assumenda reprehenderit
@@ -60,7 +62,7 @@
             </div>
             <div class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Bad</h5>
+                    <h5 class="mb-1 title">Bad</h5>
                     <small class="text-muted">6 total up votes | 3 days ago</small>
                 </div>
                 <p class="mb-1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit aspernatur
@@ -79,7 +81,7 @@
             </div>
             <div class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Excellent</h5>
+                    <h5 class="mb-1 title">Excellent</h5>
                     <small class="text-muted">11 total up votes | 2 days ago</small>
                 </div>
                 <p class="mb-1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, quae fugit harum
@@ -101,5 +103,16 @@
             </div>
         </div>
     </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2Fpcm94MDAiLCJhIjoiY2t0bjFrdGFvMmJoczJ2cW5jMGkwOGZmYyJ9.ki7GbD0dVW1_IONalKVlbQ';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [-74.5, 40], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+        new mapboxgl.Marker().setLngLat([-74.5, 40]).addTo(map);
+
+    </script>
 
     <%- include ("partials/footer") %>

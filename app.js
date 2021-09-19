@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express'),
     app = express(),
     methodOverride = require('method-override'),
@@ -15,7 +16,8 @@ const Center = require('./models/center');
 const Vaccinated = require('./models/vaccinated');
 const cities = require("./cities.json");
 const cityNames = helper.getCityNames();
-
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 
 
 app.set('view engine', 'ejs')
@@ -125,18 +127,7 @@ app.get('/addReview', catchAsync(async(req, res) => {
     res.render('addReview', { cityNames:cityNames ,page: "addReview",centers })
 
 }))
-/* router.post('/',validateReview,catchAsync(async(req,res)=>{
-    const camp = await campground.findById(req.params.id);
-    const{body , rating}=req.body.reviews;
-    //console.log(req.body.reviews);
-    const addedReview = new review(req.body.reviews);
-    //res.send(camp);
-    camp.reviews.push(addedReview);
-    await addedReview.save();
-    await camp.save();
-    req.flash('Success','Review added successfully')
-    res.redirect(`/campgrounds/${camp._id}`);
-})) */
+
 //post review
 app.post('/addReview', catchAsync(async (req, res, next) => {
     const { vaccination_code,id_digits,governorate,district,date,vaccination_center,vaccine,is_crowded,
@@ -197,17 +188,27 @@ app.get('/modHome', (req, res) => {
 app.get('/reports', (req, res) => {
     res.render('reports', { page: "reports" });
 })
-
+app.get('/removeCenter', (req, res) => {
+    res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
+})
 app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
 })
 
-app.post('/addCenter', (req, res) => {
+app.post('/addCenter', async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.address,
+        limit: 1
+    }).send()
+
+    console.log(geoData.body.features[0].geometry.coordinates);
+
     let newCenter = {
         name: req.body.name,
         image: req.body.image,
         governorate: req.body.governorate,
-        district: req.body.district
+        district: req.body.district,
+        address: geoData.body.features[0].geometry
     }
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
