@@ -81,6 +81,20 @@ footer {
     margin: 60px;
     
 }
+.box5 {
+    padding: 20px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: rgba(255, 255, 255, 0.37);
+    border: white;
+
+  
+    margin: 60px;
+    margin-left:10% ;
+    margin-right:10% ;
+    border-radius: 20px;
+    
+}
 .box2 {
     padding: 20px;
     padding-top: 80px;
@@ -88,9 +102,21 @@ footer {
     background-color: rgba(255, 255, 255, 0.37);
     border: white;
 
-   
+  
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left:20px ;
+    margin-right:20px ;
+    border-radius: 20px;
+    
+}
+.box3 {
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.637);
+    border: white;
 
-    margin: 60px;
+  
+   margin: 20px;
     border-radius: 20px;
     
 }
@@ -201,4 +227,9 @@ input[type='radio']:checked:after {
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.active{
+    color: red !important;
+    border-bottom: 2px solid white;
 }
