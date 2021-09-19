@@ -1,6 +1,7 @@
 <%- include ("partials/header") %>
   <div class="container">
-    <h3 class="text-center">Write a Review to help others find the best place and the best service to get vaccinated
+    <h3 class="text-center title">Write a Review to help others find the best place and the best service to get
+      vaccinated
     </h3>
     <hr>
 
@@ -9,156 +10,169 @@
       <div class="row align-items-top justify-content-around box2">
         <div class="col-13 col-lg-5">
 
-          <h2 class="fs-4">Verify that you are vaccinated</h2>
+          <h2 class="fs-4 subtitle">Verify that you are vaccinated</h2>
           <hr>
 
           <div class="mb-4">
             <label for="inp1" class="form-label fs-5">Write the last 4 digits of your national id number</label>
 
-        <input id="inp1" required="true" class="form-control" type="text" placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id">
-    </div>
-    <div class="mb-4">
-        <label for="inp2" class="form-label fs-5">Write your vaccination code</label>
-    <input id="inp2" required="true" class="form-control" type="text" placeholder="registeration code" aria-label=" Write your vaccination code">
-</div>
-<h2 class="fs-4">Select location</h2>
-<hr>
-<div class="mb-4">
-    <label for="exampleDataList" class="form-label fs-5">Governorate</label>
-    <input class="form-control" required="true" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-    <datalist id="datalistOptions">
-    <option value="Cairo">
-    <option value="Alexandria">
-    <option value="Giza">
-    <option value="Aswan">
-    <option value="Asyut">
-    <option value="Beheira">
-    <option value="Beni Suef">
-    <option value="Dakahlia">
-    <option value="Damietta">
-    <option value="Faiyum">
-    <option value="Gharbia">
-    <option value="Ismailia">
-    <option value="Kafr El Sheikh">
-    <option value="Luxor">
-    <option value="Matruh">
-    <option value="Minya">
-    <option value="Monufia">
-    <option value="New Valley">
-    <option value="North Sinai">
-    <option value="Port Said">
-    <option value="Qalyubia">
-    <option value="Qena">
-    <option value="Red Sea">
-    <option value="Sharqia">
-    <option value="Sohag">
-    <option value="South Sinai">
-                        
-    </datalist>
-</div>
-<div class="mb-4">
-    <label for="exampleDataList" class="form-label fs-5">District</label>
-    <input class="form-control" required="true" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search...">
-    <datalist id="datalistOptions2">
-    <option value="Nasr City">
-    <option value="New Cairo">
-                        
-    </datalist>
-</div>
-<div class="mb-4">
-    <label for="exampleDataList" class="form-label fs-5">vaccination Center</label>
-    <input class="form-control" required="true" list="datalistOptions3" id="exampleDataList3" placeholder="Type to search...">
-    <datalist id="datalistOptions3">
-    <option value="Center1">
-    <option value="Center2">
-                        
-    </datalist>
-</div>
-<h2 class="fs-4">Vaccination info</h2>
-<hr>
-<div class="mb-4">
-    <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
-    <input class="form-control" required="true" list="datalistOptions4" id="exampleDataList4" placeholder="Type to search...">
-    <datalist id="datalistOptions4">
-    <option value="AstraZeneca">
-    <option value="Sinovac">
-    <option value="Sinopharm">
-    <option value="Pfizer">
-    <option value="Johnson & Johnson’s Janssen">                    
-    </datalist>
-</div>
+            <input id="inp1" required="true" class="form-control" type="text"
+              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id">
+          </div>
+          <div class="mb-4">
+            <label for="inp2" class="form-label fs-5">Write your vaccination code</label>
+            <input id="inp2" required="true" class="form-control" type="text" placeholder="registeration code"
+              aria-label=" Write your vaccination code">
+          </div>
+          <h2 class="fs-4 subtitle">Select location</h2>
+          <hr>
+          <div class="mb-4">
+            <label for="exampleDataList" class="form-label fs-5">Governorate</label>
+            <input class="form-control" required="true" list="datalistOptions" id="exampleDataList"
+              placeholder="Type to search...">
+            <datalist id="datalistOptions">
+              <option value="Cairo">
+              <option value="Alexandria">
+              <option value="Giza">
+              <option value="Aswan">
+              <option value="Asyut">
+              <option value="Beheira">
+              <option value="Beni Suef">
+              <option value="Dakahlia">
+              <option value="Damietta">
+              <option value="Faiyum">
+              <option value="Gharbia">
+              <option value="Ismailia">
+              <option value="Kafr El Sheikh">
+              <option value="Luxor">
+              <option value="Matruh">
+              <option value="Minya">
+              <option value="Monufia">
+              <option value="New Valley">
+              <option value="North Sinai">
+              <option value="Port Said">
+              <option value="Qalyubia">
+              <option value="Qena">
+              <option value="Red Sea">
+              <option value="Sharqia">
+              <option value="Sohag">
+              <option value="South Sinai">
+
+            </datalist>
+          </div>
+          <div class="mb-4">
+            <label for="exampleDataList" class="form-label fs-5">District</label>
+            <input class="form-control" required="true" list="datalistOptions2" id="exampleDataList2"
+              placeholder="Type to search...">
+            <datalist id="datalistOptions2">
+              <option value="Nasr City">
+              <option value="New Cairo">
+
+            </datalist>
+          </div>
+          <div class="mb-4">
+            <label for="exampleDataList" class="form-label fs-5">vaccination Center</label>
+            <input class="form-control" required="true" list="datalistOptions3" id="exampleDataList3"
+              placeholder="Type to search...">
+            <datalist id="datalistOptions3">
+              <option value="Center1">
+              <option value="Center2">
+
+            </datalist>
+          </div>
+          <h2 class="fs-4 subtitle">Vaccination info</h2>
+          <hr>
+          <div class="mb-4">
+            <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
+            <input class="form-control" required="true" list="datalistOptions4" id="exampleDataList4"
+              placeholder="Type to search...">
+            <datalist id="datalistOptions4">
+              <option value="AstraZeneca">
+              <option value="Sinovac">
+              <option value="Sinopharm">
+              <option value="Pfizer">
+              <option value="Johnson & Johnson’s Janssen">
+            </datalist>
+          </div>
 
 
-           
+
 
         </div>
 
 
         <div class="col-13 col-lg-5 ">
-         
-  
+
+
           <div class=" mb-4">
             <label for="date1" class="form-label fs-5">Vaccination date</label>
-            <input type="date" required="true" class="form-control" placeholder="dd/mm/yyyy" aria-label="Vaccination date" id="date1">
+            <input type="date" required="true" class="form-control" placeholder="dd/mm/yyyy"
+              aria-label="Vaccination date" id="date1">
           </div>
-          <h2 class="fs-4">Review</h2>
+          <h2 class="fs-4 subtitle">Review</h2>
           <hr>
 
 
 
 
-           
-              <div class=" mb-4">
-                <h4 class=" form-label fs-5" >Was the center crowded?</h4>
-                <div class="form-check">
-                    <input class="form-check-input" required="true" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Yes
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" required="true" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
-                    <label class="form-check-label" for="flexRadioDefault2">
-                     No
-                    </label>
-                  </div>
-            </div>
-            <div class=" mb-4">
-                <h4 class=" form-label fs-5" >Was it easy for you to get vaccinated as soon as you arrived?</h4>
-                <div class="form-check">
-                    <input class="form-check-input" required="true" type="radio" name="flexRadioDefault1" id="flexRadioDefault11" checked>
-                    <label class="form-check-label" for="flexRadioDefault11">
-                      Yes
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" required="true" type="radio" name="flexRadioDefault1" id="flexRadioDefault21" >
-                    <label class="form-check-label" for="flexRadioDefault21">
-                     No
-                    </label>
-                  </div>
-            </div>
-            <div class=" mb-4">
-                <h4 class=" form-label fs-5" >Was it easy to find this center?</h4>
-                <div class="form-check">
-                    <input class="form-check-input" required="true" type="radio" name="flexRadioDefault2" id="flexRadioDefault12" checked>
-                    <label class="form-check-label" for="flexRadioDefault12">
-                      Yes
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" required type="radio" name="flexRadioDefault2" id="flexRadioDefault22" >
-                    <label class="form-check-label" for="flexRadioDefault22">
-                     No
-                    </label>
-                  </div>
 
+          <div class=" mb-4">
+            <h4 class=" form-label fs-5">Was the center crowded?</h4>
+            <div class="form-check">
+              <input class="form-check-input" required="true" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault1" checked>
+              <label class="form-check-label" for="flexRadioDefault1">
+                Yes
+              </label>
             </div>
-            <div class="mb-4">
-              <label for="exampleFormControlTextarea1" class="form-label fs-4" style="color: #925D8A;">Leave a comment</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="form-check">
+              <input class="form-check-input" required="true" type="radio" name="flexRadioDefault"
+                id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                No
+              </label>
             </div>
-            <div class=" row" >
+          </div>
+          <div class=" mb-4">
+            <h4 class=" form-label fs-5">Was it easy for you to get vaccinated as soon as you arrived?</h4>
+            <div class="form-check">
+              <input class="form-check-input" required="true" type="radio" name="flexRadioDefault1"
+                id="flexRadioDefault11" checked>
+              <label class="form-check-label" for="flexRadioDefault11">
+                Yes
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" required="true" type="radio" name="flexRadioDefault1"
+                id="flexRadioDefault21">
+              <label class="form-check-label" for="flexRadioDefault21">
+                No
+              </label>
+            </div>
+          </div>
+          <div class=" mb-4">
+            <h4 class=" form-label fs-5">Was it easy to find this center?</h4>
+            <div class="form-check">
+              <input class="form-check-input" required="true" type="radio" name="flexRadioDefault2"
+                id="flexRadioDefault12" checked>
+              <label class="form-check-label" for="flexRadioDefault12">
+                Yes
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" required type="radio" name="flexRadioDefault2" id="flexRadioDefault22">
+              <label class="form-check-label" for="flexRadioDefault22">
+                No
+              </label>
+            </div>
+
+          </div>
+          <div class="mb-4">
+            <label for="exampleFormControlTextarea1" class="form-label fs-4" style="color: #925D8A;">Leave a
+              comment</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class=" row">
             <div class="mb-4">
               <h4 class="form-label fs-5">Rate your experience</h4>
               <div class="rate ">
@@ -175,13 +189,13 @@
               </div>
             </div>
           </div>
-            
+
           <div class="d-flex justify-content-end mb-4 ">
             <button type="button" class="btn btn-lg btn-dark " style="background-color: #925D8A;">Submit</button>
           </div>
-            
-          
-          
+
+
+
         </div>
       </div>
     </form>

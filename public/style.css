@@ -3,6 +3,7 @@ body{
 background: radial-gradient(circle, rgba(255,255,255,0.8519782913165266) 0%, rgba(178,193,242,1) 100%);
 
     padding-top: 86px;
+    font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 
@@ -76,7 +77,7 @@ footer {
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8); 
     box-shadow: 12px 12px 3px 1px rgba(102, 120, 138, .3);
-    transition: 500ms;
+    transition: 300ms;
     border: #3A3556;
     margin: 60px;
     
@@ -129,8 +130,12 @@ footer {
 }
 
 .title {
-    font-weight: 400;
+    font-weight: 600;
    }
+
+.subtitle {
+    font-weight: 600;
+}   
 
 
 .about {
