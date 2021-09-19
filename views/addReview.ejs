@@ -24,51 +24,26 @@
             <input id="inp2" required="true" class="form-control" type="text" placeholder="registeration code"
               aria-label=" Write your vaccination code">
           </div>
-          <h2 class="fs-4 subtitle">Select location</h2>
+          <h2 class="fs-4">Select location</h2>
           <hr>
           <div class="mb-4">
-            <label for="exampleDataList" class="form-label fs-5">Governorate</label>
-            <input class="form-control" required="true" list="datalistOptions" id="exampleDataList"
-              placeholder="Type to search...">
-            <datalist id="datalistOptions">
-              <option value="Cairo">
-              <option value="Alexandria">
-              <option value="Giza">
-              <option value="Aswan">
-              <option value="Asyut">
-              <option value="Beheira">
-              <option value="Beni Suef">
-              <option value="Dakahlia">
-              <option value="Damietta">
-              <option value="Faiyum">
-              <option value="Gharbia">
-              <option value="Ismailia">
-              <option value="Kafr El Sheikh">
-              <option value="Luxor">
-              <option value="Matruh">
-              <option value="Minya">
-              <option value="Monufia">
-              <option value="New Valley">
-              <option value="North Sinai">
-              <option value="Port Said">
-              <option value="Qalyubia">
-              <option value="Qena">
-              <option value="Red Sea">
-              <option value="Sharqia">
-              <option value="Sohag">
-              <option value="South Sinai">
-
-            </datalist>
+            <label for="cityNames" class="form-label fs-5">Governorate</label>
+            <select name="governorate" required="true" id="govSelect" onchange=getValue();
+              class="form-select form-control" aria-label=".form-select-lg example">
+              <option value="" disabled selected>Select Governerate</option>
+              <% for(let i=0; i<cityNames.length; i++) { %>
+                <% console.log("x "+cityNames[i]) %>
+                      <option value=" <%=cityNames[i] %>"> <%= cityNames[i] %>
+                    </option>
+                    <% } %>
+            </select>
           </div>
           <div class="mb-4">
-            <label for="exampleDataList" class="form-label fs-5">District</label>
-            <input class="form-control" required="true" list="datalistOptions2" id="exampleDataList2"
-              placeholder="Type to search...">
-            <datalist id="datalistOptions2">
-              <option value="Nasr City">
-              <option value="New Cairo">
-
-            </datalist>
+            <label for="districtNames" class="form-label fs-5">District</label>
+            <select name="district" id="districtSelect" class="form-select control "
+              aria-label=".form-select-sm example">
+              <option value="" disabled selected>Select District</option>
+            </select>
           </div>
           <div class="mb-4">
             <label for="exampleDataList" class="form-label fs-5">vaccination Center</label>
@@ -80,7 +55,7 @@
 
             </datalist>
           </div>
-          <h2 class="fs-4 subtitle">Vaccination info</h2>
+          <h2 class="fs-4">Vaccination info</h2>
           <hr>
           <div class="mb-4">
             <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
