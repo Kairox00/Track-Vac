@@ -162,7 +162,9 @@ app.get('/modHome', (req, res) => {
 app.get('/reports', (req, res) => {
     res.render('reports',{page: "reports"});
 })
-
+app.get('/removeCenter', (req, res) => {
+    res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
+})
 app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper , page:"addCenter"});
 })
