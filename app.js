@@ -17,6 +17,7 @@ const cities = require("./cities.json");
 const cityNames = helper.getCityNames();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+const Review = require('./models/review');
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
@@ -79,7 +80,7 @@ app.get('/', (req, res) => {
 })
 
 //Choose Center Page
-app.get('/centers',catchAsync(async (req, res) => {
+app.get('/centers', (req, res) => {
     // Center.find({},(err,centers)=>{
     //     if(err){
     //         console.log(err)
@@ -88,19 +89,9 @@ app.get('/centers',catchAsync(async (req, res) => {
     //         res.render('centers',{centers: centers, cityNames: cityNames})
     //     }
     // })
-    const centers= await Center.find({});
-    res.render('centers', { cityNames: cityNames , centers })
-}))
-
-//filtering
-app.post('/centers',catchAsync(async(req,res,next)=>{
-    const {govSelect,districtSelect}= req.body;
-    const centers =await Center.find({governrate :govSelect,area: districtSelect});
-    //console.log(centers);
-    res.render('centers', { cityNames: cityNames , centers });
-}))
     
-
+    res.render('centers', { cityNames: cityNames, page: "centers" })
+})
 
 //Center Page
 app.get('/centers/:centerId', (req, res) => {
@@ -116,13 +107,22 @@ app.post('/centers/:centerId', (req, res) => {
 })
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
- 
     res.render('center_page')
 })
+
+app.post('center_page',(req,res)=>{
+    let centerId = req.params.centerId;
+    if(req.body.report){
+        // Center.findById(centerId).reviews
+    }
+    else if(req.body.upvote){
+
+    }
+})
+
 //Create Review Page
 app.get('/addReview', (req, res) => {
-    res.render('addReview',{cityNames: cityNames, helper: helper , page: "addReview"})
-
+    res.render('addReview',{page: "addReview"})
 })
 
 //About Page
@@ -136,7 +136,7 @@ app.get('/about', (req, res) => {
 
 
 app.get('/moderator', (req, res) => {
-    res.render('moderator',{page: "moderator"})
+    res.render('moderator')
 })
 
 app.post('/moderator',
@@ -149,7 +149,7 @@ app.post('/moderator',
     (req, res) => {
         console.log(req.body.authKey);
         if (req.body.authKey === "key") {
-            res.render('modHome',{page: "modHome"});
+            res.redirect('/modHome');
         }
         else {
             res.redirect('/moderator');
@@ -160,16 +160,11 @@ app.post('/moderator',
 );
 
 app.get('/modHome', (req, res) => {
-    res.render('modHome',{page: "modHome"});
+    res.render('modHome');
 })
-app.get('/reports', (req, res) => {
-    res.render('reports',{page: "reports"});
-})
-app.get('/removeCenter', (req, res) => {
-    res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
-})
+
 app.get('/addCenter', (req, res) => {
-    res.render('addCenter', { cityNames: cityNames, helper: helper , page:"addCenter"});
+    res.render('addCenter', { cityNames: cityNames, helper: helper });
 })
 
 app.post('/addCenter', async (req, res) => {
