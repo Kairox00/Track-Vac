@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
 })
 
 //Choose Center Page
-app.get('/centers', (req, res) => {
+app.get('/centers',catchAsync(async (req, res) => {
     // Center.find({},(err,centers)=>{
     //     if(err){
     //         console.log(err)
@@ -85,12 +85,17 @@ app.get('/centers', (req, res) => {
     //         res.render('centers',{centers: centers, cityNames: cityNames})
     //     }
     // })
-    
-   const centers = await Center.find({});
-   res.render('centers',{centers});
-    res.render('centers', { cityNames: cityNames })
-})
+    const centers= await Center.find({});
+    res.render('centers', { cityNames: cityNames , centers })
+}))
 
+//filtering
+app.post('/centers',catchAsync(async(req,res,next)=>{
+    const {govSelect,districtSelect}= req.body;
+    const centers =await Center.find({governrate :govSelect,area: districtSelect});
+    //console.log(centers);
+    res.render('centers', { cityNames: cityNames , centers });
+}))
 //Center Page
 app.get('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
@@ -105,6 +110,7 @@ app.post('/centers/:centerId', (req, res) => {
 })
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
+ 
     res.render('center_page')
 })
 //Create Review Page
