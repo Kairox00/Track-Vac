@@ -28,21 +28,23 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>"> 
-                        <a class="nav-link" aria-current="page" href="/" id="home">Home</a>
+                    <li class="<%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>"> 
+                        <a class="nav-link" aria-current="page" href="/modHome" id="modHome">Home</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>">
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'reports' ? 'active' : '' %>">
 
-                        <a class="nav-link" href="/centers" id="allCenters">Center Reviews</a>
+                        <a class="nav-link" href="/reports" id="reports">Reported Reviews</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>">
-                        <a class="nav-link" href="/addReview" id="write">Write Review</a>
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'addCenter' ? 'active' : '' %>">
 
+                        <a class="nav-link" href="/addCenter" id="addCenter">Add Center</a>
+                    </li>
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'removeCenter' ? 'active' : '' %>">
 
+                        <a class="nav-link" href="/removeCenter" id="removeCenter">Remove Center</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">
-                        <a class="nav-link" href="/about" id="aboutVac">About Vaccination</a>
-                    </li>
+                    
+                    
                 </ul>
             </div>
         </div>

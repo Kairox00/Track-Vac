@@ -79,7 +79,7 @@ app.get('/', (req, res) => {
 })
 
 //Choose Center Page
-app.get('/centers', (req, res) => {
+app.get('/centers',catchAsync(async (req, res) => {
     // Center.find({},(err,centers)=>{
     //     if(err){
     //         console.log(err)
@@ -88,9 +88,19 @@ app.get('/centers', (req, res) => {
     //         res.render('centers',{centers: centers, cityNames: cityNames})
     //     }
     // })
+    const centers= await Center.find({});
+    res.render('centers', { cityNames: cityNames , centers })
+}))
+
+//filtering
+app.post('/centers',catchAsync(async(req,res,next)=>{
+    const {govSelect,districtSelect}= req.body;
+    const centers =await Center.find({governrate :govSelect,area: districtSelect});
+    //console.log(centers);
+    res.render('centers', { cityNames: cityNames , centers });
+}))
     
-    res.render('centers', { cityNames: cityNames, page: "centers" })
-})
+
 
 //Center Page
 app.get('/centers/:centerId', (req, res) => {
@@ -106,11 +116,12 @@ app.post('/centers/:centerId', (req, res) => {
 })
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
+ 
     res.render('center_page')
 })
 //Create Review Page
 app.get('/addReview', (req, res) => {
-    res.render('addReview',{page: "addReview"})
+    res.render('addReview',{cityNames: cityNames, helper: helper , page: "addReview"})
 
 })
 
@@ -125,7 +136,7 @@ app.get('/about', (req, res) => {
 
 
 app.get('/moderator', (req, res) => {
-    res.render('moderator')
+    res.render('moderator',{page: "moderator"})
 })
 
 app.post('/moderator',
@@ -138,7 +149,7 @@ app.post('/moderator',
     (req, res) => {
         console.log(req.body.authKey);
         if (req.body.authKey === "key") {
-            res.redirect('/modHome');
+            res.render('modHome',{page: "modHome"});
         }
         else {
             res.redirect('/moderator');
@@ -149,11 +160,16 @@ app.post('/moderator',
 );
 
 app.get('/modHome', (req, res) => {
-    res.render('modHome');
+    res.render('modHome',{page: "modHome"});
 })
-
+app.get('/reports', (req, res) => {
+    res.render('reports',{page: "reports"});
+})
+app.get('/removeCenter', (req, res) => {
+    res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
+})
 app.get('/addCenter', (req, res) => {
-    res.render('addCenter', { cityNames: cityNames, helper: helper });
+    res.render('addCenter', { cityNames: cityNames, helper: helper , page:"addCenter"});
 })
 
 app.post('/addCenter', async (req, res) => {

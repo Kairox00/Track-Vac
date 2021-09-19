@@ -1,14 +1,27 @@
 module.exports = [
     {
-        name: "El nozha",
+        name: "El Nozha",
         image:'https://source.unsplash.com/collection/483251',
-        gonernrate:'Cairo',
-        address:'38 Joseph Teto St',
+        governrate:'Cairo',
+        area:'El Nozha',
     },
     { 
-        name: "Kattamya",
+        name: "kattamya",
         image:'https://source.unsplash.com/collection/483251',
-        gonernrate:'New Cairo',
-        address:'Kattamya , EL iskan wa el taameer bank St',
+        governrate:'Cairo',
+        area:'New Cairo',  
 
-    }];
+    },
+    {
+        name: "Shobra",
+        image:'https://source.unsplash.com/collection/483251',
+        governrate:'Cairo',
+        area:'Shobra',
+    }
+    ,
+    {
+        name: "Heliopolis",
+        image:'https://source.unsplash.com/collection/483251',
+        governrate:'Cairo',
+        area:'Heliopolis',
+    }] ;
