@@ -57,7 +57,7 @@ app.use(express.static(__dirname + "/public"));
 const ExpressError = require('./utils/ExpressError')
 const { reviewSchema } = require('./schemas.js')
 const Joi = require('joi');
-const review = require('./models/review');
+// const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
 const vaccinated = require('./models/vaccinated');
 const validateReview = (req, res, next) => {
@@ -156,7 +156,7 @@ app.get('/center_page', (req, res) => {
 })
 
 app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
-    review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
         if(err)
             res.send(err);
         else
@@ -165,16 +165,25 @@ app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
 })
 
 app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
-    let review = reviews.findById(req.params.reviewId,(err,review)=>{
+    let review = Review.findById(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);
     })
     let upvotes = review.upvotes++;
-    reviews.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
         if(err)
             res.send(err);
         else
             console.log(req.params.reviewId + " upvoted");
+    })
+})
+
+app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
+    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
+        if(err)
+            res.send(err);
+        else
+            res.redirect('/modHome')
     })
 })
 
@@ -186,7 +195,7 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 }))
 
 //post review
-app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
+app.post('/centers/:centerId/addReview', (req, res, next) => {
     
     // const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
     // const center = await Center.find({ governrate: governorate,name:vaccination_center,area:district});
@@ -199,13 +208,20 @@ app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     // await center.save();
     // await addedReview.save();
     // req.flash('Success','Review Added Successfully')
-    // let newReview = req.body.review;
-    // console.log(newReview);
+    let newReview = req.body.review;
+    console.log(newReview);
     let centerId = req.params.centerId;
-    const center = await Center.findById(centerId);
-    console.log(center);
-    
-}));
+    Center.findById(centerId,(err,center)=>{
+        err?console.log(err)
+        :Review.create(newReview,(err,Review)=>{
+           err?console.log(err):
+            Review.save();
+            center.reviews.push(Review);
+            center.save();
+       });
+        
+    });
+});
 
 //About Page
 app.get('/about', (req, res) => {
@@ -242,7 +258,7 @@ app.post('/moderator',
 );
 
 app.get('/modHome',async (req, res) => {
-    const reviews = await review.find({is_reported: true});
+    const reviews = await Review.find({is_reported: true});
     console.log(reviews);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })

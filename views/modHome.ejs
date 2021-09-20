@@ -15,7 +15,7 @@
                 <div>
                     <h3><%= review.title %></h3>
                     <h4><%= review.comment %></h4>
-                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= revew._id %>?method_DELETE" method="POST">
+                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
                         <button type="submit">Remove Post</button>
                     </form>
                 </div>
