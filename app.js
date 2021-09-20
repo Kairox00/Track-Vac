@@ -134,7 +134,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
     //if exists in database
     const center= await Center.findById(req.params.centerId).populate('reviews');
-    const totalRating =0;
+    let totalRating =0;
     for(let review of center.reviews){
         totalRating+=review.rating;
     }
@@ -159,12 +159,16 @@ app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
     Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
         if(err)
             res.send(err);
-        else
+        else{
             console.log(req.params.reviewId + " reported");
+            res.redirect('/modHome')
+        }
+            
     })
 })
 
 app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
+    let centerId = req.params.centerId;
     let review = Review.findById(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);
@@ -173,8 +177,11 @@ app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
     Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
         if(err)
             res.send(err);
-        else
-            console.log(req.params.reviewId + " upvoted");
+        else{
+             console.log(req.params.reviewId + " upvoted");
+             res.redirect('/centers/'+centerId);
+        }
+           
     })
 })
 

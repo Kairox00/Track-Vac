@@ -41,8 +41,13 @@
                 <div class="d-flex w-100 justify-content-between">
                     <small class="text-muted">anonymous</small>
                     <span>
-                        <button type="button" class="btn btn-danger">Report !</button>
-                        <button type="button" class="btn btn-success">Up vote !</button>
+                        <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
+                            <button type="submit" class="btn btn-danger">Report !</button>
+                        </form>
+                        <form action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
+                            <button type="submit" class="btn btn-success">Up vote !</button>
+                        </form>
+                        
                     </span>
                 </div>
             </div>
