@@ -58,15 +58,15 @@
           <hr>
           <div class="mb-4">
             <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
-            <input name="review[vaccine]" class="form-control" required="true" list="datalistOptions4"
-              id="exampleDataList4" placeholder="Type to search...">
-            <datalist id="datalistOptions4">
-              <option value="AstraZeneca">
-              <option value="Sinovac">
-              <option value="Sinopharm">
-              <option value="Pfizer">
-              <option value="Johnson & Johnson’s Janssen">
-            </datalist>
+            <select name="review[vaccine]" class="form-control form-select form-select mb-3" required="true" 
+              id="exampleDataList4" >
+              <option value="" disabled selected>Select Vaccine Type</option>
+              <option value="AstraZeneca">AstraZeneca</option>
+              <option value="Sinovac">Sinovac</option>
+              <option value="Sinopharm">Sinopharm</option>
+              <option value="Pfizer">Pfizer</option>
+              <option value="Johnson & Johnson’s Janssen">Johnson & Johnson’s Janssen</option>
+              </select>
             <div class="valid-feedback">valid</div>
           </div>
         </div>

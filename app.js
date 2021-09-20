@@ -17,7 +17,9 @@ const Vaccinated = require('./models/vaccinated');
 const cities = require("./cities.json");
 const cityNames = helper.getCityNames();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+
 
 
 app.set('view engine', 'ejs')
