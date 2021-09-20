@@ -180,8 +180,8 @@ app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
 
 //Create Review Page
 app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
-    const centers=await Center.find({})
-    res.render('addReview', { cityNames:cityNames ,page: "addReview",centers })
+    const center=await Center.findById(req.params.centerId);
+    res.render('addReview', { cityNames:cityNames ,page: "addReview", center: center})
 
 }))
 
@@ -199,10 +199,13 @@ app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     // await center.save();
     // await addedReview.save();
     // req.flash('Success','Review Added Successfully')
-
-    res.send(req.body.review);
-
-}))
+    // let newReview = req.body.review;
+    // console.log(newReview);
+    let centerId = req.params.centerId;
+    const center = await Center.findById(centerId);
+    console.log(center);
+    
+}));
 
 //About Page
 app.get('/about', (req, res) => {

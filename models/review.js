@@ -2,8 +2,8 @@ const joi= require('joi');
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-    vaccination_code: Number,
-    id_digits: Number,
+    vaccination_code: String,
+    id_digits: String,
     governorate: String,
     district: String,
     vaccination_center:String,
