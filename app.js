@@ -158,6 +158,7 @@ app.post('center_page',(req,res)=>{
 })
 
 //Create Review Page
+
 app.get('/addReview', catchAsync(async(req, res) => {
     const centers=await Center.find({})
     res.render('addReview', { cityNames:cityNames ,page: "addReview",centers })
@@ -183,6 +184,7 @@ app.post('/addReview', catchAsync(async (req, res, next) => {
     res.send(req.body.review);
 
 }))
+
 
 //About Page
 app.get('/about', (req, res) => {
