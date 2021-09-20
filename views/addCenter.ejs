@@ -3,7 +3,7 @@
 <div class="container">
     <h1 class="text-center">Add New Center</h1>
     <hr>
-    <form class="container-fluid" id='centerForm' action="/addCenter" method="POST">
+    <form class="container-fluid" id='centerForm' action="/addCenter" method="POST" enctype="multipart/form-data">
         <div class="row align-items-top justify-content-around d-flex justify-content-center box5">
             <div class="col-7">
                 <div class="mb-4">
@@ -12,15 +12,14 @@
                </div>
            
                <div class="mb-4">
-                    <label for="myfile" class="form-label fs-5" >Select an image:</label>
-                    <input type="file" id="myImage" class="form-control" name="image" accept="image/*">
+                    <label for="image" class="form-label fs-5" >Select an image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
               </div>
         <div class="mb-4">
             <label for="cityNames" class="form-label fs-5">Governorate</label>
             <select name="governorate" required="true" id="govSelect" onchange=getValue(); class="form-select form-control" aria-label=".form-select-lg example">
                 <option value="" disabled selected>Select Governerate</option>
                 <% for(let i=0; i<cityNames.length; i++) { %>
-                    <% console.log("x "+cityNames[i]) %>
                                 <option value="<%=cityNames[i] %>"> <%= cityNames[i] %>
                             </option>
                     <% } %>
@@ -47,7 +46,7 @@
     </form>
 </div>
 
-    <script src='script.js'> </script>
+   
 
 
 

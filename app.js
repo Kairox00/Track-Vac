@@ -19,6 +19,29 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
 
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'kairox', 
+  api_key: 816413729133578, 
+  api_secret: 'AnB6_XzxXsAHWC75WYXTIrlGdHk'
+});
+
+
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -175,21 +198,29 @@ app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper });
 })
 
-app.post('/addCenter', async (req, res) => {
+app.post('/addCenter', upload.single('image'), async (req, res) => {
+    console.log(req.file.path);
+    var image_url="";
+    await cloudinary.uploader.upload(req.file.path, function(result) {
+         image_url, req.body.image = result.secure_url;
+         
+    });
+
     const geoData = await geocoder.forwardGeocode({
         query: req.body.address,
         limit: 1
     }).send()
-
     console.log(geoData.body.features[0].geometry.coordinates);
-
-    let newCenter = {
+    // console.log(image_url);
+    // console.log(req.body.image);
+    var newCenter = {
         name: req.body.name,
         image: req.body.image,
         governorate: req.body.governorate,
-        district: req.body.district,
-        address: geoData.body.features[0].geometry
+        district: req.body.district
+        ,address: geoData.body.features[0].geometry
     }
+    console.log(newCenter);
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
             console.log(err);
