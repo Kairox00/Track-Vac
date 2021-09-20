@@ -6,14 +6,17 @@ const reviewSchema = new mongoose.Schema({
     id_digits: Number,
     governorate: String,
     district: String,
-    date: Date,
     vaccination_center:String,
     vaccine:String,
     is_crowded:Boolean,
     is_easy_to_get_vaccinated:Boolean,
     is_easy_to_find:Boolean,
     comment:String,
-    rating: Number
+    rating: Number,
+    title: String,
+    date: {type: Date, default: Date.now},
+    is_reported: {type: Boolean, default: false},
+    upvotes: Number
 })
 
 module.exports = mongoose.model("Review", reviewSchema);

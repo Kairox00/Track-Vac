@@ -96,8 +96,13 @@
                 <div class="d-flex w-100 justify-content-between">
                     <small class="text-muted">anonymous</small>
                     <span>
-                        <button type="button" class="btn btn-danger">Report !</button>
-                        <button type="button" class="btn btn-success">Up vote !</button>
+                        <form action="/center_page" method="POST">
+                            <button type="submit" class="btn btn-danger" name="report">Report!</button>
+                        </form>
+                        <form action="/center_page" method="POST">
+                            <button type="submit" class="btn btn-success" name="upvote">Up Vote!</button>
+                        </form>
+                        
                     </span>
                 </div>
             </div>

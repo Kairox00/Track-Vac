@@ -19,6 +19,30 @@ const cityNames = helper.getCityNames();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+const Review = require('./models/review');
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'kairox', 
+  api_key: 816413729133578, 
+  api_secret: 'AnB6_XzxXsAHWC75WYXTIrlGdHk'
+});
+
 
 
 
@@ -105,7 +129,6 @@ app.post('/centers', catchAsync(async (req, res, next) => {
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
-
 //Center Page
 app.get('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
@@ -120,9 +143,19 @@ app.post('/centers/:centerId', (req, res) => {
 })
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
-
     res.render('center_page')
 })
+
+app.post('center_page',(req,res)=>{
+    let centerId = req.params.centerId;
+    if(req.body.report){
+        // Center.findById(centerId).reviews
+    }
+    else if(req.body.upvote){
+
+    }
+})
+
 //Create Review Page
 app.get('/addReview', catchAsync(async(req, res) => {
     const centers=await Center.find({})
@@ -193,25 +226,34 @@ app.get('/reports', (req, res) => {
 app.get('/removeCenter', (req, res) => {
     res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
 })
+
 app.get('/addCenter', (req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
 })
 
-app.post('/addCenter', async (req, res) => {
+app.post('/addCenter', upload.single('image'), async (req, res) => {
+    console.log(req.file.path);
+    var image_url="";
+    await cloudinary.uploader.upload(req.file.path, function(result) {
+         image_url, req.body.image = result.secure_url;
+         
+    });
+
     const geoData = await geocoder.forwardGeocode({
         query: req.body.address,
         limit: 1
     }).send()
-
     console.log(geoData.body.features[0].geometry.coordinates);
-
-    let newCenter = {
+    // console.log(image_url);
+    // console.log(req.body.image);
+    var newCenter = {
         name: req.body.name,
         image: req.body.image,
         governorate: req.body.governorate,
-        district: req.body.district,
-        address: geoData.body.features[0].geometry
+        district: req.body.district
+        ,address: geoData.body.features[0].geometry
     }
+    console.log(newCenter);
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
             console.log(err);
