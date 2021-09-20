@@ -118,14 +118,14 @@ app.get('/centers', catchAsync(async (req, res) => {
     //     }
     // })
     const centers = await Center.find({});
-    res.render('centers', { cityNames: cityNames, centers })
+    res.render('centers', { cityNames: cityNames, page: 'centers',centers })
 }))
 
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
     const { govSelect, districtSelect } = req.body;
-    const centers = await Center.find({ governrate: govSelect, area: districtSelect });
-    //console.log(centers);
+    const centers = await Center.find({ governorate: govSelect, area: districtSelect });
+    // console.log(centers);
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
@@ -155,20 +155,33 @@ app.get('/center_page', (req, res) => {
     res.render('center_page')
 })
 
-app.post('center_page',(req,res)=>{
-    let centerId = req.params.centerId;
-    if(req.body.report){
-        // Center.findById(centerId).reviews
-    }
-    else if(req.body.upvote){
+app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
+    review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
+        if(err)
+            res.send(err);
+        else
+            console.log(req.params.reviewId + " reported");
+    })
+})
 
-    }
+app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
+    let review = reviews.findById(req.params.reviewId,(err,review)=>{
+        if(err)
+            res.send(err);
+    })
+    let upvotes = review.upvotes++;
+    reviews.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+        if(err)
+            res.send(err);
+        else
+            console.log(req.params.reviewId + " upvoted");
+    })
 })
 
 //Create Review Page
 app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
-    const centers=await Center.find({})
-    res.render('addReview', { cityNames:cityNames ,page: "addReview",centers })
+    const center=await Center.findById(req.params.centerId);
+    res.render('addReview', { cityNames:cityNames ,page: "addReview", center: center})
 
 }))
 
@@ -186,11 +199,13 @@ app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     // await center.save();
     // await addedReview.save();
     // req.flash('Success','Review Added Successfully')
-
-    res.send(req.body.review);
-
-}))
-
+    // let newReview = req.body.review;
+    // console.log(newReview);
+    let centerId = req.params.centerId;
+    const center = await Center.findById(centerId);
+    console.log(center);
+    
+}));
 
 //About Page
 app.get('/about', (req, res) => {
@@ -216,7 +231,7 @@ app.post('/moderator',
     (req, res) => {
         console.log(req.body.authKey);
         if (req.body.authKey === "key") {
-            res.render('modHome', { page: "modHome" });
+            res.redirect('/modHome')
         }
         else {
             res.redirect('/moderator');
@@ -226,12 +241,16 @@ app.post('/moderator',
     }
 );
 
-app.get('/modHome', (req, res) => {
-    res.render('modHome', { page: "modHome" });
+app.get('/modHome',async (req, res) => {
+    const reviews = await review.find({is_reported: true});
+    console.log(reviews);
+    res.render('modHome', { page: "modHome" , reviews: reviews});
 })
+
 app.get('/reports', (req, res) => {
     res.render('reports', { page: "reports" });
 })
+
 app.get('/removeCenter', (req, res) => {
     res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
 })
