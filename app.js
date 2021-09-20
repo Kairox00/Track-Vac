@@ -6,7 +6,8 @@ const express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
 
 const port = 3000 || process.env.PORT;
