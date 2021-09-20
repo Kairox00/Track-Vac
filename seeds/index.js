@@ -15,7 +15,7 @@ const seedDB = async () => {
             name:`${centers[i].name} health center`,
             image:'public/Images/guc.jpg',
             governrate:`${centers[i].governrate}`,
-            area:`${centers[i].area}`,
+            district:`${centers[i].district}`,
             map:`ss`
         })
         
