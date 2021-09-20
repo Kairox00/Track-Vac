@@ -6,6 +6,22 @@ background: radial-gradient(circle, rgba(255,255,255,0.8519782913165266) 0%, rgb
     font-family: 'Be Vietnam Pro', sans-serif;
 }
 
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: transitionIn 0.75s;
+
+}
+
 
 h1{
   
