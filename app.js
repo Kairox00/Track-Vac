@@ -18,7 +18,6 @@ const Vaccinated = require('./models/vaccinated');
 const cities = require("./cities.json");
 const cityNames = helper.getCityNames();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
-const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
 
@@ -131,12 +130,21 @@ app.post('/centers', catchAsync(async (req, res, next) => {
 }))
 
 //Center Page
-app.get('/centers/:centerId', (req, res) => {
-    let centerId = req.params.centerId
+app.get('/centers/:centerId', catchAsync(async (req, res) => {
+    let centerId = req.params.centerId;
     //if exists in database
-    res.render('center_page');
+    const center= await Center.findById(req.params.centerId).populate('reviews');
+    const totalRating =0;
+    for(let review of center.reviews){
+        totalRating+=review.rating;
+    }
+    const totalReviews=center.reviews.length?center.reviews.length:1;
+    const avgRating = totalRating/totalReviews;
+    console.log(center);
+    //console.log(center);
+    res.render('center_page',{center,avgRating});
     //else display error
-})
+}))
 
 app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
@@ -158,28 +166,26 @@ app.post('center_page',(req,res)=>{
 })
 
 //Create Review Page
-
-app.get('/addReview', catchAsync(async(req, res) => {
+app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
     const centers=await Center.find({})
     res.render('addReview', { cityNames:cityNames ,page: "addReview",centers })
 
 }))
 
 //post review
-app.post('/addReview', catchAsync(async (req, res, next) => {
-    const { vaccination_code,id_digits,governorate,district,date,vaccination_center,vaccine,is_crowded,
-        is_easy_to_get_vaccinated,is_easy_to_find,comment,rating }=req.body.review;
-    const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
-    const center = await Center.find({ governrate: governorate,name:vaccination_center,area:district});
-    if(!vaccinatedUser){
-        req.flash('error','You Must Be Vaccinated To Add a Review')
-        return res.redirect(`/centers/${Center._id}`);
-    }
-    const addedReview=await new review(req.body.review);
-    center.reviews.push(addedReview);
-    await center.save();
-    await addedReview.save();
-    req.flash('Success','Review Added Successfully')
+app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
+    
+    // const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
+    // const center = await Center.find({ governrate: governorate,name:vaccination_center,area:district});
+    // if(!vaccinatedUser){
+    //     req.flash('error','You Must Be Vaccinated To Add a Review')
+    //     return res.redirect(`/centers/${Center._id}`);
+    // }
+    // const addedReview=await new review(req.body.review);
+    // center.reviews.push(addedReview);
+    // await center.save();
+    // await addedReview.save();
+    // req.flash('Success','Review Added Successfully')
 
     res.send(req.body.review);
 
