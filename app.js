@@ -153,7 +153,7 @@ app.post('center_page',(req,res)=>{
 
 //Create Review Page
 app.get('/addReview', (req, res) => {
-    res.render('addReview',{page: "addReview"})
+    res.render('addReview',{page: "addReview", cityNames:"cityNames"})
 })
 
 //About Page
