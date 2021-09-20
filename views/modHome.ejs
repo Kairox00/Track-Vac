@@ -10,7 +10,16 @@
     
     <div class="col-8 ">
         <div class="row box" style="background-color: #f5edfc;">
-            <a href="reports" ><h2>You Have <span>3</span> New Reported Reviews </h2></a>
+            <a href="reports" ><h2>You Have <span><%= reviews.length %></span> New Reported Reviews </h2></a>
+            <%for(let review of reviews){ %>
+                <div>
+                    <h3><%= review.title %></h3>
+                    <h4><%= review.comment %></h4>
+                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= revew._id %>?method_DELETE" method="POST">
+                        <button type="submit">Remove Post</button>
+                    </form>
+                </div>
+           <% }%>
         </div>
            <div class="row box"  style="background-color: #f5edfc;">
             <a href="addCenter"> <h2>Add New Center </h2></a>

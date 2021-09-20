@@ -1,5 +1,5 @@
 let cities = [];
-fetch("cities")
+fetch("/cities")
     .then(response => {
         return response.json();
     })
