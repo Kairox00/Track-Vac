@@ -118,7 +118,7 @@ app.get('/centers', catchAsync(async (req, res) => {
     //     }
     // })
     const centers = await Center.find({});
-    res.render('centers', { cityNames: cityNames, centers })
+    res.render('centers', { cityNames: cityNames, page: 'centers',centers })
 }))
 
 //filtering
