@@ -61,8 +61,12 @@ const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
+    if (error && error.details.map(el => el.message).join(',')!='"review.Date" is not allowed') {
+        var msg = error.details.map(el => el.message).join(',');
+        //console.log(msg)
+        if(msg=='"review.vaccination_code" must be greater than or equal to 10000000000000000000'){
+            msg="Please Enter a valid 20 digits vaccination code"
+        }
         throw new ExpressError(msg, 400)
     }
     else {
@@ -187,7 +191,7 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 }))
 
 //post review
-app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
+app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
     const user = await Vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
     if(!user.length){
