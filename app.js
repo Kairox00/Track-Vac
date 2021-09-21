@@ -57,7 +57,7 @@ app.use(express.static(__dirname + "/public"));
 const ExpressError = require('./utils/ExpressError')
 const { reviewSchema } = require('./schemas.js')
 const Joi = require('joi');
-const review = require('./models/review');
+// const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
@@ -161,25 +161,51 @@ app.get('/center_page', (req, res) => {
 })
 
 app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
-    review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
         if(err)
             res.send(err);
-        else
+        else{
             console.log(req.params.reviewId + " reported");
+            res.redirect('/modHome')
+        }
+            
     })
 })
 
 app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
-    let review = reviews.findById(req.params.reviewId,(err,review)=>{
-        if(err)
+    let centerId = req.params.centerId;
+    let review = Review.findById(req.params.reviewId,(err,review)=>{
+        if(err){
+            console.log(err);
             res.send(err);
+        }  
+        else{
+            console.log(review); 
+            let upvotes = review.upvotes+1;
+            console.log(upvotes);
+            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+            if(err){
+                console.log(err);
+                res.send(err);
+            }
+            else{
+                console.log(req.params.reviewId + " upvoted");
+                res.redirect('/centers/'+centerId);
+            }
+           
     })
-    let upvotes = review.upvotes++;
-    reviews.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+        }
+    })
+   
+   
+})
+
+app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
+    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);
         else
-            console.log(req.params.reviewId + " upvoted");
+            res.redirect('/modHome')
     })
 })
 
@@ -199,7 +225,7 @@ app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, r
     }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
-    const addedReview=await new review(req.body.review);
+    const addedReview=await new Review(req.body.review);
     center.reviews.push(addedReview);
     await addedReview.save();
     await center.save();
@@ -242,8 +268,8 @@ app.post('/moderator',
 );
 
 app.get('/modHome',async (req, res) => {
-    const reviews = await review.find({is_reported: true});
-    //console.log(reviews);
+    const reviews = await Review.find({is_reported: true});
+    console.log(reviews);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })
 
