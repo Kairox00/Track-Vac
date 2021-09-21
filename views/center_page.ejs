@@ -94,15 +94,8 @@
         </div>
     </div>
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1Ijoia2Fpcm94MDAiLCJhIjoiY2t0bjFrdGFvMmJoczJ2cW5jMGkwOGZmYyJ9.ki7GbD0dVW1_IONalKVlbQ';
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v11', // style URL
-            center: [-74.5, 40], // starting position [lng, lat]
-            zoom: 9 // starting zoom
-        });
-        new mapboxgl.Marker().setLngLat([-74.5, 40]).addTo(map);
-
+        const center = <%- JSON.stringify(center) %>;
     </script>
+    <script src='/mapConfig.js'></script>
 
     <%- include ("partials/footer") %>

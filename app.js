@@ -71,25 +71,15 @@ const validateReview = (req, res, next) => {
 }
 
 
-//=================
-// PASSPORT CONFIG
-//=================
+//========================
+// SESSION & MONGO CONFIG
+//========================
 
 app.use(require("express-session")({
     secret: "Secter whatev",
     resave: true,
     saveUninitialized: true,
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(new LocalStrategy(Mod.authenticate()));
-// passport.serializeUser(Mod.serializeUser());
-// passport.deserializeUser(Mod.deserializeUser());
-
-app.use((req, res, next) => {
-    // res.locals.currentUser = req.user;
-    next();
-});
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
