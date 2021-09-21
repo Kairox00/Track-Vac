@@ -2,11 +2,8 @@ require('dotenv').config()
 const express = require('express'),
     app = express(),
     methodOverride = require('method-override'),
-    //bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    flash=require('connect-flash')
+    flash = require('connect-flash'),
     mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
 
@@ -20,6 +17,7 @@ const cityNames = helper.getCityNames();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
+
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -57,12 +55,16 @@ app.use(express.static(__dirname + "/public"));
 const ExpressError = require('./utils/ExpressError')
 const { reviewSchema } = require('./schemas.js')
 const Joi = require('joi');
-const review = require('./models/review');
+// const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
+const center = require('./models/center');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
+    if (error && error.details.map(el => el.message).join(',')!='"review.Date" is not allowed') {
+        var msg = error.details.map(el => el.message).join(',');
+        if(msg=='"review.vaccination_code" must be greater than or equal to 10000000000000000000'){
+            msg="Please Enter a valid 20 digits vaccination code"
+        }
         throw new ExpressError(msg, 400)
     }
     else {
@@ -71,23 +73,18 @@ const validateReview = (req, res, next) => {
 }
 
 
-//=================
-// PASSPORT CONFIG
-//=================
+//========================
+// SESSION & MONGO CONFIG
+//========================
 
 app.use(require("express-session")({
     secret: "Secter whatev",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(new LocalStrategy(Mod.authenticate()));
-// passport.serializeUser(Mod.serializeUser());
-// passport.deserializeUser(Mod.deserializeUser());
 
-app.use((req, res, next) => {
-    // res.locals.currentUser = req.user;
+app.use((req,res,next)=>{
+    res.locals.currentUser = req.session.user;
     next();
 });
 
@@ -103,19 +100,12 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 
 //Home Page
 app.get('/', (req, res) => {
+    // console.log(req.session.user);
     res.render('home', { page: "home" })
 })
 
 //Choose Center Page
 app.get('/centers', catchAsync(async (req, res) => {
-    // Center.find({},(err,centers)=>{
-    //     if(err){
-    //         console.log(err)
-    //     }
-    //     else{
-    //         res.render('centers',{centers: centers, cityNames: cityNames})
-    //     }
-    // })
     const centers = await Center.find({});
     res.render('centers', { cityNames: cityNames, page: 'centers',centers })
 }))
@@ -123,59 +113,95 @@ app.get('/centers', catchAsync(async (req, res) => {
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
     const { govSelect, districtSelect } = req.body;
-    //console.log(govSelect,districtSelect);
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
-    //console.log(centers);
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
 //Center Page
 app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
-    //if exists in database
     const center= await Center.findById(req.params.centerId).populate('reviews');
     let totalRating =0;
+    let Crowded =0;
+    let notCrowded=0;
+    let easyToFind=0
+    let notEasyToFind=0;
+    let easyToGetVaccinated=0;
+    let noteasyToGetVaccinated=0;
     for(let review of center.reviews){
         if(review.rating)
             totalRating+=review.rating;
+        if(review.is_easy_to_find==true) easyToFind++;else notEasyToFind++
+        if(review.is_crowded==true) Crowded++;else notCrowded++
+        if(review.is_easy_to_get_vaccinated) easyToGetVaccinated++;else noteasyToGetVaccinated++
     }
+    //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = Math.ceil(totalRating/totalReviews);
-    //console.log(center);
-    //console.log(center);
-    res.render('center_page',{center,avgRating});
-    //else display error
+    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind});
 }))
 
 app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
     res.render('center_page')
 })
+
+app.delete('/centers/:centerId', (req,res)=>{
+    Center.findByIdAndDelete(req.params.centerId, (err,center)=>{
+        if(err)
+            console.log(err);
+        else
+            res.redirect('/centers')
+    })
+})
+
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
     res.render('center_page')
 })
 
 app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
-    review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
         if(err)
             res.send(err);
-        else
-            console.log(req.params.reviewId + " reported");
+        else{
+            res.redirect('/modHome')
+        }
+            
     })
 })
 
 app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
-    let review = reviews.findById(req.params.reviewId,(err,review)=>{
-        if(err)
+    let centerId = req.params.centerId;
+    let review = Review.findById(req.params.reviewId,(err,review)=>{
+        if(err){
+            console.log(err);
             res.send(err);
+        }  
+        else{
+            let upvotes = review.upvotes+1;
+            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+            if(err){
+                console.log(err);
+                res.send(err);
+            }
+            else{
+                res.redirect('/centers/'+centerId);
+            }
+           
     })
-    let upvotes = review.upvotes++;
-    reviews.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+        }
+    })
+   
+   
+})
+
+app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
+    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);
         else
-            console.log(req.params.reviewId + " upvoted");
+            res.redirect('/modHome')
     })
 })
 
@@ -187,7 +213,7 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 }))
 
 //post review
-app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
+app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
     const user = await Vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
     if(!user.length){
@@ -195,7 +221,9 @@ app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
-    const addedReview=await new review(req.body.review);
+    req.body.review.vaccination_center = centerId;
+    // console.log(req.body.review);
+    const addedReview=await new Review(req.body.review);
     center.reviews.push(addedReview);
     await addedReview.save();
     await center.save();
@@ -213,11 +241,11 @@ app.get('/about', (req, res) => {
 //==================
 
 
-app.get('/moderator', (req, res) => {
+app.get('/mod', (req, res) => {
     res.render('moderator', { page: "moderator" })
 })
 
-app.post('/moderator',
+app.post('/mod',
     //   passport.authenticate('local',{failureRedirect:'/moderator'}),
     //   function(req, res) {
     //     // If this function gets called, authentication was successful.
@@ -225,8 +253,9 @@ app.post('/moderator',
     //     res.redirect('/');
     // }
     (req, res) => {
-        console.log(req.body.authKey);
         if (req.body.authKey === "key") {
+            req.session.user = 'mod';
+            // console.log(req.session.user);
             res.redirect('/modHome')
         }
         else {
@@ -237,13 +266,13 @@ app.post('/moderator',
     }
 );
 
-app.get('/modHome',async (req, res) => {
-    const reviews = await review.find({is_reported: true});
-    //console.log(reviews);
+app.get('/modHome', isMod ,async (req, res) => {
+    const reviews = await Review.find({is_reported: true});
+    // console.log(req.session.user);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })
 
-app.get('/reports', (req, res) => {
+app.get('/reports', isMod ,(req, res) => {
     res.render('reports', { page: "reports" });
 })
 
@@ -251,12 +280,11 @@ app.get('/removeCenter', (req, res) => {
     res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
 })
 
-app.get('/addCenter', (req, res) => {
+app.get('/addCenter', isMod ,(req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
 })
 
-app.post('/addCenter', upload.single('image'), async (req, res) => {
-    //console.log(req.file.path);
+app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
     var image_url="";
     await cloudinary.uploader.upload(req.file.path, function(result) {
          image_url, req.body.image = result.secure_url;
@@ -267,9 +295,6 @@ app.post('/addCenter', upload.single('image'), async (req, res) => {
         query: req.body.address,
         limit: 1
     }).send()
-    console.log(geoData.body.features[0].geometry.coordinates);
-    // console.log(image_url);
-    // console.log(req.body.image);
     var newCenter = {
         name: req.body.name,
         image: req.body.image,
@@ -277,19 +302,22 @@ app.post('/addCenter', upload.single('image'), async (req, res) => {
         district: req.body.district
         ,address: geoData.body.features[0].geometry
     }
-    //console.log(newCenter);
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
             console.log(err);
             res.send("400")
         }
         else {
-            console.log("center created");
             res.redirect('/centers')
         }
 
     })
 })
+
+app.get('/modHome/logout',isMod,(req,res)=>{
+    req.session.user = undefined;
+    res.redirect('/');
+});
 
 
 app.get('/cities', (req, res) => {
@@ -301,6 +329,15 @@ app.use((err,req,res,next)=>{
     if(!err.message) err.message='Oh No, Something Went Wrong!'
     res.status(statusCode).render('error',{err})
 })
+
+function isMod(req,res,next){
+    if(req.session.user == 'mod')
+        next();
+    else{
+        res.redirect('/mod');
+    }
+        
+}
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

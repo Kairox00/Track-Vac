@@ -16,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
     title: String,
     date: {type: Date, default: Date.now},
     is_reported: {type: Boolean, default: false},
-    upvotes: Number
+    upvotes: {type: Number, default: 0}
 })
 
 module.exports = mongoose.model("Review", reviewSchema);

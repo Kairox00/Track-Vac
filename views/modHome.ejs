@@ -1,4 +1,4 @@
-<%- include ("partials/headerMod") %>
+<%- include ("partials/header") %>
     <div class="container">
 
 
@@ -8,43 +8,44 @@
         <div class="row align-items-center justify-content-around ">
 
             <div class="col-8 ">
-                <div class="row box" style="background-color: #f5edfc;">
+                <div class="row box" style="background-color: #f5edfc; border-radius: 5px;">
                     <a href="reports">
-                        <h2>You Have <span>
+                        <h2>You have <span>
                                 <%= reviews.length %>
-                            </span> New Reported Reviews </h2>
+                            </span>Reported Reviews </h2>
                     </a>
-                    <%for(let review of reviews){ %>
-                        <div>
-                            <h3>
-                                <%= review.title %>
-                            </h3>
-                            <h4>
-                                <%= review.comment %>
-                            </h4>
-                            <form
-                                action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?method_DELETE"
-                                method="POST">
-                                <button type="submit">Remove Post</button>
-                            </form>
-                        </div>
-                        <% }%>
+                    <div style="background-color: white; border-radius: 5px;">
+                        <ul>
+                            <%for(let review of reviews){ %>
+                                <li>
+                                    <h3>
+                                        <%= review.title %>
+                                    </h3>
+                                    <h4>
+                                        <%= review.comment %>
+                                    </h4>
+                                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE"
+                                        method="POST">
+                                        <button type="submit" class='btn btn-warning'>Remove Post</button>
+                                    </form>
+                                </li>
+                                <hr>
+                                <% }%>
+                        </ul>
+                    </div>
+                    
+                    
                 </div>
-                <div class="row box" style="background-color: #f5edfc;">
-                    <a href="addCenter">
-                        <h2>Add New Center </h2>
+                <button class="col-8 btn btn-info" >
+                    <a href="/modHome/logout">
+                        <span style="color: white">Logout</span>
                     </a>
-                </div>
-                <div class="row box" style="background-color: #f5edfc;">
-                    <a href="removeCenter">
-                        <h2>Remove Center </h2>
+                </button>
+                <button class="col-8 btn btn-info">
+                    <a href="/centers">
+                        <span style="color: white">Add or Remove Centers</span>
                     </a>
-                </div>
-                <div class="row box" style="background-color: #f5edfc;">
-                    <a href="/">
-                        <h2>Track-Vac User </h2>
-                    </a>
-                </div>
+                </button>
             </div>
         </div>
 

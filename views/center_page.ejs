@@ -9,19 +9,19 @@
                 <hr>
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
-                        Total reviews
+                        Total Reviews
                         <span class="badge bg-primary rounded-pill">
                             <%=center.reviews.length %>
                         </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
-                        Average rating
+                        Average Rating
                         <span class="badge bg-primary rounded-pill">
                             <%=avgRating %>
                         </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
-                        Easy to find
+                        Easy to Reach
                         <span>
                             <span> Yes </span>
                             <span class="badge bg-success rounded-pill">
@@ -70,7 +70,7 @@
                     <div class="d-flex w-100 justify-content-between">
 
                         <h5 class="mb-1 title">
-                            <%=review.title %>
+                            Rating: <%=review.rating%>
                         </h5>
 
                         <small class="text-muted">
@@ -83,7 +83,6 @@
                         <%=review.comment %>
                     </p>
                     <div class="d-flex w-100 justify-content-between">
-                        <small class="text-muted">anonymous</small>
                         <span>
                             <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT"
                                 method="POST">
@@ -103,5 +102,6 @@
     <script>
         const center = <% - JSON.stringify(center) %>
     </script>
+    <script src='/mapConfig.js'></script>
 
     <%- include ("partials/footer") %>

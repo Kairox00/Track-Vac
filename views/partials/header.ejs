@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -33,6 +36,9 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
+                    <li class="<%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" <%=currentUser=='mod' ? '' : 'hidden' %> >
+                        <a class="nav-link" aria-current="page" href="/modHome" id="modHome">Admin Home</a>
+                    </li>
                     <li class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">
                         <a class="nav-link" aria-current="page" href="/" id="home">Home</a>
                     </li>
@@ -40,9 +46,7 @@
                         <a class="nav-link" href="/centers" id="allCenters">Center Reviews</a>
                     </li>
                     <li class="nav-item <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>">
-                        <a class="nav-link" href="/addReview" id="write">Write Review</a>
-
-
+                        <a class="nav-link" href="/centers" id="write">Write Review</a>
                     </li>
                     <li class="nav-item <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">
                         <a class="nav-link" href="/about" id="aboutVac">About Vaccination</a>
