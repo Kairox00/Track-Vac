@@ -5,7 +5,7 @@
     </h3>
     <hr>
 
-    <form class="container-fluid needs-validation" action="/centers/<%= center._id %>/addReview" method="POST" novalidate>
+    <form class="container-fluid needs-validation" action="/centers/<%= center._id %>/addReview" method="POST" novalidate >
 
       <div class="row align-items-top justify-content-around box2">
         <div class="col-13 col-lg-5">
@@ -16,8 +16,8 @@
           <div class="mb-4">
             <label for="inp1" class="form-label fs-5">Write the last 4 digits of your national id number</label>
 
-            <input name="review[id_digits]" id="inp1" required="true" class="form-control" type="text"
-              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id">
+            <input name="review[id_digits]" id="inp1" required class="form-control" type="text"
+              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id" >
             <div class="valid-feedback">valid</div>
           </div>
           <div class="mb-4">
@@ -30,7 +30,7 @@
           <hr>
           <div class="mb-4">
             <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
-            <input name="review[vaccine]" class="form-control" required="true" list="datalistOptions4"
+            <input name="review[vaccine]" class="form-control" required list="datalistOptions4"
               id="exampleDataList4" placeholder="Type to search...">
             <datalist id="datalistOptions4">
               <option value="AstraZeneca">
@@ -43,29 +43,30 @@
           </div>
           <div class=" mb-4">
             <label for="date1" class="form-label fs-5">Vaccination date</label>
-            <input name="review[Date]" type="date" required="true" class="form-control" placeholder="dd/mm/yyyy"
+            <input name="review[Date]" type="date" required class="form-control" placeholder="dd/mm/yyyy"
               aria-label="Vaccination date" id="date1">
             <div class="valid-feedback">valid</div>
           </div>
         </div>
 
         <div class="col-13 col-lg-5 ">
+    
 
           <h2 class="fs-4 subtitle">Review</h2>
           <hr>
           <div class=" mb-4">
             <h4 class=" form-label fs-5">Was the center crowded?</h4>
             <div class="form-check">
-              <input  class="form-check-input" type="radio"
-                name="flexRadioDefault" id="flexRadioDefault1" checked>
+              <input  class="form-check-input" required  type="radio"
+                name="review[is_crowded]" id="flexRadioDefault1" checked value="true">
               <label class="form-check-label" for="flexRadioDefault1">
                 Yes
               </label>
               <div class="valid-feedback">valid</div>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault"
-                id="flexRadioDefault2">
+              <input class="form-check-input" type="radio" name="review[is_crowded]"
+                id="flexRadioDefault2" value="false">
               <label class="form-check-label" for="flexRadioDefault2">
                 No
               </label>
@@ -76,7 +77,7 @@
             <h4 class=" form-label fs-5">Was it easy for you to get vaccinated as soon as you arrived?</h4>
             <div class="form-check">
               <input class="form-check-input" type="radio"
-                name="flexRadioDefault1" id="flexRadioDefault11" checked>
+              name="review[is_easy_to_get_vaccinated]" id="flexRadioDefault11" checked value="true">
               <label class="form-check-label" for="flexRadioDefault11">
                 Yes
               </label>
@@ -84,7 +85,7 @@
             </div>
             <div class="form-check">
               <input class="form-check-input" type="radio"
-                name="flexRadioDefault1" id="flexRadioDefault21">
+                name="review[is_easy_to_get_vaccinated]" id="flexRadioDefault21" value="false">
               <label class="form-check-label" for="flexRadioDefault21">
                 No
               </label>
@@ -94,16 +95,16 @@
           <div class=" mb-4">
             <h4 class=" form-label fs-5">Was it easy to find this center?</h4>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault2"
-                id="flexRadioDefault12" checked>
+              <input class="form-check-input" type="radio" name="review[is_easy_to_find]"
+                id="flexRadioDefault12" checked value="true">
               <label class="form-check-label" for="flexRadioDefault12">
                 Yes
               </label>
               <div class="valid-feedback">valid</div>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault2"
-                id="flexRadioDefault22">
+              <input class="form-check-input" type="radio" name="review[is_easy_to_find]"
+                id="flexRadioDefault22" value="false">
               <label class="form-check-label" for="flexRadioDefault22">
                 No
               </label>
@@ -114,22 +115,22 @@
           <div class="mb-4">
             <label for="exampleFormControlTextarea1" class="form-label fs-4" style="color: #925D8A;">Leave a
               comment</label>
-            <textarea name="review[comment]" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="review[comment]" class="form-control" id="exampleFormControlTextarea1" rows="3"required></textarea>
             <div class="valid-feedback">valid</div>
           </div>
           <div class=" row">
             <div class="mb-4">
               <h4 class="form-label fs-5 subtitle">Rate your experience</h4>
               <div class="rate ">
-                <input type="radio" id="star5" name="rate" value="5" />
+                <input type="radio" id="star5" name="review[rating]" value="5" />
                 <label for="star5" title="text">5 stars</label>
-                <input type="radio" id="star4" name="rate" value="4" />
+                <input type="radio" id="star4" name="review[rating]"  value="4" />
                 <label for="star4" title="text">4 stars</label>
-                <input type="radio" id="star3" name="rate" value="3" />
+                <input type="radio" id="star3" name="review[rating]"  value="3" />
                 <label for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2" />
+                <input type="radio" id="star2" name="review[rating]"  value="2" />
                 <label for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1" />
+                <input type="radio" id="star1" name="review[rating]" value="1" />
                 <label for="star1" title="text">1 star</label>
               </div>
             </div>

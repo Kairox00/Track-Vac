@@ -6,7 +6,7 @@ const express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
-    flash = require('connect-flash'),
+    flash=require('connect-flash')
     mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
 
@@ -59,7 +59,6 @@ const { reviewSchema } = require('./schemas.js')
 const Joi = require('joi');
 // const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
-const vaccinated = require('./models/vaccinated');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
@@ -124,8 +123,9 @@ app.get('/centers', catchAsync(async (req, res) => {
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
     const { govSelect, districtSelect } = req.body;
-    const centers = await Center.find({ governorate: govSelect, area: districtSelect });
-    // console.log(centers);
+    //console.log(govSelect,districtSelect);
+    const centers = await Center.find({governorate: govSelect,district: districtSelect });
+    //console.log(centers);
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
@@ -136,11 +136,12 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     const center= await Center.findById(req.params.centerId).populate('reviews');
     let totalRating =0;
     for(let review of center.reviews){
-        totalRating+=review.rating;
+        if(review.rating)
+            totalRating+=review.rating;
     }
-    const totalReviews=center.reviews.length?center.reviews.length:1;
-    const avgRating = totalRating/totalReviews;
-    console.log(center);
+    const totalReviews=center.reviews.length!=0?center.reviews.length:1;
+    const avgRating = Math.ceil(totalRating/totalReviews);
+    //console.log(center);
     //console.log(center);
     res.render('center_page',{center,avgRating});
     //else display error
@@ -202,33 +203,21 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 }))
 
 //post review
-app.post('/centers/:centerId/addReview', (req, res, next) => {
+app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
+    const {id_digits,vaccination_code}=req.body.review;
+    const user = await Vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
+    if(!user.length){
+        throw new ExpressError('You Must Be Vaccinated To Be Able To Add a Review',400);
+    }
+    const centerId = req.params.centerId;
+    const center = await Center.findById(centerId);
+    const addedReview=await new Review(req.body.review);
+    center.reviews.push(addedReview);
+    await addedReview.save();
+    await center.save();
+    res.redirect(`/centers/${center._id}`);
     
-    // const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
-    // const center = await Center.find({ governrate: governorate,name:vaccination_center,area:district});
-    // if(!vaccinatedUser){
-    //     req.flash('error','You Must Be Vaccinated To Add a Review')
-    //     return res.redirect(`/centers/${Center._id}`);
-    // }
-    // const addedReview=await new review(req.body.review);
-    // center.reviews.push(addedReview);
-    // await center.save();
-    // await addedReview.save();
-    // req.flash('Success','Review Added Successfully')
-    let newReview = req.body.review;
-    console.log(newReview);
-    let centerId = req.params.centerId;
-    Center.findById(centerId,(err,center)=>{
-        err?console.log(err)
-        :Review.create(newReview,(err,Review)=>{
-           err?console.log(err):
-            Review.save();
-            center.reviews.push(Review);
-            center.save();
-       });
-        
-    });
-});
+}));
 
 //About Page
 app.get('/about', (req, res) => {
@@ -283,7 +272,7 @@ app.get('/addCenter', (req, res) => {
 })
 
 app.post('/addCenter', upload.single('image'), async (req, res) => {
-    console.log(req.file.path);
+    //console.log(req.file.path);
     var image_url="";
     await cloudinary.uploader.upload(req.file.path, function(result) {
          image_url, req.body.image = result.secure_url;
@@ -304,7 +293,7 @@ app.post('/addCenter', upload.single('image'), async (req, res) => {
         district: req.body.district
         ,address: geoData.body.features[0].geometry
     }
-    console.log(newCenter);
+    //console.log(newCenter);
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
             console.log(err);
@@ -323,6 +312,11 @@ app.get('/cities', (req, res) => {
     res.json(cities);
 })
 
+app.use((err,req,res,next)=>{
+    const {message='Something went wrong',statusCode=500}=err;
+    if(!err.message) err.message='Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error',{err})
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
