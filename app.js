@@ -134,11 +134,11 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
     //if exists in database
     const center= await Center.findById(req.params.centerId).populate('reviews');
-    const totalRating =0;
+    let totalRating =0;
     for(let review of center.reviews){
         totalRating+=review.rating;
     }
-    const totalReviews=center.reviews.length?center.reviews.length:1;
+    const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = totalRating/totalReviews;
     console.log(center);
     //console.log(center);
@@ -188,22 +188,24 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 //post review
 app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     
-    // const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
+    ///const vaccinatedUser = await vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
     // const center = await Center.find({ governrate: governorate,name:vaccination_center,area:district});
     // if(!vaccinatedUser){
     //     req.flash('error','You Must Be Vaccinated To Add a Review')
     //     return res.redirect(`/centers/${Center._id}`);
     // }
-    // const addedReview=await new review(req.body.review);
-    // center.reviews.push(addedReview);
-    // await center.save();
-    // await addedReview.save();
+    
+   
     // req.flash('Success','Review Added Successfully')
     // let newReview = req.body.review;
     // console.log(newReview);
     let centerId = req.params.centerId;
     const center = await Center.findById(centerId);
-    console.log(center);
+    const addedReview=await new review(req.body.review);
+     center.reviews.push(addedReview);
+    await center.save();
+    await addedReview.save();
+    res.redirect(`/centers/${center._id}`);
     
 }));
 
