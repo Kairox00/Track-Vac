@@ -4,7 +4,7 @@
 
         <form id='filter' action='/centers' method='POST'>
             <div class="container">
-                <h1 class="text-center title" style="margin-bottom: 1.5rem;">Available Centers</h1>
+                <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
                 <select id="govSelect" name="govSelect" onchange=getValue();
                     class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example">
                     <option value="" disabled selected>Select Governerate</option>
@@ -18,7 +18,7 @@
                     aria-label=".form-select-sm example ">
                     <option value="" disabled selected>Select District</option>
                 </select>
-                <button class="btn btn-primary btn-sm">filter</button>
+                <button class="btn btn-primary btn-sm"><i class="fas fa-filter"></i>Filter</button>
             </div>
 
     </div>
