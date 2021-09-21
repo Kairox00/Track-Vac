@@ -2,11 +2,8 @@ require('dotenv').config()
 const express = require('express'),
     app = express(),
     methodOverride = require('method-override'),
-    //bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    flash=require('connect-flash')
+    flash = require('connect-flash'),
     mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
 
@@ -63,7 +60,6 @@ const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error && error.details.map(el => el.message).join(',')!='"review.Date" is not allowed') {
         var msg = error.details.map(el => el.message).join(',');
-        //console.log(msg)
         if(msg=='"review.vaccination_code" must be greater than or equal to 10000000000000000000'){
             msg="Please Enter a valid 20 digits vaccination code"
         }
@@ -81,8 +77,8 @@ const validateReview = (req, res, next) => {
 
 app.use(require("express-session")({
     secret: "Secter whatev",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 }));
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -107,19 +103,12 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 
 //Home Page
 app.get('/', (req, res) => {
+    console.log(req.session.user);
     res.render('home', { page: "home" })
 })
 
 //Choose Center Page
 app.get('/centers', catchAsync(async (req, res) => {
-    // Center.find({},(err,centers)=>{
-    //     if(err){
-    //         console.log(err)
-    //     }
-    //     else{
-    //         res.render('centers',{centers: centers, cityNames: cityNames})
-    //     }
-    // })
     const centers = await Center.find({});
     res.render('centers', { cityNames: cityNames, page: 'centers',centers })
 }))
@@ -127,16 +116,13 @@ app.get('/centers', catchAsync(async (req, res) => {
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
     const { govSelect, districtSelect } = req.body;
-    //console.log(govSelect,districtSelect);
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
-    //console.log(centers);
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
 //Center Page
 app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
-    //if exists in database
     const center= await Center.findById(req.params.centerId).populate('reviews');
     let totalRating =0;
     for(let review of center.reviews){
@@ -145,10 +131,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     }
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = Math.ceil(totalRating/totalReviews);
-    //console.log(center);
-    //console.log(center);
     res.render('center_page',{center,avgRating});
-    //else display error
 }))
 
 app.post('/centers/:centerId', (req, res) => {
@@ -165,7 +148,6 @@ app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
         if(err)
             res.send(err);
         else{
-            console.log(req.params.reviewId + " reported");
             res.redirect('/modHome')
         }
             
@@ -180,16 +162,13 @@ app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
             res.send(err);
         }  
         else{
-            console.log(review); 
             let upvotes = review.upvotes+1;
-            console.log(upvotes);
             Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
             if(err){
                 console.log(err);
                 res.send(err);
             }
             else{
-                console.log(req.params.reviewId + " upvoted");
                 res.redirect('/centers/'+centerId);
             }
            
@@ -243,11 +222,11 @@ app.get('/about', (req, res) => {
 //==================
 
 
-app.get('/moderator', (req, res) => {
+app.get('/mod', (req, res) => {
     res.render('moderator', { page: "moderator" })
 })
 
-app.post('/moderator',
+app.post('/mod',
     //   passport.authenticate('local',{failureRedirect:'/moderator'}),
     //   function(req, res) {
     //     // If this function gets called, authentication was successful.
@@ -255,8 +234,8 @@ app.post('/moderator',
     //     res.redirect('/');
     // }
     (req, res) => {
-        console.log(req.body.authKey);
         if (req.body.authKey === "key") {
+            req.session.user = {user: "mod"};
             res.redirect('/modHome')
         }
         else {
@@ -267,13 +246,13 @@ app.post('/moderator',
     }
 );
 
-app.get('/modHome',async (req, res) => {
+app.get('/modHome', isMod ,async (req, res) => {
     const reviews = await Review.find({is_reported: true});
-    console.log(reviews);
+    console.log(req.session.user);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })
 
-app.get('/reports', (req, res) => {
+app.get('/reports', isMod ,(req, res) => {
     res.render('reports', { page: "reports" });
 })
 
@@ -281,12 +260,11 @@ app.get('/removeCenter', (req, res) => {
     res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
 })
 
-app.get('/addCenter', (req, res) => {
+app.get('/addCenter', isMod ,(req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
 })
 
-app.post('/addCenter', upload.single('image'), async (req, res) => {
-    //console.log(req.file.path);
+app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
     var image_url="";
     await cloudinary.uploader.upload(req.file.path, function(result) {
          image_url, req.body.image = result.secure_url;
@@ -297,9 +275,6 @@ app.post('/addCenter', upload.single('image'), async (req, res) => {
         query: req.body.address,
         limit: 1
     }).send()
-    console.log(geoData.body.features[0].geometry.coordinates);
-    // console.log(image_url);
-    // console.log(req.body.image);
     var newCenter = {
         name: req.body.name,
         image: req.body.image,
@@ -307,19 +282,22 @@ app.post('/addCenter', upload.single('image'), async (req, res) => {
         district: req.body.district
         ,address: geoData.body.features[0].geometry
     }
-    //console.log(newCenter);
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
             console.log(err);
             res.send("400")
         }
         else {
-            console.log("center created");
             res.redirect('/centers')
         }
 
     })
 })
+
+app.get('/modHome/logout',isMod,(req,res)=>{
+    req.session.user = undefined;
+    res.redirect('/');
+});
 
 
 app.get('/cities', (req, res) => {
@@ -331,6 +309,13 @@ app.use((err,req,res,next)=>{
     if(!err.message) err.message='Oh No, Something Went Wrong!'
     res.status(statusCode).render('error',{err})
 })
+
+function isMod(req,res,next){
+    if(req.session.user === {user: "mod"})
+        next();
+    else
+        res.redirect('/mod');
+}
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
