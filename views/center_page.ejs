@@ -25,11 +25,11 @@
                         <span>
                             <span> Yes </span>
                             <span class="badge bg-success rounded-pill">
-                                <%=easyToFind %>
-                            </span>
+                                <%=easyToFind %> 
+                               </span>
                             <span> No </span>
                             <span class="badge bg-danger rounded-pill">
-                                <%=notEasyToFind %>
+                                <%=notEasyToFind %> 
                             </span>
                         </span>
                     </li>
@@ -38,11 +38,11 @@
                         <span>
                             <span> Yes </span>
                             <span class="badge bg-success rounded-pill">
-                                <%=Crowded %>
+                                <%=Crowded  %> 
                             </span>
                             <span> No </span>
                             <span class="badge bg-danger rounded-pill">
-                                <%=notCrowded %>
+                                <%=notCrowded  %> 
                             </span>
                         </span>
                     </li>
@@ -56,8 +56,7 @@
         </div>
 
         <div class="row justify-content-between align-items-center">
-            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary"><i
-                        class="fas fa-plus"></i><span style="padding-left: 4px">Add Review</span> </a>
+            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary"><i class="fas fa-plus"></i><span style="padding-left: 4px">Add Review</span> </a>
             </div>
         </div>
 
@@ -73,10 +72,7 @@
                             Rating: <%=review.rating%>
                         </h5>
 
-                        <small class="text-muted">
-                            <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%=
-                                        review.date.getMonth() %>/<%= review.date.getFullYear() %>
-                        </small>
+                        <small class="text-muted"><%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
 
                     </div>
                     <p class="mb-1 subtitle">
@@ -84,12 +80,10 @@
                     </p>
                     <div class="d-flex w-100 justify-content-between">
                         <span>
-                            <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT"
-                                method="POST">
+                            <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
                                 <button type="submit" class="btn btn-danger"><i class="far fa-flag"></i></button>
                             </form>
-                            <form action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT"
-                                method="POST">
+                            <form action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
                                 <button type="submit" class="btn btn-success"><i class="far fa-thumbs-up"></i></button>
                             </form>
                         </span>
@@ -100,7 +94,7 @@
         </div>
     </div>
     <script>
-        const center = <% - JSON.stringify(center) %>
+        const center = <%- JSON.stringify(center) %>
     </script>
     <script src='/mapConfig.js'></script>
 
