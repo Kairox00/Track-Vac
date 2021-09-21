@@ -1,12 +1,7 @@
 <%- include ("partials/header") %>
 
     <div class="container" style="width: 100%;">
-        <div class="row justify-content-between align-items-center centerInfo">
-            <div class="col-md-4">
-                <img src="<%=center.image %> " class="rounded" style="height: 15rem; width: 100%;" alt="">
-            </div>
-            <div id='map' class="col-md-3" style='width: 350px; height: 250px;'></div>
-
+        <div class="row justify-content-between align-items-end centerInfo">
             <div class="col-md-4">
                 <h1 style="font-weight: 300;"><b>
                         <%=center.name %>
@@ -25,11 +20,41 @@
                             <%=avgRating %>
                         </span>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
+                        Easy to find
+                        <span>
+                            <span> Yes </span>
+                            <span class="badge bg-success rounded-pill">
+                                5
+                            </span>
+                            <span> No </span>
+                            <span class="badge bg-danger rounded-pill">
+                                8
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
+                        Crowded
+                        <span>
+                            <span> Yes </span>
+                            <span class="badge bg-success rounded-pill">
+                                9
+                            </span>
+                            <span> No </span>
+                            <span class="badge bg-danger rounded-pill">
+                                7
+                            </span>
+                        </span>
+                    </li>
                 </ul>
             </div>
-
-
+            <div class="col-md-4">
+                <img src="<%=center.image %> " class="rounded" style="height: 80%; width: 100%;" alt="">
+            </div>
+            <div id='map' class="col-md-3" style='width: 350px; height: 250px;'>
+            </div>
         </div>
+
         <div class="row justify-content-between align-items-center">
             <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary">Add
                     review +</a>
