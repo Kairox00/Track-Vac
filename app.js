@@ -83,6 +83,11 @@ app.use(require("express-session")({
     saveUninitialized: true,
 }));
 
+app.use((req,res,next)=>{
+    res.locals.currentUser = req.session.user;
+    next();
+});
+
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
@@ -95,7 +100,7 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 
 //Home Page
 app.get('/', (req, res) => {
-    console.log(req.session.user);
+    // console.log(req.session.user);
     res.render('home', { page: "home" })
 })
 
@@ -250,7 +255,7 @@ app.post('/mod',
     (req, res) => {
         if (req.body.authKey === "key") {
             req.session.user = 'mod';
-            console.log(req.session.user);
+            // console.log(req.session.user);
             res.redirect('/modHome')
         }
         else {
@@ -263,7 +268,7 @@ app.post('/mod',
 
 app.get('/modHome', isMod ,async (req, res) => {
     const reviews = await Review.find({is_reported: true});
-    console.log(req.session.user);
+    // console.log(req.session.user);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })
 
