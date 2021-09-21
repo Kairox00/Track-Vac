@@ -171,19 +171,29 @@ app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
 app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
     let centerId = req.params.centerId;
     let review = Review.findById(req.params.reviewId,(err,review)=>{
-        if(err)
+        if(err){
+            console.log(err);
             res.send(err);
-    })
-    let upvotes = review.upvotes++;
-    Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
-        if(err)
-            res.send(err);
+        }  
         else{
-             console.log(req.params.reviewId + " upvoted");
-             res.redirect('/centers/'+centerId);
-        }
+            console.log(review); 
+            let upvotes = review.upvotes+1;
+            console.log(upvotes);
+            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+            if(err){
+                console.log(err);
+                res.send(err);
+            }
+            else{
+                console.log(req.params.reviewId + " upvoted");
+                res.redirect('/centers/'+centerId);
+            }
            
     })
+        }
+    })
+   
+   
 })
 
 app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
