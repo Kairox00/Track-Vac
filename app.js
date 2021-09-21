@@ -83,6 +83,11 @@ app.use(require("express-session")({
     saveUninitialized: true,
 }));
 
+app.use((req,res,next)=>{
+    res.locals.currentUser = req.session.user;
+    next();
+});
+
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
