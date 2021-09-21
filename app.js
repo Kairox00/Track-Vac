@@ -18,6 +18,7 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
 
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
@@ -56,6 +57,7 @@ const { reviewSchema } = require('./schemas.js')
 const Joi = require('joi');
 // const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
+const center = require('./models/center');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error && error.details.map(el => el.message).join(',')!='"review.Date" is not allowed') {
@@ -138,6 +140,16 @@ app.post('/centers/:centerId', (req, res) => {
     let centerId = req.params.centerId
     res.render('center_page')
 })
+
+app.delete('/centers/:centerId', (req,res)=>{
+    Center.findByIdAndDelete(req.params.centerId, (err,center)=>{
+        if(err)
+            console.log(err);
+        else
+            res.redirect('/centers')
+    })
+})
+
 // the center page fake route just for testing
 app.get('/center_page', (req, res) => {
     res.render('center_page')
@@ -204,6 +216,8 @@ app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, r
     }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
+    req.body.review.vaccination_center = centerId;
+    // console.log(req.body.review);
     const addedReview=await new Review(req.body.review);
     center.reviews.push(addedReview);
     await addedReview.save();
@@ -235,7 +249,8 @@ app.post('/mod',
     // }
     (req, res) => {
         if (req.body.authKey === "key") {
-            req.session.user = {user: "mod"};
+            req.session.user = 'mod';
+            console.log(req.session.user);
             res.redirect('/modHome')
         }
         else {
@@ -311,10 +326,12 @@ app.use((err,req,res,next)=>{
 })
 
 function isMod(req,res,next){
-    if(req.session.user === {user: "mod"})
+    if(req.session.user == 'mod')
         next();
-    else
+    else{
         res.redirect('/mod');
+    }
+        
 }
 
 app.listen(port, () => {
