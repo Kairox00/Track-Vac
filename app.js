@@ -125,13 +125,23 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
     const center= await Center.findById(req.params.centerId).populate('reviews');
     let totalRating =0;
+    let Crowded =0;
+    let notCrowded=0;
+    let easyToFind=0
+    let notEasyToFind=0;
+    let easyToGetVaccinated=0;
+    let noteasyToGetVaccinated=0;
     for(let review of center.reviews){
         if(review.rating)
             totalRating+=review.rating;
+        if(review.is_easy_to_find==true) easyToFind++;else notEasyToFind++
+        if(review.is_crowded==true) Crowded++;else notCrowded++
+        if(review.is_easy_to_get_vaccinated) easyToGetVaccinated++;else noteasyToGetVaccinated++
     }
+    //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = Math.ceil(totalRating/totalReviews);
-    res.render('center_page',{center,avgRating});
+    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind});
 }))
 
 app.post('/centers/:centerId', (req, res) => {
