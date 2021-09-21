@@ -140,7 +140,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
             totalRating+=review.rating;
     }
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
-    const avgRating = totalRating/totalReviews;
+    const avgRating = Math.ceil(totalRating/totalReviews);
     //console.log(center);
     //console.log(center);
     res.render('center_page',{center,avgRating});
@@ -189,14 +189,9 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 //post review
 app.post('/centers/:centerId/addReview', catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
-    //console.log(id_digits,vaccination_code)
     const user = await Vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
-    //console.log(user)
     if(!user.length){
-        const {message='You Must Be Vaccinated To Be Able To Add a Review',statusCode=500}=err;
-        //console.log(statusCode,message)
-        if(!err.message) err.message='Oh No, Something Went Wrong!'
-        res.status(statusCode).render('error',{err})
+        throw new ExpressError('You Must Be Vaccinated To Be Able To Add a Review',400);
     }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
@@ -303,7 +298,6 @@ app.get('/cities', (req, res) => {
 
 app.use((err,req,res,next)=>{
     const {message='Something went wrong',statusCode=500}=err;
-    //console.log(statusCode,message)
     if(!err.message) err.message='Oh No, Something Went Wrong!'
     res.status(statusCode).render('error',{err})
 })
