@@ -124,8 +124,9 @@ app.get('/centers', catchAsync(async (req, res) => {
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
     const { govSelect, districtSelect } = req.body;
-    const centers = await Center.find({ governorate: govSelect, area: districtSelect });
-    // console.log(centers);
+    //console.log(govSelect,districtSelect);
+    const centers = await Center.find({governorate: govSelect,district: districtSelect });
+    //console.log(centers);
     res.render('centers', { cityNames: cityNames, centers });
 }))
 
