@@ -1,13 +1,15 @@
 let cities = [];
-fetch("cities")
+fetch("/cities")
     .then(response => {
         return response.json();
     })
     .then(data => cities = data);
 
+
 // const districtList = document.getElementById("districtList");
 const districtDrop = document.getElementById("districtSelect");
 const govDrop = document.getElementById("govSelect");
+ 
 let value = "";
 console.log(cities);
 
@@ -41,13 +43,23 @@ function map(array) {
 }
 
 function loadDistricts() {
-    let districts = getCityDistricts(value);
+    let districts = getCityDistricts(value).sort();
     console.log("Districts [" + districts + "]");
     districtDrop.innerHTML = '' + '<option value="" disabled selected>Select District</option>' + map(districts) + '';
     // console.log("html " + districtDrop.innerHTML)
 }
 
+////////////////////////////////////////////
 
+
+/*
+function loadCenters() {
+    console.log(gov.value,district.value)
+    const centers =getCenters();
+    centerDrop.innerHTML = '' + '<option value="" disabled selected>Select Center</option>' + map(centers) + '';
+    
+}
+*/
 //changing the selected item's color in the navbar---- the classList.add method is working outside the function not inside, WHYYYY !!!????
 
 /*

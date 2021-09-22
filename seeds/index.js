@@ -2,23 +2,20 @@ const mongoose = require('mongoose');
 const centers = require('./centers');
 const Center = require('../models/center');
 
-mongoose.connect('mongodb://localhost:27017/trackVac', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("MONGO CONNECTION OPEN!!!")
-    })
-    .catch(err => {
-        console.log("OH NO MONGO CONNECTION ERROR!!!!")
-        console.log(err)
-    })
+mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 
 const seedDB = async () => {
     await Center.deleteMany({});
     for (let i = 0; i < centers.length; i++) {
         const c = new Center({
-            name:`${centers[i].name}`,
+            name:`${centers[i].name} health center`,
             image:'public/Images/guc.jpg',
-            governrate:`${centers[i].gonernrate}`,
-            address:`${centers[i].address}`,
+            governrate:`${centers[i].governrate}`,
+            district:`${centers[i].district}`,
             map:`ss`
         })
         

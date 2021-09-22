@@ -1,76 +1,71 @@
 <%- include ("partials/header") %>
-
     <div class="container-fluid centers">
-
         <form id='filter' action='/centers' method='POST'>
             <div class="container">
-                <h1 class="text-center title">Available Centers</h1>
-                <select id="govSelect" onchange=getValue(); class="form-select form-select my-3"
-                    aria-label=".form-select-lg example">
-                    <option value="" disabled selected>Select Governerate</option>
+                <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
+             <div class="row align-items-center justify-content-start">
+               <div class="col-md-12 col-lg-5">
+                <select id="govSelect" name="govSelect" onchange=getValue();
+                    class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example">
+                    <option value="" disabled selected>
+                        <%=gov%>
+                    </option>
                     <% for(let i=0; i<cityNames.length; i++) { %>
-                                <option value="<%=cityNames[i] %>"> <%= cityNames[i] %>
-                                </option>
-                                <% } %>
+                        <option value="<%=cityNames[i] %>">
+                            <%= cityNames[i] %>
+                        </option>
+                        <% } %>
                 </select>
-            
-                <select id="districtSelect" class="form-select form-select mb-3" aria-label=".form-select-sm example">
-                    <option value="" disabled selected>Select District</option>
+               </div>  
+               <div class="col-md-12 col-lg-5">
+                <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3 mb-lg-0"
+                    aria-label=".form-select-sm example ">
+                    <option value="" disabled selected>
+                        <%=district%>
+                    </option>
                 </select>
+               </div> 
+               <div class="col-3 col-lg-1">
+                <button class="btn btn-primary btn-sm" name="action" value="filter"><i class="fas fa-filter"></i>Filter</button>
+               </div>
+               <div class="col-2 col-lg-1">
+                <button class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove filters</button>
+            </form>
+               </div>
+             </div> 
             </div>
-        </form>
 
     </div>
+
+
     <div class="container">
-        <div class="row align-items-center justify-content-evenly">
-            <div class="col-lg-5">
-                <div class="card" style="width: 30rem;">
-                    <img src="Images/guc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="/centers/123" class="btn btn-primary">Go somewhere</a>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 align-items-center justify-content-evenly justify-content-sm-start">
+            <% for(let center of centers){ %>
+                <div class="col">
+                    <div class="card">
+                        <div class="imgBx">
+                            <img src="<%= center.image %>" alt="...">
+                        </div>
+                        <div class="card-body cardBx">
+                            <h5 class="card-title subtitle">
+                                <%=center.name%>
+                            </h5>
+                            <p class="card-text">
+                                <%=center.governorate%>
+                            </p>
+                            <div>
+                                <form action="/centers/:centerId?_method=DELETE" method="POST"  >
+                                    <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to center page</a>
+                                    <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card" style="width: 30rem;">
-                    <img src="Images/guc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
+                <%}%>
+
         </div>
-        <div class="row align-items-center justify-content-evenly">
-            <div class="col-lg-5">
-                <div class="card" style="width: 30rem;">
-                    <img src="Images/guc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card" style="width: 30rem;">
-                    <img src="Images/guc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+
     </div>
 
-    <script src='script.js'> </script>
     <%- include ("partials/footer") %>
