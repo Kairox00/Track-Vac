@@ -259,7 +259,7 @@ app.post('/mod',
             res.redirect('/modHome')
         }
         else {
-            res.redirect('/moderator');
+            res.redirect('/mod');
         }
 
 
