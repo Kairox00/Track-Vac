@@ -194,6 +194,34 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 
 }))
 
+app.get('/chooseCenter', catchAsync(async (req, res) => {
+    const centers = await Center.find({});
+    const gov = 'Select a governorate';
+    const district='Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'addReview',centers,gov,district })
+}))
+
+//filtering
+app.post('/chooseCenter', catchAsync(async (req, res, next) => {
+    if(req.body.action=='filter'){
+    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
+    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
+    const { govSelect, districtSelect } = req.body;
+    const centers = await Center.find({governorate: govSelect,district: districtSelect });
+    if(centers.length==0){
+        req.flash('error',"Sorry, there is no centers available in this area");
+        res.render('centers', { cityNames: cityNames, centers,gov,district});
+    }
+    res.render('centers', { cityNames: cityNames, centers,gov,district});
+ }
+ else{
+     const gov = 'Select a governorate';
+     const district='Select a district';
+    const centers = await Center.find({});
+    res.render('centers',{ cityNames: cityNames, centers,gov,district});
+ }
+}))
+
 //post review
 app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
