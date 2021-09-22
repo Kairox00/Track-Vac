@@ -26,15 +26,18 @@
                 </select>
                </div> 
                <div class="col-3 col-lg-1">
-                <button class="btn btn-primary btn-sm"><i class="fas fa-filter"></i>Filter</button>
+                <button class="btn btn-primary btn-sm" name="action" value="filter"><i class="fas fa-filter"></i>Filter</button>
                </div>
                <div class="col-2 col-lg-1">
-                <button class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove</button>
+                <button class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove filters</button>
+            </form>
                </div>
              </div> 
             </div>
 
     </div>
+
+
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 align-items-center justify-content-evenly justify-content-sm-start">
             <% for(let center of centers){ %>
@@ -54,7 +57,6 @@
                                 <form action="/centers/:centerId?_method=DELETE" method="POST"  >
                                     <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to center page</a>
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
-                                </form>
                             </div>
                         </div>
                     </div>
