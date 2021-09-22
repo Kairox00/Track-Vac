@@ -51,7 +51,7 @@
                             <div>
                                 <form action="/centers/:centerId?_method=DELETE" method="POST"  >
                                     <a href="/centers/<%=center._id%>" class="btn btn-primary goBtn">Go to center page</a>
-                                    <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger goBtn">Remove<i class="fas fa-trash"></i></button>
+                                    <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
                                 </form>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                 <%}%>
 
         </div>
-        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning addCenter'>Add Center</a>
 
     </div>
 

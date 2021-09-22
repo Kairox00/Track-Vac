@@ -260,7 +260,7 @@ input[type='radio']:checked:after {
     width: 23rem;
     height: 20rem;
     margin: 1.25rem;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.5);
 }
@@ -302,10 +302,10 @@ input[type='radio']:checked:after {
 }
 
 .card .cardBx {
-    max-height: 43%;
+   /* max-height: 43%; */
     transition: 0.5s;
 }
-
+/*
 .card .cardBx h5 {
     font-size: 1.5em;
     transition: 0.5s;
@@ -314,15 +314,17 @@ input[type='radio']:checked:after {
 .card:hover .cardBx h5 {
     font-size: 1.4em;
 }
+*/
 
 .card:hover .cardBx {
     background: rgb(178,193,242);
 }
-
+/*
 .card:hover .goBtn {
     animation: transitionIn 0.5s;
     opacity: 1;
 }
+*/
 
 @media (min-width: 752px) and (max-width:980px) {  
     .card {width: 20rem; }
@@ -345,13 +347,16 @@ input[type='radio']:checked:after {
 }
 
 .goBtn {
-    opacity: 0;
+   /* opacity: 0; */
     box-shadow: inset 0 0 0 0 white;
     transition: ease-out 0.3s;
 }
-/*
+
 .goBtn:hover {
     color: black; 
     box-shadow: inset 165.85px 0 0 0 white;
 }
-*/
+
+.addCenter {
+    margin: 30px;
+}
