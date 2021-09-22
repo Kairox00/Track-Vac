@@ -308,3 +308,19 @@ input[type='radio']:checked:after {
     background: rgb(178,193,242);
 }
 
+.bs{
+    background-color: rgba(255, 235, 205, 0);
+}
+
+.bs-s{
+    color: rgb(150, 3, 3);
+}
+.bs-d{
+    color:rgb(10, 122, 38);
+}
+.bs-s:hover{
+   background-color: rgba(150, 3, 3, 0.473);
+}
+.bs-d:hover{
+    background-color:rgba(10, 122, 38, 0.404);
+}
