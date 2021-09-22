@@ -5,6 +5,8 @@
         <form id='filter' action='/centers' method='POST'>
             <div class="container">
                 <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
+             <div class="row align-items-center justify-content-start">
+               <div class="col-md-12 col-lg-5">
                 <select id="govSelect" name="govSelect" onchange=getValue();
                     class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example">
                     <option value="" disabled selected>Select Governerate</option>
@@ -14,18 +16,27 @@
                         </option>
                         <% } %>
                 </select>
-                <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3"
+               </div>  
+               <div class="col-md-12 col-lg-5">
+                <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3 mb-lg-0"
                     aria-label=".form-select-sm example ">
                     <option value="" disabled selected>Select District</option>
                 </select>
+               </div> 
+               <div class="col-3 col-lg-1">
                 <button class="btn btn-primary btn-sm"><i class="fas fa-filter"></i>Filter</button>
+               </div>
+               <div class="col-2 col-lg-1">
+                <button class="btn btn-secondary btn-sm">Remove</button>
+               </div>
+             </div> 
             </div>
 
     </div>
     <div class="container">
-        <div class="row align-items-center justify-content-start">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 align-items-center justify-content-evenly justify-content-sm-start">
             <% for(let center of centers){ %>
-                <div class="col-lg-4">
+                <div class="col">
                     <div class="card">
                         <div class="imgBx">
                             <img src="<%= center.image %>" alt="...">
@@ -38,8 +49,8 @@
                                 <%=center.governorate%>
                             </p>
                             <div>
-                                <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to the center page</a>
-                                <form action="/centers/<%=center._id %>?_method=DELETE" method="POST"  >
+                                <form action="/centers/:centerId?_method=DELETE" method="POST"  >
+                                    <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to center page</a>
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
                                 </form>
                             </div>
@@ -47,9 +58,10 @@
                     </div>
                 </div>
                 <%}%>
-                <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
 
         </div>
+        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+
     </div>
 
     <%- include ("partials/footer") %>
