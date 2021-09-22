@@ -46,7 +46,7 @@
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters">Center Reviews</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/centers" id="write">Write Review</a>
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write">Write Review</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac">About Vaccination</a>
@@ -55,4 +55,5 @@
             </div>
         </div>
     </nav>
-    <div class="flex-wrapper">
+    <div class="flex-wrapper"> 
+    <%- include ("flash") %>

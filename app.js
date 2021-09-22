@@ -19,6 +19,7 @@ const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
 
 
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
@@ -48,6 +49,8 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
+app.use(flash());
+
 
 //=================
 // Error validation
@@ -95,6 +98,16 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
     });
 
 //===============
+// FLASH
+//===============
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error= req.flash('error');
+    next();
+})
+
+
+//===============
 // PUBLIC ROUTES
 //===============
 
@@ -107,14 +120,30 @@ app.get('/', (req, res) => {
 //Choose Center Page
 app.get('/centers', catchAsync(async (req, res) => {
     const centers = await Center.find({});
-    res.render('centers', { cityNames: cityNames, page: 'centers',centers })
+    const gov = 'Select a governorate';
+    const district='Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'centers',centers,gov,district ,page:'centers',filter:'false'})
 }))
 
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
+    if(req.body.action=='filter'){
+    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
+    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
     const { govSelect, districtSelect } = req.body;
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
-    res.render('centers', { cityNames: cityNames, centers });
+    if(centers.length==0){
+        req.flash('error',"Sorry, there is no centers available in this area");
+        res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
+    }
+    res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
+ }
+ else{
+     const gov = 'Select a governorate';
+     const district='Select a district';
+    const centers = await Center.find({});
+    res.render('centers',{ cityNames: cityNames, centers,gov,district, page:'centers', filter:'true'});
+ }
 }))
 
 //Center Page
@@ -138,7 +167,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = Math.ceil(totalRating/totalReviews);
-    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind});
+    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind, page:'centers'});
 }))
 
 app.post('/centers/:centerId', (req, res) => {
@@ -165,6 +194,34 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
 
 }))
 
+app.get('/chooseCenter', catchAsync(async (req, res) => {
+    const centers = await Center.find({});
+    const gov = 'Select a governorate';
+    const district='Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'addReview',centers,gov,district , filter:'false'})
+}))
+
+//filtering
+app.post('/chooseCenter', catchAsync(async (req, res, next) => {
+    if(req.body.action=='filter'){
+    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
+    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
+    const { govSelect, districtSelect } = req.body;
+    const centers = await Center.find({governorate: govSelect,district: districtSelect });
+    if(centers.length==0){
+        req.flash('error',"Sorry, there is no centers available in this area");
+        res.render('centers', { cityNames: cityNames, centers,gov,district});
+    }
+    res.render('centers', { cityNames: cityNames, centers,gov,district, page:'addReview', filter:'true'});
+ }
+ else{
+     const gov = 'Select a governorate';
+     const district='Select a district';
+    const centers = await Center.find({});
+    res.render('centers',{ cityNames: cityNames, centers,gov,district});
+ }
+}))
+
 //post review
 app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
@@ -180,6 +237,7 @@ app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, r
     center.reviews.push(addedReview);
     await addedReview.save();
     await center.save();
+    req.flash('success','Review added successfully !')
     res.redirect(`/centers/${center._id}`);
     
 }));
