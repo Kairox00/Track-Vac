@@ -3,7 +3,7 @@
         <form id='filter' action='/<%= page == 'centers' ? 'centers' : 'chooseCenter' %>' method='POST'>
             <div class="container">
                 <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
-             <div class="row align-items-center justify-content-start">
+             <div class="row align-items-center justify-content-start" >
                <div class="col-md-12 col-lg-5">
                 <select id="govSelect" name="govSelect" onchange=getValue();
                     class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example" required>
@@ -51,7 +51,7 @@
                                 <%=center.name%>
                             </h5>
                             <p class="card-text">
-                                <%=center.governorate%>
+                                <%=center.governorate%> - <%=center.district %>
                             </p>
                             <div>
                                 <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>" class="btn btn-primary"><%= page=='addReview' ? 'Choose Center' : 'View Center' %></a>
@@ -63,9 +63,14 @@
                     </div>
                 </div>
                 <%}%>
-
+                <div class="col">
+                    <div>
+                          <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+                    </div>
+                </div>
         </div>
-        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+        
+        
 
     </div>
 
