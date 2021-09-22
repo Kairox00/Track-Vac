@@ -2,15 +2,9 @@
     <div class="container-fluid centers">
         <form id='filter' action='/centers' method='POST'>
             <div class="container">
-<<<<<<< Updated upstream
                 <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
              <div class="row align-items-center justify-content-start">
                <div class="col-md-12 col-lg-5">
-=======
-                <h1 class="text-center title" style="margin-bottom: 1.5rem;">
-                    <%=currentUser=='mod'? 'Add or Remove Centers' : 'Available Centers' %>
-                </h1>
->>>>>>> Stashed changes
                 <select id="govSelect" name="govSelect" onchange=getValue();
                     class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example">
                     <option value="" disabled selected>
@@ -30,26 +24,18 @@
                         <%=district%>
                     </option>
                 </select>
-<<<<<<< Updated upstream
                </div> 
                <div class="col-3 col-lg-1">
                 <button class="btn btn-primary btn-sm"><i class="fas fa-filter"></i>Filter</button>
                </div>
                <div class="col-2 col-lg-1">
-                <button class="btn btn-secondary btn-sm">Remove</button>
+                <button class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove</button>
                </div>
              </div> 
-=======
-                <button class="btn btn-primary btn-sm" name="action" value="filter"><i
-                        class="fas fa-filter"></i>Filter</button>
-                <button class="btn btn-primary btn-sm" name="action" value="removeFilter"><i
-                        class="fas fa-filter"></i>Remove filters</button>
->>>>>>> Stashed changes
             </div>
 
     </div>
     <div class="container">
-<<<<<<< Updated upstream
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 align-items-center justify-content-evenly justify-content-sm-start">
             <% for(let center of centers){ %>
                 <div class="col">
@@ -74,35 +60,6 @@
                     </div>
                 </div>
                 <%}%>
-=======
-        <div class="row align-items-center justify-content-start">
-                <% for(let center of centers){ %>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="imgBx">
-                                <img src="<%= center.image %>" alt="...">
-                            </div>
-                            <div class="card-body cardBx">
-                                <h5 class="card-title subtitle">
-                                    <%=center.name%>
-                                </h5>
-                                <p class="card-text">
-                                    <%=center.governorate%>
-                                </p>
-                                <div>
-                                    <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to the center page</a>
-                                    <form action="/centers/<%=center._id %>?_method=DELETE" method="POST">
-                                        <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn
-                                            btn-danger">Remove<i class="fas fa-trash"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%}%>
-                        <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add
-                            Center</a>
->>>>>>> Stashed changes
 
         </div>
         <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>

@@ -64,12 +64,24 @@
     </div>
     <div class="container">
         <div class="list-group my-3">
+            <%if(center.reviews.length==0{) %> 
+                <div class="list-group-item list-group-item-action" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+
+                        <h5 class="mb-1 title">
+                            No reviews available yet !
+                        </h5>
+
+                        <small class="text-muted">Add a one now </small>
+
+                    </div>
+                    <% } %> 
             <% for(let review of center.reviews){ %>
                 <div class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
 
                         <h5 class="mb-1 title">
-                            Rating: <%=review.rating%>
+                            <%=review.title%>
                         </h5>
 
                         <small class="text-muted"><%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
