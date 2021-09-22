@@ -328,3 +328,13 @@ input[type='radio']:checked:after {
 .bs-d:hover{
     background-color:rgba(10, 122, 38, 0.404);
 }
+
+.goBtn {
+    box-shadow: inset 0 0 0 0 white;
+    transition: ease-out 0.3s;
+}
+
+.goBtn:hover {
+    color: black; 
+    box-shadow: inset 165.85px 0 0 0 white;
+}
