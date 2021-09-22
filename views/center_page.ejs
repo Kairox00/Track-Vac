@@ -12,13 +12,13 @@
                     
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Total Reviews
-                        <span class="badge bg-primary rounded-pill">
+                        <span class="badge rounded-pill" style="background-color: #000b2e;">
                             <%=center.reviews.length %>
                         </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Average Rating
-                        <span class="badge bg-primary rounded-pill">
+                        <span class="badge rounded-pill" style="background-color: #000b2e;">
                             <%=avgRating %>
                         </span>
                     </li>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="row justify-content-between align-items-center">
-            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary"><i class="fas fa-plus"></i><span style="padding-left: 4px">Add Review</span> </a>
+            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary" style="border:#000b2e; background-color: #000b2e;"><i class="fas fa-plus"></i><span style="padding-left: 4px">Add Review</span> </a>
             </div>
         </div>
 
@@ -64,7 +64,6 @@
     </div>
     <div class="container">
         <div class="list-group my-3">
-
             <%if(center.reviews.length==0){%> 
 
                 <div class="list-group-item list-group-item-action" aria-current="true">
@@ -74,18 +73,26 @@
                             No reviews available yet !
                         </h5>
 
-                        <small class="text-muted">Add a one now </small>
+                       
 
                     </div>
+                </div>
                     <% }%> 
             <% for(let review of center.reviews){ %>
                 <div class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1 title">
-                            <%=review.title%>
+
+                        <h5 class="mb-1 title mt-3">
+                             <%=review.title%>
                         </h5>
-                        <small class="text-muted">Rating: <%=review.rating %>/5 | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
+                        
+
+                        <small class="text-muted"><%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
+
                     </div>
+                    <p class="starability-result mt-2" data-rating=<%=review.rating%>>
+                       
+                      </p>
                     <p class="mb-1 subtitle">
                         <%=review.comment %>
                     </p>
@@ -100,11 +107,13 @@
                         </span>
                     </div> 
                 </div>
-                <%}%>
+                <% } %>
 
         </div>
     </div>
-
+    <script>
+        const center = <%- JSON.stringify(center) %>
+    </script>
     <script src='/mapConfig.js'></script>
 
     <%- include ("partials/footer") %>
