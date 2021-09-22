@@ -1,12 +1,12 @@
 <%- include ("partials/header") %>
     <div class="container-fluid centers">
-        <form id='filter' action='/centers' method='POST'>
+        <form id='filter' action='/<%= page == 'centers' ? 'centers' : 'chooseCenter' %>' method='POST'>
             <div class="container">
                 <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
              <div class="row align-items-center justify-content-start">
                <div class="col-md-12 col-lg-5">
                 <select id="govSelect" name="govSelect" onchange=getValue();
-                    class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example">
+                    class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example" required>
                     <option value="" disabled selected>
                         <%=gov%>
                     </option>
@@ -19,17 +19,17 @@
                </div>  
                <div class="col-md-12 col-lg-5">
                 <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3 mb-lg-0"
-                    aria-label=".form-select-sm example ">
+                    aria-label=".form-select-sm example" required >
                     <option value="" disabled selected>
                         <%=district%>
                     </option>
                 </select>
                </div> 
                <div class="col-3 col-lg-1">
-                <button class="btn btn-primary btn-sm" name="action" value="filter"><i class="fas fa-filter"></i>Filter</button>
+                <button class="btn btn-primary btn-sm" name="action" value="filter"><i style="padding-right: 5px;"class="fas fa-filter"></i>Filter</button>
                </div>
                <div class="col-2 col-lg-1">
-                <button class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove filters</button>
+                <button <%= filter == 'true' ?'':'hidden' %> class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove filters</button>
             </form>
                </div>
              </div> 
@@ -54,9 +54,10 @@
                                 <%=center.governorate%>
                             </p>
                             <div>
-                                <form action="/centers/:centerId?_method=DELETE" method="POST"  >
-                                    <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to center page</a>
+                                <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>" class="btn btn-primary"><%= page=='addReview' ? 'Choose Center' : 'View Center' %></a>
+                                <form action="/centers/<%=center._id%>?_method=DELETE" method="POST"  >
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>

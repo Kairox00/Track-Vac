@@ -122,7 +122,7 @@ app.get('/centers', catchAsync(async (req, res) => {
     const centers = await Center.find({});
     const gov = 'Select a governorate';
     const district='Select a district';
-    res.render('centers', { cityNames: cityNames, page: 'centers',centers,gov,district })
+    res.render('centers', { cityNames: cityNames, page: 'centers',centers,gov,district ,page:'centers',filter:'false'})
 }))
 
 //filtering
@@ -134,15 +134,15 @@ app.post('/centers', catchAsync(async (req, res, next) => {
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
     if(centers.length==0){
         req.flash('error',"Sorry, there is no centers available in this area");
-        res.render('centers', { cityNames: cityNames, centers,gov,district});
+        res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
     }
-    res.render('centers', { cityNames: cityNames, centers,gov,district});
+    res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
  }
  else{
      const gov = 'Select a governorate';
      const district='Select a district';
     const centers = await Center.find({});
-    res.render('centers',{ cityNames: cityNames, centers,gov,district});
+    res.render('centers',{ cityNames: cityNames, centers,gov,district, page:'centers', filter:'true'});
  }
 }))
 
@@ -167,7 +167,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
     const avgRating = Math.ceil(totalRating/totalReviews);
-    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind});
+    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind, page:'centers'});
 }))
 
 app.post('/centers/:centerId', (req, res) => {
@@ -192,6 +192,34 @@ app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
     const center=await Center.findById(req.params.centerId);
     res.render('addReview', { cityNames:cityNames ,page: "addReview", center: center})
 
+}))
+
+app.get('/chooseCenter', catchAsync(async (req, res) => {
+    const centers = await Center.find({});
+    const gov = 'Select a governorate';
+    const district='Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'addReview',centers,gov,district , filter:'false'})
+}))
+
+//filtering
+app.post('/chooseCenter', catchAsync(async (req, res, next) => {
+    if(req.body.action=='filter'){
+    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
+    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
+    const { govSelect, districtSelect } = req.body;
+    const centers = await Center.find({governorate: govSelect,district: districtSelect });
+    if(centers.length==0){
+        req.flash('error',"Sorry, there is no centers available in this area");
+        res.render('centers', { cityNames: cityNames, centers,gov,district});
+    }
+    res.render('centers', { cityNames: cityNames, centers,gov,district, page:'addReview', filter:'true'});
+ }
+ else{
+     const gov = 'Select a governorate';
+     const district='Select a district';
+    const centers = await Center.find({});
+    res.render('centers',{ cityNames: cityNames, centers,gov,district});
+ }
 }))
 
 //post review
