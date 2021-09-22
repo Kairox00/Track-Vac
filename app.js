@@ -13,7 +13,7 @@ const helper = require("./helper");
 const Center = require('./models/center');
 const Vaccinated = require('./models/vaccinated');
 const cities = require("./cities.json");
-const cityNames = helper.getCityNames();
+const cityNames = helper.getCityNames().sort();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken: mapBoxToken});
 const Review = require('./models/review');
@@ -155,55 +155,8 @@ app.delete('/centers/:centerId', (req,res)=>{
     })
 })
 
-// the center page fake route just for testing
-app.get('/center_page', (req, res) => {
-    res.render('center_page')
-})
 
-app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
-    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
-        if(err)
-            res.send(err);
-        else{
-            res.redirect('/modHome')
-        }
-            
-    })
-})
 
-app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
-    let centerId = req.params.centerId;
-    let review = Review.findById(req.params.reviewId,(err,review)=>{
-        if(err){
-            console.log(err);
-            res.send(err);
-        }  
-        else{
-            let upvotes = review.upvotes+1;
-            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
-            if(err){
-                console.log(err);
-                res.send(err);
-            }
-            else{
-                res.redirect('/centers/'+centerId);
-            }
-           
-    })
-        }
-    })
-   
-   
-})
-
-app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
-    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
-        if(err)
-            res.send(err);
-        else
-            res.redirect('/modHome')
-    })
-})
 
 //Create Review Page
 app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
@@ -231,6 +184,54 @@ app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, r
     
 }));
 
+//REPORTING
+app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
+        if(err)
+            res.send(err);
+        else{
+            res.redirect('/modHome')
+        }
+            
+    })
+})
+
+//UPVOTING
+app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
+    let centerId = req.params.centerId;
+    let review = Review.findById(req.params.reviewId,(err,review)=>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }  
+        else{
+            let upvotes = review.upvotes+1;
+            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
+            if(err){
+                console.log(err);
+                res.send(err);
+            }
+            else{
+                res.redirect('/centers/'+centerId);
+            }
+           
+    })
+        }
+    })
+   
+   
+})
+
+//DELETE REVIEW
+app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
+    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
+        if(err)
+            res.send(err);
+        else
+            res.redirect('/modHome')
+    })
+})
+
 //About Page
 app.get('/about', (req, res) => {
     res.render('about', { page: "about" })
@@ -240,18 +241,12 @@ app.get('/about', (req, res) => {
 // MODERATOR ROUTES
 //==================
 
-
+//MOD AUTH PAGE
 app.get('/mod', (req, res) => {
     res.render('moderator', { page: "moderator" })
 })
 
 app.post('/mod',
-    //   passport.authenticate('local',{failureRedirect:'/moderator'}),
-    //   function(req, res) {
-    //     // If this function gets called, authentication was successful.
-    //     // `req.user` contains the authenticated user.
-    //     res.redirect('/');
-    // }
     (req, res) => {
         if (req.body.authKey === "key") {
             req.session.user = 'mod';
@@ -259,27 +254,21 @@ app.post('/mod',
             res.redirect('/modHome')
         }
         else {
-            res.redirect('/moderator');
+            res.redirect('/mod');
         }
 
 
     }
 );
 
+//MOD HOME 
 app.get('/modHome', isMod ,async (req, res) => {
     const reviews = await Review.find({is_reported: true});
     // console.log(req.session.user);
     res.render('modHome', { page: "modHome" , reviews: reviews});
 })
 
-app.get('/reports', isMod ,(req, res) => {
-    res.render('reports', { page: "reports" });
-})
-
-app.get('/removeCenter', (req, res) => {
-    res.render('removeCenter', { cityNames: cityNames, helper: helper , page:"removeCenter"});
-})
-
+//ADD CENTER
 app.get('/addCenter', isMod ,(req, res) => {
     res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
 })
@@ -314,12 +303,26 @@ app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
     })
 })
 
+app.put('/centers/:centerId/ignore/:reviewId',(req,res)=>{
+    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: false},(err,review)=>{
+        if(err)
+            res.send(err);
+        else{
+            res.redirect('/modHome')
+        }
+            
+    })
+})
+
+
+//LOGOUT
 app.get('/modHome/logout',isMod,(req,res)=>{
     req.session.user = undefined;
     res.redirect('/');
 });
 
 
+//API
 app.get('/cities', (req, res) => {
     res.json(cities);
 })
@@ -330,6 +333,7 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render('error',{err})
 })
 
+//HELPER
 function isMod(req,res,next){
     if(req.session.user == 'mod')
         next();

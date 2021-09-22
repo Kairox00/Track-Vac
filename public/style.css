@@ -177,7 +177,7 @@ footer {
 }
 .rate:not(:checked) > input {
     position:absolute;
-    top:-9999px;
+    /* top:-9999px; */
 }
 .rate:not(:checked) > label {
     float:right;
@@ -252,7 +252,7 @@ input[type='radio']:checked:after {
 }
 
 .active{
-    color: red !important;
+    color: white !important;
     border-bottom: 2px solid white;
 }
 
@@ -312,3 +312,19 @@ input[type='radio']:checked:after {
 @media (min-width: 752px) and (max-width:980px) {  
     .card {width: 20rem; }
   }
+.bs{
+    background-color: rgba(255, 235, 205, 0);
+}
+
+.bs-s{
+    color: rgb(150, 3, 3);
+}
+.bs-d{
+    color:rgb(10, 122, 38);
+}
+.bs-s:hover{
+   background-color: rgba(150, 3, 3, 0.473);
+}
+.bs-d:hover{
+    background-color:rgba(10, 122, 38, 0.404);
+}

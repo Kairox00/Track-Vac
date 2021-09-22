@@ -1,13 +1,15 @@
 <%- include ("partials/header") %>
 
     <div class="container" style="width: 100%;">
+        <h1 style="font-weight: 300;"><b>
+            <%=center.name %>
+        </b></h1>
+    <hr>
         <div class="row justify-content-between align-items-end centerInfo">
-            <div class="col-md-4">
-                <h1 style="font-weight: 300;"><b>
-                        <%=center.name %>
-                    </b></h1>
-                <hr>
-                <ul class="list-group">
+            <div class="col-lg-4">
+             
+                <ul class="list-group mb-3">
+                    
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         Total Reviews
                         <span class="badge bg-primary rounded-pill">
@@ -48,10 +50,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4">
-                <img src="<%=center.image %> " class="rounded" style="height: 80%; width: 100%;" alt="">
-            </div>
-            <div id='map' class="col-md-3" style='width: 350px; height: 250px;'>
+            
+            <div id='map' class="col-lg-8 container-fluid" style='width:60%; height: 180px;'>
             </div>
         </div>
 
@@ -79,15 +79,15 @@
                         <%=review.comment %>
                     </p>
                     <div class="d-flex w-100 justify-content-between">
-                        <span>
-                            <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="far fa-flag"></i></button>
+                        <span class="d-flex w-100 gap-3 justify-content-end">
+                            <form   action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
+                                <button type="submit" class="btn btn-light bs-d"><i class="far fa-thumbs-up"></i> Upvote</button>
                             </form>
-                            <form action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn btn-success"><i class="far fa-thumbs-up"></i></button>
+                            <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
+                                <button type="submit" class="btn btn-light bs-s"><i class="far fa-flag"></i> report</button>
                             </form>
                         </span>
-                    </div>
+                    </div> 
                 </div>
                 <% } %>
 

@@ -36,20 +36,20 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="<%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link" aria-current="page" href="/modHome" id="modHome">Admin Home</a>
+                    <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" aria-current="page" href="/modHome" id="modHome">Admin Home</a>
                     </li>
-                    <li class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">
-                        <a class="nav-link" aria-current="page" href="/" id="home">Home</a>
+                    <li class="nav item">
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home">Home</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>">
-                        <a class="nav-link" href="/centers" id="allCenters">Center Reviews</a>
+                    <li class="nav-item">
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters">Center Reviews</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>">
-                        <a class="nav-link" href="/centers" id="write">Write Review</a>
+                    <li class="nav-item">
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/centers" id="write">Write Review</a>
                     </li>
-                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">
-                        <a class="nav-link" href="/about" id="aboutVac">About Vaccination</a>
+                    <li class="nav-item">
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac">About Vaccination</a>
                     </li>
                 </ul>
             </div>
