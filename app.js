@@ -196,7 +196,7 @@ app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
    
 })
 
-app.delete('/centers/:centerId/delete/:reviewId',(req,res)=>{
+app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
     Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);

@@ -39,7 +39,7 @@
                             </p>
                             <div>
                                 <a href="/centers/<%=center._id%>" class="btn btn-primary">Go to the center page</a>
-                                <form action="/centers/:centerId?_method=DELETE" method="POST"  >
+                                <form action="/centers/<%=center._id %>?_method=DELETE" method="POST"  >
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
                                 </form>
                             </div>
