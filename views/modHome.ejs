@@ -8,13 +8,13 @@
         <div class="row align-items-center justify-content-around ">
 
             <div class="col-8 ">
-                <div class="row box" style="background-color: #f5edfc; border-radius: 5px;">
+                <div class="row container" style="background-color: #3a4c64; border-radius: 5px; margin-bottom: 5px; padding-top: 20px;">
                     <a href="reports">
-                        <h2>You have <span>
+                        <h2 style="color: #f6fbef;">You have <span>
                                 <%= reviews.length %>
                             </span>Reported Reviews </h2>
                     </a>
-                    <div style="background-color: white; border-radius: 5px;">
+                    <div style="background-color: #f6fbef; border-radius: 5px; margin-bottom: 24px;">
                         <ul>
                             <%for(let review of reviews){ %>
                                 <li>
@@ -24,13 +24,21 @@
                                     <h4>
                                         <%= review.comment %>
                                     </h4>
-                                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE"
-                                        method="POST">
-                                        <button type="submit" class='btn btn-warning'>Remove Post</button>
-                                    </form>
-                                    <form action="/centers/<%= review.vaccination_center %>/ignore/<%= review._id %>?_method=PUT" method="POST">
-                                        <button type="submit" class='btn btn-dark'>Ignore</button>
-                                    </form>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col col-sm-auto">
+                                                <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" class='btn btn-warning'>Remove Post</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-sm-auto">
+                                                <form action="/centers/<%= review.vaccination_center %>/ignore/<%= review._id %>?_method=PUT" method="POST">
+                                                    <button type="submit" class='btn btn-dark'>Ignore</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
                                 </li>
                                 <hr>
                                 <% }%>
@@ -39,16 +47,19 @@
                     
                     
                 </div>
-                <button class="col-8 btn btn-info" >
-                    <a href="/modHome/logout">
-                        <span style="color: white">Logout</span>
-                    </a>
-                </button>
-                <button class="col-8 btn btn-info">
-                    <a href="/centers">
-                        <span style="color: white">Add or Remove Centers</span>
-                    </a>
-                </button>
+                <div class="row container justify-content-around">
+                    <button class="col-5 btn" style="background-color: #3a4c64;">
+                        <a href="/modHome/logout">
+                            <span style="color: white"><i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i> Logout</span>
+                        </a>
+                    </button>
+                    <button class="col-5 btn" style="background-color: #3a4c64; margin-left: 5px;">
+                        <a href="/centers">
+                            <span style="color: white">Add or Remove Centers</span>
+                        </a>
+                    </button>
+                </div>
+                
             </div>
         </div>
 
