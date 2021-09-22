@@ -28,6 +28,9 @@
                                         method="POST">
                                         <button type="submit" class='btn btn-warning'>Remove Post</button>
                                     </form>
+                                    <form action="/centers/<%= review.vaccination_center %>/ignore/<%= review._id %>?_method=PUT" method="POST">
+                                        <button type="submit" class='btn btn-dark'>Ignore</button>
+                                    </form>
                                 </li>
                                 <hr>
                                 <% }%>
