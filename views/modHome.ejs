@@ -8,7 +8,7 @@
         <div class="row align-items-center justify-content-around ">
 
             <div class="col-10 col-lg-8 ">
-                <div class="row container" style="background-color: #99a0a8a6; border-radius: 5px; margin-bottom: 5px; padding-top: 20px;">
+                <div class="row container" style="background-color:#66788ab2 ; border-radius: 5px; margin-bottom: 5px; padding-top: 20px;">
                     <a href="reports">
                         <h2 style="color: #f6fbef;">You have <span>
                                 <%= reviews.length %>
@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="col col-sm-auto mb-2">
                                                 <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
-                                                    <button type="submit" class='btn btn-dark ' style="background-color: #3A3556; border: #3A3556;">Remove Post</button>
+                                                    <button type="submit" class='btn btn-dark ' style="background-color: #000b2e; border: #000b2e;">Remove Post</button>
                                                 </form>
                                             </div>
                                             <div class="col-sm-auto">
@@ -48,12 +48,12 @@
                     
                 </div>
                 <div class="row container justify-content-around">
-                    <button class="col-5 btn" style="background-color: #99A0A8;">
+                    <button class="col-5 btn" style="background-color: #66788A;">
                         <a href="/modHome/logout">
                             <span style="color: white"><i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i> Logout</span>
                         </a>
                     </button>
-                    <button class="col-5 btn" style="background-color: #99A0A8; margin-left: 5px;">
+                    <button class="col-5 btn" style="background-color: #66788A; margin-left: 5px;">
                         <a href="/centers">
                             <span style="color: white">Add or Remove Centers</span>
                         </a>
