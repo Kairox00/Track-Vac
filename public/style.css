@@ -358,8 +358,19 @@ input[type='radio']:checked:after {
     box-shadow: inset 165.85px 0 0 0 white;
 }
 
+.goBtn2 {
+   /* opacity: 0; */
+    box-shadow: inset 0 0 0 0 white;
+    transition: ease-out 0.3s;
+}
+
+.goBtn2:hover {
+    color: black; 
+    box-shadow: inset -165.85px 0 0 0 white;
+}
+
 .addCenter {
-    margin: 30px;
+    margin-left: 30px;
 }
 .starability-result {
     position: relative;

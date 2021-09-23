@@ -39,6 +39,10 @@
 
 
     <div class="container">
+        <div>
+            <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-primary addCenter'><i
+                    class="fas fa-plus"></i> Add Center</a>
+        </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 align-items-center justify-content-evenly justify-content-sm-start">
             <% for(let center of centers){ %>
                 <div class="col">
@@ -56,7 +60,7 @@
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST"  >
                                     <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>" class="btn btn-primary goBtn"><%= page=='addReview' ? 'Choose Center' : 'View Center' %></a>
-                                    <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger"><i class="fas fa-trash"></i> Remove</button>
+                                    <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger goBtn2"><i class="fas fa-trash"></i> Remove</button>
                                 </form>
                             </div>
                         </div>
@@ -64,12 +68,8 @@
                 </div>
                 <%}%>
                 
-                <div class="col">
-                    <div>
-                          <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-primary addCenter'><i class="fas fa-plus"></i> Add Center</a>
-                    </div>
-                </div>
         </div>
+        
     </div>
 
     <%- include ("partials/footer") %>
