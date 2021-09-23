@@ -167,7 +167,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     }
     //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
-    const avgRating = Math.ceil(totalRating/totalReviews);
+    const avgRating = Math.round((totalRating/totalReviews)*10)/10;
     res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind, page:'centers'});
 }))
 
