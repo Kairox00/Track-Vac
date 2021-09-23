@@ -256,7 +256,8 @@ app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
         if(err)
             res.send(err);
         else{
-            res.redirect('/modHome')
+            req.flash('success','Review successfully reported');
+            res.redirect(`/centers/${req.params.centerId}`);
         }
             
     })
