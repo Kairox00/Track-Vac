@@ -231,19 +231,12 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
 app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
     console.log(vaccination_code);
-    Vaccinated.findOne({vaccination_code:vaccination_code},(err,user)=>{
-        if(err) 
-            console.log(err);
-        else{
-            console.log(user);
-            console.log(user.vaccination_code !== vaccination_code);
-             if(user == undefined || user.vaccination_code !== vaccination_code){
+    const user = await Vaccinated.find({vaccination_code:vaccination_code});
+    console.log(user.length);
+     if(user.length == 0){
                 req.flash('error','You must be vaccinated');
                 res.redirect(`/centers/${req.params.centerId}/addReview`);
             }
-        }
-
-    });
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
     req.body.review.vaccination_center = centerId;
