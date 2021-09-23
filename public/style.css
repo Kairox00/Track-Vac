@@ -334,17 +334,18 @@ input[type='radio']:checked:after {
 }
 
 .bs-s{
-    color: rgb(150, 3, 3);
+  color: #925D8A;
 }
 .bs-d{
-    color:rgb(10, 122, 38);
+    color:#000b2e;
 }
 .bs-s:hover{
-   background-color: rgba(150, 3, 3, 0.473);
+   background-color: #925d8a4f;
+   color: black;
 }
 .bs-d:hover{
-    background-color:rgba(10, 122, 38, 0.404);
-}
+  background-color: #000b2e3f;
+  color: black;
 
 .goBtn {
    /* opacity: 0; */
@@ -572,4 +573,14 @@ input[type='radio']:checked:after {
 .btn-danger:hover{
   background-color: #925d8a6b;
   color: black;
+}
+.btn-av{
+  background-color: #99A0A8;
+   border: #99A0A8;
+   color: white;
+}
+.btn-av:hover{
+  background-color: #99a0a875;
+   border: #99A0A8;
+   color: black;
 }
