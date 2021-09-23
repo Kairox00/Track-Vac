@@ -28,12 +28,12 @@
                                         <div class="row">
                                             <div class="col col-sm-auto mb-2">
                                                 <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
-                                                    <button type="submit" class='btn btn-dark ' style="background-color: #000b2e; border: #000b2e;">Remove Post</button>
+                                                    <button type="submit" class='btn btn-primary'>Remove Post</button>
                                                 </form>
                                             </div>
                                             <div class="col-sm-auto">
                                                 <form action="/centers/<%= review.vaccination_center %>/ignore/<%= review._id %>?_method=PUT" method="POST">
-                                                    <button type="submit" class='btn btn-dark'   style="background-color: #99A0A8; border: #99A0A8;">Ignore</button>
+                                                    <button type="submit" class='btn btn-av'>Ignore</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -50,7 +50,7 @@
                 <div class="row container justify-content-around">
                     <button class="col-5 btn" style="background-color: #66788A;">
                         <a href="/modHome/logout">
-                            <span style="color: white"><i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i> Logout</span>
+                            <span style="color: white" ><i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i> Logout</span>
                         </a>
                     </button>
                     <button class="col-5 btn" style="background-color: #66788A; margin-left: 5px;">
