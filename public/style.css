@@ -566,6 +566,6 @@ input[type='radio']:checked:after {
 }
 
 .btn-danger{
-  background-color: rgb(165, 14, 14);
-  border: rgb(139, 0, 0);
+  background-color: #925D8A;
+  border: #925D8A;
 }
