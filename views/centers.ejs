@@ -29,7 +29,7 @@
                 <button class="btn btn-primary btn-sm" name="action" value="filter"><i style="padding-right: 5px;"class="fas fa-filter"></i>Filter</button>
                </div>
                <div class="col-2 col-lg-1">
-                <button <%= filter == 'true' ?'':'hidden' %> class="btn btn-secondary btn-sm " name="action" value="removeFilter">Remove filters</button>
+                <a <%= filter == 'true' ?'':'hidden' %> class="btn btn-secondary btn-sm " href='/centers' value="removeFilter">Remove filters</a>
             </form>
                </div>
              </div> 
