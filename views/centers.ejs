@@ -54,8 +54,8 @@
                                 <%=center.governorate%> - <%=center.district %>
                             </p>
                             <div>
-                                <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>" class="btn btn-primary"><%= page=='addReview' ? 'Choose Center' : 'View Center' %></a>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST"  >
+                                    <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>" class="btn btn-primary goBtn"><%= page=='addReview' ? 'Choose Center' : 'View Center' %></a>
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger">Remove<i class="fas fa-trash"></i></button>
                                 </form>
                             </div>
@@ -65,13 +65,10 @@
                 <%}%>
                 <div class="col">
                     <div>
-                          <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-warning'>Add Center</a>
+                          <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-primary addCenter'>+ Add Center</a>
                     </div>
                 </div>
         </div>
-        
-        
-
     </div>
 
     <%- include ("partials/footer") %>
