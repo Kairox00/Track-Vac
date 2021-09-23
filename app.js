@@ -211,7 +211,7 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
     if(centers.length==0){
         req.flash('error',"Sorry, there is no centers available in this area");
-        res.render('centers', { cityNames: cityNames, centers,gov,district});
+        res.redirect('/chooseCenter');
     }
     res.render('centers', { cityNames: cityNames, centers,gov,district, page:'addReview', filter:'true'});
  }
