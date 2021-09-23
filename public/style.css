@@ -192,18 +192,18 @@ footer {
     content: '★ ';
 }
 .rate > input:checked ~ label {
-    color: #925D8A;    
+    color: #3A3556;    
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #925D8A;  
+    color: #3A3556;  
 }
 .rate > input:checked + label:hover,
 .rate > input:checked + label:hover ~ label,
 .rate > input:checked ~ label:hover,
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
-    color: #925D8A;
+    color: #3A3556;
 }
 
 input[type='radio']:after {
@@ -583,4 +583,20 @@ input[type='radio']:checked:after {
   background-color: #99a0a875;
    border: #99A0A8;
    color: black;
+}
+.btn-r{
+  background-color: #925D8A;
+  color:white;
+  border: #925D8A;
+
+}
+.btn-r:hover{
+  background-color: white;
+  color:black;
+  border: #925D8A;
+}
+.btn-r:active{
+  background-color: white;
+  color:black;
+  border: #925D8A;
 }
