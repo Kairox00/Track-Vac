@@ -328,7 +328,7 @@ app.get('/modHome', isMod ,async (req, res) => {
 
 //ADD CENTER
 app.get('/addCenter', isMod ,(req, res) => {
-    res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" });
+    res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" ,page:"centers"});
 })
 
 app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
