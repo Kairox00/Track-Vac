@@ -1,8 +1,8 @@
 <%- include ("partials/header") %>
     <div class="container-fluid centers">
-        <form id='filter' action='/<%= page == 'centers' ? 'centers' : 'chooseCenter' %>' method='POST'>
+        <form id='filter' action='/<%= page == 'centers' ? 'centers' : 'chooseCenter ' %>' method='POST'>
             <div class="container">
-                <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%=currentUser=='mod'? 'Add or Remove Centers': 'Available Centers' %></h1>
+                <h1 class="text-center title" style="margin-bottom: 1.5rem;"> <%= page == 'addReview' ? 'Choose Center' : currentUser == 'mod' ? 'Add or Remove Center' : 'Available Centers' %></h1>
              <div class="row align-items-center justify-content-start" >
                <div class="col-md-12 col-lg-5">
                 <select id="govSelect" name="govSelect" onchange=getValue();
