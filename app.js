@@ -134,7 +134,8 @@ app.post('/centers', catchAsync(async (req, res, next) => {
     const centers = await Center.find({governorate: govSelect,district: districtSelect });
     if(centers.length==0){
         req.flash('error',"Sorry, there is no centers available in this area");
-        res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
+        // res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
+        res.redirect('/centers')
     }
     res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
  }
@@ -225,9 +226,12 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
 //post review
 app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
-    const user = await Vaccinated.find({vaccination_code:vaccination_code,id_digits:id_digits});
+    console.log(vaccination_code);
+    const user = Vaccinated.find({vaccination_code:vaccination_code});
+    console.log(user);
     if(!user.length){
-        throw new ExpressError('You Must Be Vaccinated To Be Able To Add a Review',400);
+        req.flash('error','You must be vaccinated');
+        res.redirect(`/centers/${req.params.centerId}/addReview`);
     }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
