@@ -16,17 +16,23 @@
           <div class="mb-4">
             <label for="inp1" class="form-label fs-5">Enter the last 4 digits of your National ID number</label>
 
-            <input name="review[id_digits]" id="inp1" required class="form-control" type="text"
-              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id" >
+            <input name="review[id_digits]" id="inp1" required class="form-control" 
+              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id" type="number"min="0000" max="9999" >
             <div class="valid-feedback">valid</div>
+            <div class="invalid-feedback" id='vacCode'>
+              Please Enter the last 4 digits of your national ID!
+            </div>
           </div>
           <div class="mb-4">
 
             <label for="inp2" class="form-label fs-5">Enter your 20 digits Vaccination Code</label>
-            <input name="review[vaccination_code]" id=" inp2" required class="form-control" type="text"
+            <input name="review[vaccination_code]" id="vacCode" required class="form-control" type="number" min="10000000000000000000" max="99999999999999999999"
 
-              placeholder="registeration code" aria-label=" Write your vaccination code">
+              placeholder="registeration code" aria-label=" Write your vaccination code" >
             <div class="valid-feedback">valid</div>
+            <div class="invalid-feedback" id='vacCode'>
+              Please Enter a Valid 20 Digits code!
+            </div>
           </div>
           <h2 class="fs-4">Vaccination info</h2>
           <hr>
