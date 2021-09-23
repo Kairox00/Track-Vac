@@ -39,11 +39,12 @@
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" aria-current="page" href="/modHome" id="modHome">Admin Dash</a>
                     </li>
-                    <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters">Add or Remove Center</a>
-                    </li>
+                
                     <li class="nav item">
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home">Home</a>
+                    </li>
+                    <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters">Add or Remove Center</a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters">Center Reviews</a>
