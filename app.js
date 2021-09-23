@@ -167,7 +167,7 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     }
     //console.log(center.reviews)
     const totalReviews=center.reviews.length!=0?center.reviews.length:1;
-    const avgRating = Math.ceil(totalRating/totalReviews);
+    const avgRating = Math.round((totalRating/totalReviews)*10)/10;
     res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind, page:'centers'});
 }))
 
@@ -177,6 +177,10 @@ app.post('/centers/:centerId', (req, res) => {
 })
 
 app.delete('/centers/:centerId', (req,res)=>{
+    Review.deleteMany({vaccination_center: req.params.centerId}).then(
+       ()=> console.log('reviews deleted')
+    ).catch((err)=>{console.log(err)});
+
     Center.findByIdAndDelete(req.params.centerId, (err,center)=>{
         if(err)
             console.log(err);
@@ -227,12 +231,12 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
 app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
     const {id_digits,vaccination_code}=req.body.review;
     console.log(vaccination_code);
-    const user = Vaccinated.find({vaccination_code:vaccination_code});
-    console.log(user);
-    if(!user.length){
-        req.flash('error','You must be vaccinated');
-        res.redirect(`/centers/${req.params.centerId}/addReview`);
-    }
+    const user = await Vaccinated.find({vaccination_code:vaccination_code});
+    console.log(user.length);
+     if(user.length == 0){
+                req.flash('error','You must be vaccinated');
+                res.redirect(`/centers/${req.params.centerId}/addReview`);
+            }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
     req.body.review.vaccination_center = centerId;
@@ -341,7 +345,7 @@ app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
          image_url, req.body.image = result.secure_url;
          
     });
-
+    console.log('here');
     const geoData = await geocoder.forwardGeocode({
         query: req.body.address,
         limit: 1

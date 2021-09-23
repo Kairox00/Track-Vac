@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const VaccinatedSchema = new mongoose.Schema({
-    vaccination_code: Number,
-    id_digits: Number
+    vaccination_code: String,
+    id_digits: String
 })
 
 module.exports = mongoose.model("Vaccinated", VaccinatedSchema);
