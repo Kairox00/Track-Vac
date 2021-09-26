@@ -45,7 +45,7 @@ function map(array) {
 function loadDistricts() {
     let districts = getCityDistricts(value).sort();
     console.log("Districts [" + districts + "]");
-    districtDrop.innerHTML = '' + '<option value="" disabled selected>Select District</option>' + map(districts) + '';
+    districtDrop.innerHTML = '' + '<option value="" disabled selected>Select a district</option>' + map(districts) + '';
     // console.log("html " + districtDrop.innerHTML)
 }
 
