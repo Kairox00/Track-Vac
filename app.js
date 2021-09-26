@@ -289,13 +289,33 @@ app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
    
 })
 
-//DELETE REVIEW
-app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
+//DELETE REPORTED REVIEW
+app.delete('/centers/:centerId/deleteReport/:reviewId', isMod ,(req,res)=>{
+    
+
     Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
         if(err)
             res.send(err);
-        else
-            res.redirect('/modHome')
+        else{
+            req.flash('success','Review has been successfully deleted');
+            res.redirect('/modHome')      
+        }
+            
+    })
+})
+
+//DELETE REVIEW
+app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
+    
+
+    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
+        if(err)
+            res.send(err);
+        else{
+            req.flash('success','Review has been successfully deleted');
+            res.redirect(`/centers/${req.params.centerId}`);      
+        }
+            
     })
 })
 

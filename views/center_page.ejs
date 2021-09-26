@@ -80,6 +80,13 @@
                     <% }%> 
             <% for(let review of center.reviews){ %>
                 <div class="list-group-item list-group-item-action" aria-current="true">
+                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
+                        <button class="btn bs-s" type='submit'> 
+                            <i type='submit' class="far fa-times-circle"></i>
+                            Delete
+                        </button>
+                        
+                    </form>
                     <div class="d-flex w-100 justify-content-between">
 
                         <h5 class="mb-1 title mt-3">
@@ -87,8 +94,10 @@
                         </h5>
                         
 
-                        <small class="text-muted"><%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
-
+                        <small class="text-muted">
+                            <%=review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %>
+                             
+                        </small>
                     </div>
                     <p class="starability-result mt-2" data-rating=<%=review.rating%>>
                        
