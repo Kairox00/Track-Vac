@@ -94,10 +94,8 @@
                         </h5>
                         
 
-                        <small class="text-muted">
-                            <%=review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %>
-                             
-                        </small>
+                        <small class="text-muted"><%= review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
+
                     </div>
                     <p class="starability-result mt-2" data-rating=<%=review.rating%>>
                        
