@@ -80,7 +80,7 @@
                     <% }%> 
             <% for(let review of center.reviews){ %>
                 <div class="list-group-item list-group-item-action" aria-current="true">
-                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST">
+                    <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST" <%= currentUser == 'mod' ? '' : 'hidden' %>>
                         <button class="btn bs-s" type='submit'> 
                             <i type='submit' class="far fa-times-circle"></i>
                             Delete
