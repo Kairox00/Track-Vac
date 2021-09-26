@@ -576,6 +576,11 @@ input[type='radio']:checked:after {
   border:white;
   color: #000b2e;
 }
+.btn-warning:hover{
+  background-color: white;
+  border:white;
+  color: #000b2e;
+}
 
 .btn-danger{
   background-color: #925D8A;
