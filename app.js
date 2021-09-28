@@ -91,6 +91,8 @@ app.use((req,res,next)=>{
     next();
 });
 
+ app.locals.lang = 'En';
+
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
@@ -110,6 +112,16 @@ app.use((req, res, next) => {
 //===============
 // PUBLIC ROUTES
 //===============
+
+app.post('/ar',(req,res)=>{
+    app.locals.lang = 'Ar';
+    res.redirect('/');
+})
+
+app.post('/en',(req,res)=>{
+    app.locals.lang = 'En';
+    res.redirect('/');
+})
 
 //Home Page
 app.get('/', (req, res) => {
