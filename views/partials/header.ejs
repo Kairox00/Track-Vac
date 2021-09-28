@@ -22,6 +22,12 @@
     <nav class="navbar  fixed-top navbar-expand-lg navbar-dark " style="background-color: 
     #000b2e;">
         <div class="container-fluid">
+            <form action="/ar" method="POST">
+                <button type="submit"> Ar </button>
+            </form>
+            <form action="/en" method="POST">
+                <button type="submit"> En </button>
+            </form>
             <a class="navbar-brand m-0 p-0" href="/">
                 <p class=" fs-2 fw-bold m-0 p-0" style="color: #ffffff;">
                     <img src="/Images/logo2.png" alt="logo" width="80" height="70"
@@ -37,23 +43,23 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" aria-current="page" href="/modHome" id="modHome">Admin Dash</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" aria-current="page" href="/modHome" id="modHome"><%= lang=='En' ? 'Admin Dashboard' : 'لوحة تحكم المسؤول' %></a>
                     </li>
                 
                     <li class="nav item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home">Home</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
                     </li>
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters">Manage Centers</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters">Center Reviews</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "آراء المركز" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write">Write Review</a>
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب رأي" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac">About Vaccination</a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول التطعيم" %></a>
                     </li>
                 </ul>
             </div>
