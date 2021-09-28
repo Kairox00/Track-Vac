@@ -1,0 +1,54 @@
+<%- include ("partials/header") %>
+
+<div class="container">
+    <h1 class="text-center">Edit Center <%=center.name%> </h1>
+    <hr>
+    <form class="container-fluid" id='centerForm' action="/centers/editCenter/<%=center._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="row align-items-top justify-content-around d-flex justify-content-center box5">
+            <div class="col-7">
+                <div class="mb-4">
+                    <label for="in1" class="form-label fs-5">Name</label>
+                    <input id="in1" required="true" class="form-control" name='name' type="text" placeholder="Name" value="<%=center.name%>" >
+               </div>
+           
+               <div class="mb-4">
+                    <label for="image" class="form-label fs-5" >Select an image:</label>
+                    <input type="file" id="image" name="image" accept="image/*"  required value="<%=center.image%>" >
+              </div>
+        <div class="mb-4">
+            <label for="cityNames" class="form-label fs-5">Governorate</label>
+            <select name="governorate" required="true" id="govSelect" onchange=getValue(); class="form-select form-control" aria-label=".form-select-lg example" >
+                <option value="<%=center.governorate%>"  selected><%=center.governorate%></option>
+                <% for(let i=0; i<cityNames.length; i++) { %>
+                                <option value="<%=cityNames[i] %>"> <%= cityNames[i] %>
+                            </option>
+                    <% } %>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="districtNames" class="form-label fs-5">District</label>
+            <select name="district" id="districtSelect" class="form-select control " aria-label=".form-select-sm example">
+                <option  value="<%=center.district%>"  selected><%=center.district%></option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="in1" class="form-label fs-5">Address</label>
+            <input id="in1" required="true" class="form-control" name='address' type="text" placeholder="Address">
+        </div>
+        <div class="d-flex justify-content-center mb-4 " style="margin-top: 70px;">
+            <input type="submit" class="btn btn-lg btn-r " >
+        </div>
+
+        
+       </div>
+      </div>
+    </form>
+</div>
+
+   
+
+
+
+
+<%- include ("partials/footer") %>

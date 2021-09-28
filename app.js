@@ -15,16 +15,16 @@ const Vaccinated = require('./models/vaccinated');
 const cities = require("./cities.json");
 const cityNames = helper.getCityNames().sort();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const Review = require('./models/review');
 
 
 
 var multer = require('multer');
 var storage = multer.diskStorage({
-  filename: function(req, file, callback) {
-    callback(null, Date.now() + file.originalname);
-  }
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname);
+    }
 });
 var imageFilter = function (req, file, cb) {
     // accept image files only
@@ -33,13 +33,13 @@ var imageFilter = function (req, file, cb) {
     }
     cb(null, true);
 };
-var upload = multer({ storage: storage, fileFilter: imageFilter})
+var upload = multer({ storage: storage, fileFilter: imageFilter })
 
 var cloudinary = require('cloudinary');
-cloudinary.config({ 
-  cloud_name: 'kairox', 
-  api_key: 816413729133578, 
-  api_secret: 'AnB6_XzxXsAHWC75WYXTIrlGdHk'
+cloudinary.config({
+    cloud_name: 'kairox',
+    api_key: 816413729133578,
+    api_secret: 'AnB6_XzxXsAHWC75WYXTIrlGdHk'
 });
 
 
@@ -63,10 +63,10 @@ const catchAsync = require('./utils/catchAsync');
 const center = require('./models/center');
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
-    if (error && error.details.map(el => el.message).join(',')!='"review.Date" is not allowed') {
+    if (error && error.details.map(el => el.message).join(',') != '"review.Date" is not allowed') {
         var msg = error.details.map(el => el.message).join(',');
-        if(msg=='"review.vaccination_code" must be greater than or equal to 10000000000000000000'){
-            msg="Please Enter a valid 20 digits vaccination code"
+        if (msg == '"review.vaccination_code" must be greater than or equal to 10000000000000000000') {
+            msg = "Please Enter a valid 20 digits vaccination code"
         }
         throw new ExpressError(msg, 400)
     }
@@ -86,7 +86,7 @@ app.use(require("express-session")({
     saveUninitialized: true,
 }));
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.currentUser = req.session.user;
     next();
 });
@@ -104,7 +104,7 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 //===============
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
-    res.locals.error= req.flash('error');
+    res.locals.error = req.flash('error');
     next();
 })
 
@@ -133,54 +133,54 @@ app.get('/', (req, res) => {
 app.get('/centers', catchAsync(async (req, res) => {
     const centers = await Center.find({});
     const gov = 'Select a governorate';
-    const district='Select a district';
-    res.render('centers', { cityNames: cityNames, page: 'centers',centers,gov,district ,page:'centers',filter:'false'})
+    const district = 'Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'centers', centers, gov, district, page: 'centers', filter: 'false' })
 }))
 
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
-    if(req.body.action=='filter'){
-    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
-    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
-    const { govSelect, districtSelect } = req.body;
-    const centers = await Center.find({governorate: govSelect,district: districtSelect });
-    if(centers.length==0){
-        req.flash('error',"Sorry, there is no centers available in this area");
-        // res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
-        res.redirect('/centers')
+    if (req.body.action == 'filter') {
+        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
+        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
+        const { govSelect, districtSelect } = req.body;
+        const centers = await Center.find({ governorate: govSelect, district: districtSelect });
+        if (centers.length == 0) {
+            req.flash('error', "Sorry, there is no centers available in this area");
+            // res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
+            res.redirect('/centers')
+        }
+        res.render('centers', { cityNames: cityNames, centers, gov, district, filter: 'true', page: 'centers' });
     }
-    res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
- }
- else{
-     const gov = 'Select a governorate';
-     const district='Select a district';
-    const centers = await Center.find({});
-    res.render('centers',{ cityNames: cityNames, centers,gov,district, page:'centers', filter:'true'});
- }
+    else {
+        const gov = 'Select a governorate';
+        const district = 'Select a district';
+        const centers = await Center.find({});
+        res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'centers', filter: 'true' });
+    }
 }))
 
 //Center Page
 app.get('/centers/:centerId', catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
-    const center= await Center.findById(req.params.centerId).populate('reviews');
-    let totalRating =0;
-    let Crowded =0;
-    let notCrowded=0;
-    let easyToFind=0
-    let notEasyToFind=0;
-    let easyToGetVaccinated=0;
-    let noteasyToGetVaccinated=0;
-    for(let review of center.reviews){
-        if(review.rating)
-            totalRating+=review.rating;
-        if(review.is_easy_to_find==true) easyToFind++;else notEasyToFind++
-        if(review.is_crowded==true) Crowded++;else notCrowded++
-        if(review.is_easy_to_get_vaccinated) easyToGetVaccinated++;else noteasyToGetVaccinated++
+    const center = await Center.findById(req.params.centerId).populate('reviews');
+    let totalRating = 0;
+    let Crowded = 0;
+    let notCrowded = 0;
+    let easyToFind = 0
+    let notEasyToFind = 0;
+    let easyToGetVaccinated = 0;
+    let noteasyToGetVaccinated = 0;
+    for (let review of center.reviews) {
+        if (review.rating)
+            totalRating += review.rating;
+        if (review.is_easy_to_find == true) easyToFind++; else notEasyToFind++
+        if (review.is_crowded == true) Crowded++; else notCrowded++
+        if (review.is_easy_to_get_vaccinated) easyToGetVaccinated++; else noteasyToGetVaccinated++
     }
     //console.log(center.reviews)
-    const totalReviews=center.reviews.length!=0?center.reviews.length:1;
-    const avgRating = Math.round((totalRating/totalReviews)*10)/10;
-    res.render('center_page',{center,avgRating,Crowded,notCrowded,easyToGetVaccinated,noteasyToGetVaccinated,notEasyToFind,easyToFind, page:'centers'});
+    const totalReviews = center.reviews.length != 0 ? center.reviews.length : 1;
+    const avgRating = Math.round((totalRating / totalReviews) * 10) / 10;
+    res.render('center_page', { center, avgRating, Crowded, notCrowded, easyToGetVaccinated, noteasyToGetVaccinated, notEasyToFind, easyToFind, page: 'centers' });
 }))
 
 app.post('/centers/:centerId', (req, res) => {
@@ -188,13 +188,13 @@ app.post('/centers/:centerId', (req, res) => {
     res.render('center_page')
 })
 
-app.delete('/centers/:centerId', (req,res)=>{
-    Review.deleteMany({vaccination_center: req.params.centerId}).then(
-       ()=> console.log('reviews deleted')
-    ).catch((err)=>{console.log(err)});
+app.delete('/centers/:centerId', (req, res) => {
+    Review.deleteMany({ vaccination_center: req.params.centerId }).then(
+        () => console.log('reviews deleted')
+    ).catch((err) => { console.log(err) });
 
-    Center.findByIdAndDelete(req.params.centerId, (err,center)=>{
-        if(err)
+    Center.findByIdAndDelete(req.params.centerId, (err, center) => {
+        if (err)
             console.log(err);
         else
             res.redirect('/centers')
@@ -202,132 +202,110 @@ app.delete('/centers/:centerId', (req,res)=>{
 })
 
 
-
-
 //Create Review Page
-app.get('/centers/:centerId/addReview', catchAsync(async(req, res) => {
-    const center=await Center.findById(req.params.centerId);
-    res.render('addReview', { cityNames:cityNames ,page: "addReview", center: center})
+app.get('/centers/:centerId/addReview', catchAsync(async (req, res) => {
+    const center = await Center.findById(req.params.centerId);
+    res.render('addReview', { cityNames: cityNames, page: "addReview", center: center })
 
 }))
 
 app.get('/chooseCenter', catchAsync(async (req, res) => {
     const centers = await Center.find({});
     const gov = 'Select a governorate';
-    const district='Select a district';
-    res.render('centers', { cityNames: cityNames, page: 'addReview',centers,gov,district , filter:'false'})
+    const district = 'Select a district';
+    res.render('centers', { cityNames: cityNames, page: 'addReview', centers, gov, district, filter: 'false' })
 }))
 
 //filtering
 app.post('/chooseCenter', catchAsync(async (req, res, next) => {
-    if(req.body.action=='filter'){
-    const gov = req.body.govSelect?req.body.govSelect:'Select a governorate ';
-    const district = req.body.districtSelect?req.body.districtSelect:'Select a district';
-    const { govSelect, districtSelect } = req.body;
-    const centers = await Center.find({governorate: govSelect,district: districtSelect });
-    if(centers.length==0){
-        req.flash('error',"Sorry, there is no centers available in this area");
-        res.redirect('/chooseCenter');
+    if (req.body.action == 'filter') {
+        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
+        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
+        const { govSelect, districtSelect } = req.body;
+        const centers = await Center.find({ governorate: govSelect, district: districtSelect });
+        if (centers.length == 0) {
+            req.flash('error', "Sorry, there is no centers available in this area");
+            res.redirect('/chooseCenter');
+        }
+        res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'addReview', filter: 'true' });
     }
-    res.render('centers', { cityNames: cityNames, centers,gov,district, page:'addReview', filter:'true'});
- }
- else{
-     const gov = 'Select a governorate';
-     const district='Select a district';
-    const centers = await Center.find({});
-    res.render('centers',{ cityNames: cityNames, centers,gov,district});
- }
+    else {
+        const gov = 'Select a governorate';
+        const district = 'Select a district';
+        const centers = await Center.find({});
+        res.render('centers', { cityNames: cityNames, centers, gov, district });
+    }
 }))
 
 //post review
-app.post('/centers/:centerId/addReview',validateReview, catchAsync(async (req, res, next) => {
-    const {id_digits,vaccination_code}=req.body.review;
+app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, res, next) => {
+    const { id_digits, vaccination_code } = req.body.review;
     console.log(vaccination_code);
-    const user = await Vaccinated.find({vaccination_code:vaccination_code});
+    const user = await Vaccinated.find({ vaccination_code: vaccination_code });
     console.log(user.length);
-     if(user.length == 0){
-                req.flash('error','You must be vaccinated');
-                res.redirect(`/centers/${req.params.centerId}/addReview`);
-            }
+    if (user.length == 0) {
+        req.flash('error', 'You must be vaccinated');
+        res.redirect(`/centers/${req.params.centerId}/addReview`);
+    }
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
     req.body.review.vaccination_center = centerId;
     // console.log(req.body.review);
-    const addedReview=await new Review(req.body.review);
+    const addedReview = await new Review(req.body.review);
     center.reviews.push(addedReview);
     await addedReview.save();
     await center.save();
-    req.flash('success','Review added successfully !')
+    req.flash('success', 'Review added successfully !')
     res.redirect(`/centers/${center._id}`);
-    
+
 }));
 
 //REPORTING
-app.put('/centers/:centerId/report/:reviewId',(req,res)=>{
-    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: true},(err,review)=>{
-        if(err)
+app.put('/centers/:centerId/report/:reviewId', (req, res) => {
+    Review.findByIdAndUpdate(req.params.reviewId, { is_reported: true }, (err, review) => {
+        if (err)
             res.send(err);
-        else{
-            req.flash('success','Review successfully reported');
+        else {
+            req.flash('success', 'Review successfully reported');
             res.redirect(`/centers/${req.params.centerId}`);
         }
-            
+
     })
 })
 
 //UPVOTING
-app.put('/centers/:centerId/upvote/:reviewId',(req,res)=>{
+app.put('/centers/:centerId/upvote/:reviewId', (req, res) => {
     let centerId = req.params.centerId;
-    let review = Review.findById(req.params.reviewId,(err,review)=>{
-        if(err){
+    let review = Review.findById(req.params.reviewId, (err, review) => {
+        if (err) {
             console.log(err);
             res.send(err);
-        }  
-        else{
-            let upvotes = review.upvotes+1;
-            Review.findByIdAndUpdate(req.params.reviewId,{upvotes: upvotes}, (err, review)=>{
-            if(err){
-                console.log(err);
-                res.send(err);
-            }
-            else{
-                res.redirect('/centers/'+centerId);
-            }
-           
-    })
+        }
+        else {
+            let upvotes = review.upvotes + 1;
+            Review.findByIdAndUpdate(req.params.reviewId, { upvotes: upvotes }, (err, review) => {
+                if (err) {
+                    console.log(err);
+                    res.send(err);
+                }
+                else {
+                    res.redirect('/centers/' + centerId);
+                }
+
+            })
         }
     })
-   
-   
-})
 
-//DELETE REPORTED REVIEW
-app.delete('/centers/:centerId/deleteReport/:reviewId', isMod ,(req,res)=>{
-    
 
-    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
-        if(err)
-            res.send(err);
-        else{
-            req.flash('success','Review has been successfully deleted');
-            res.redirect('/modHome')      
-        }
-            
-    })
 })
 
 //DELETE REVIEW
-app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
-    
-
-    Review.findByIdAndDelete(req.params.reviewId,(err,review)=>{
-        if(err)
+app.delete('/centers/:centerId/delete/:reviewId', isMod, (req, res) => {
+    Review.findByIdAndDelete(req.params.reviewId, (err, review) => {
+        if (err)
             res.send(err);
-        else{
-            req.flash('success','Review has been successfully deleted');
-            res.redirect(`/centers/${req.params.centerId}`);      
-        }
-            
+        else
+            res.redirect('/modHome')
     })
 })
 
@@ -335,6 +313,7 @@ app.delete('/centers/:centerId/delete/:reviewId', isMod ,(req,res)=>{
 app.get('/about', (req, res) => {
     res.render('about', { page: "about" })
 })
+
 
 //==================
 // MODERATOR ROUTES
@@ -361,22 +340,23 @@ app.post('/mod',
 );
 
 //MOD HOME 
-app.get('/modHome', isMod ,async (req, res) => {
-    const reviews = await Review.find({is_reported: true});
+app.get('/modHome', isMod, async (req, res) => {
+    const reviews = await Review.find({ is_reported: true });
     // console.log(req.session.user);
-    res.render('modHome', { page: "modHome" , reviews: reviews});
+    res.render('modHome', { page: "modHome", reviews: reviews });
 })
+
 
 //ADD CENTER
-app.get('/addCenter', isMod ,(req, res) => {
-    res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter" ,page:"centers"});
+app.get('/addCenter', isMod, (req, res) => {
+    res.render('addCenter', { cityNames: cityNames, helper: helper, page: "addCenter", page: "centers" });
 })
 
-app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
-    var image_url="";
-    await cloudinary.uploader.upload(req.file.path, function(result) {
-         image_url, req.body.image = result.secure_url;
-         
+app.post('/addCenter', isMod, upload.single('image'), async (req, res) => {
+    var image_url = "";
+    await cloudinary.uploader.upload(req.file.path, function (result) {
+        image_url, req.body.image = result.secure_url;
+
     });
     console.log('here');
     const geoData = await geocoder.forwardGeocode({
@@ -388,7 +368,7 @@ app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
         image: req.body.image,
         governorate: req.body.governorate,
         district: req.body.district
-        ,address: geoData.body.features[0].geometry
+        , address: geoData.body.features[0].geometry
     }
     Center.create(newCenter, (err, newlyCreated) => {
         if (err) {
@@ -401,21 +381,50 @@ app.post('/addCenter', isMod ,upload.single('image'), async (req, res) => {
 
     })
 })
+//edit center
+app.get('/centers/:centerId/editCenter', catchAsync(async (req, res) => {
+    const center = await Center.findById(req.params.centerId);
+    res.render('editCenter', { cityNames: cityNames, helper: helper, page: "addCenter", page: "centers", center })
+}))
+app.put('/centers/editCenter/:centerId', isMod, upload.single('image'), catchAsync(async (req, res) => {
+    var image_url = "";
+    await cloudinary.uploader.upload(req.file.path, function (result) {
+        image_url, req.body.image = result.secure_url;
 
-app.put('/centers/:centerId/ignore/:reviewId',(req,res)=>{
-    Review.findByIdAndUpdate(req.params.reviewId,{is_reported: false},(err,review)=>{
-        if(err)
+    });
+
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.address,
+        limit: 1
+    }).send()
+
+    var editedCenter = {
+        name: req.body.name,
+        image: req.body.image,
+        governorate: req.body.governorate,
+        district: req.body.district
+        , address: geoData.body.features[0].geometry
+    }
+    const center = await Center.findByIdAndUpdate(req.params.centerId, { ...editedCenter });
+    await center.save();
+    req.flash('Success', 'Successfully updated center!');
+    res.redirect(`/centers/${center._id}`);
+}))
+
+app.put('/centers/:centerId/ignore/:reviewId', (req, res) => {
+    Review.findByIdAndUpdate(req.params.reviewId, { is_reported: false }, (err, review) => {
+        if (err)
             res.send(err);
-        else{
+        else {
             res.redirect('/modHome')
         }
-            
+
     })
 })
 
 
 //LOGOUT
-app.get('/modHome/logout',isMod,(req,res)=>{
+app.get('/modHome/logout', isMod, (req, res) => {
     req.session.user = undefined;
     res.redirect('/');
 });
@@ -426,20 +435,20 @@ app.get('/cities', (req, res) => {
     res.json(cities);
 })
 
-app.use((err,req,res,next)=>{
-    const {message='Something went wrong',statusCode=500}=err;
-    if(!err.message) err.message='Oh No, Something Went Wrong!'
-    res.status(statusCode).render('error',{err})
+app.use((err, req, res, next) => {
+    const { message = 'Something went wrong', statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
 })
 
 //HELPER
-function isMod(req,res,next){
-    if(req.session.user == 'mod')
+function isMod(req, res, next) {
+    if (req.session.user == 'mod')
         next();
-    else{
+    else {
         res.redirect('/mod');
     }
-        
+
 }
 
 app.listen(port, () => {
