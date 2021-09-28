@@ -616,6 +616,26 @@ input[type='radio']:checked:after {
   color:black;
   border: #925D8A;
 }
-.al{
-  text-align: right;
+
+
+.fst {
+  margin-left: 15px;
 }
+
+.langBtn {
+  text-decoration: none;
+  background: #000b2e;
+  color: #925D8A;
+  border: none;
+  box-shadow: none;
+}
+
+.newActive {
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.589);
+}
+
+.arabicLang {
+  font-family: 'Cairo', 'Be Vietnam Pro';
+}
+
