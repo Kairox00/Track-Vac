@@ -616,3 +616,6 @@ input[type='radio']:checked:after {
   color:black;
   border: #925D8A;
 }
+.al{
+  text-align: right;
+}
