@@ -1,7 +1,6 @@
 <%- include ("partials/header") %>
   <div class="container">
-    <h3 class="text-center title">Write a Review to help others find the best place and the best service to get
-      vaccinated
+    <h3 class="text-center title"><%= lang=='En' ? 'Write a Review to help others find the best place and the best service to get vaccinated' : "اكتب تعليقًا لمساعدة الآخرين في العثور على أفضل مكان وأفضل خدمة للتطعيم" %>
     </h3>
     <hr>
 
@@ -10,14 +9,14 @@
       <div class="row align-items-top justify-content-around box2">
         <div class="col-13 col-lg-5">
 
-          <h2 class="fs-4 subtitle">Verify that you are vaccinated</h2>
+          <h2 class="fs-4 subtitle"><%= lang=='En' ? 'Verify that you are vaccinated' : "تأكد من تلقيحك" %></h2>
           <hr>
 
           <div class="mb-4">
-            <label for="inp1" class="form-label fs-5">Enter the last 4 digits of your National ID number</label>
+            <label for="inp1" class="form-label fs-5"><%= lang=='En' ? 'Enter the last 4 digits of your National ID number' : "أدخل آخر 4 أرقام من رقم الهوية الوطنية الخاص بك" %></label>
 
             <input name="review[id_digits]" id="inp1" required class="form-control" 
-              placeholder=" last 4 digits of your national id" aria-label=" last 4 digits of your national id"type="text" minlength="4" maxlength="4" >
+              placeholder= '<%= lang == 'En' ? " Last 4 digits of your National ID" : 'آخر أرقام  من  بطاقة  الهوية  الوطنية  الخاصة  بك' %>' aria-label=" last 4 digits of your national id"type="text" minlength="4" maxlength="4" >
             <div class="valid-feedback">valid</div>
             <div class="invalid-feedback" id='vacCode'>
               Please Enter the last 4 digits of your national ID!
@@ -25,21 +24,21 @@
           </div>
           <div class="mb-4">
 
-            <label for="inp2" class="form-label fs-5">Enter your 20 digits Vaccination Code</label>
+            <label for="inp2" class="form-label fs-5"><%= lang=='En' ? 'Enter your 20 digits Vaccination Code' : "أدخل رمز التطعيم المكون من 20 رقمًا" %></label>
             <input name="review[vaccination_code]" id="vacCode" required class="form-control" type="text" minlength="20" maxlength="20"
 
-              placeholder="registeration code" aria-label=" Write your vaccination code" >
+              placeholder='<%= lang == 'En' ? " Registration Code" : 'رقم التسجيل' %>' aria-label=" Write your vaccination code" >
             <div class="valid-feedback">valid</div>
             <div class="invalid-feedback" id='vacCode'>
               Please Enter a Valid 20 Digits code!
             </div>
           </div>
-          <h2 class="fs-4">Vaccination info</h2>
+          <h2 class="fs-4"><%= lang=='En' ? 'Vaccination info' : "معلومات التطعيم" %></h2>
           <hr>
           <div class="mb-4">
-            <label for="exampleDataList" class="form-label fs-5">Vaccine</label>
+            <label for="exampleDataList" class="form-label fs-5"><%= lang=='En' ? 'Vaccine' : "لقاح" %></label>
             <input name="review[vaccine]" class="form-control" required list="datalistOptions4"
-              id="exampleDataList4" placeholder="Type to search...">
+              id="exampleDataList4" placeholder="<%= lang == 'En' ? " Type to Search..." : 'اكتب اسم لقاح' %>">
             <datalist id="datalistOptions4">
               <option value="AstraZeneca">
               <option value="Sinovac">
@@ -50,9 +49,9 @@
             <div class="valid-feedback">valid</div>
           </div>
           <div class=" mb-4">
-            <label for="date1" class="form-label fs-5">Vaccination Date</label>
+            <label for="date1" class="form-label fs-5"><%= lang=='En' ? 'Vaccination Date' : "تاريخ التطعيم" %></label>
             <input name="review[Date]" type="date" required class="form-control" placeholder="dd/mm/yyyy"
-              aria-label="Vaccination date" id="date1">
+              aria-label="Vaccination Date" id="date1">
             <div class="valid-feedback">valid</div>
           </div>
         </div>
@@ -60,15 +59,15 @@
         <div class="col-13 col-lg-5 ">
     
 
-          <h2 class="fs-4 subtitle">Review</h2>
+          <h2 class="fs-4 subtitle"><%= lang=='En' ? 'Review' : "تقييم" %></h2>
           <hr>
           <div class=" mb-4">
-            <h4 class=" form-label fs-5">Was the center crowded?</h4>
+            <h4 class=" form-label fs-5"><%= lang=='En' ? 'Was the center crowded?' : "هل كان المركز مزدحمًا؟" %></h4>
             <div class="form-check">
               <input  class="form-check-input" required  type="radio"
                 name="review[is_crowded]" id="flexRadioDefault1" checked value="true">
               <label class="form-check-label" for="flexRadioDefault1">
-                Yes
+                <%= lang=='En' ? 'Yes' : "نعم" %>
               </label>
               <div class="valid-feedback">valid</div>
             </div>
@@ -76,18 +75,18 @@
               <input class="form-check-input" type="radio" name="review[is_crowded]"
                 id="flexRadioDefault2" value="false">
               <label class="form-check-label" for="flexRadioDefault2">
-                No
+                <%= lang=='En' ? 'No' : "لا" %>
               </label>
               <div class="valid-feedback">valid</div>
             </div>
           </div>
           <div class=" mb-4">
-            <h4 class=" form-label fs-5">Was it easy for you to get vaccinated as soon as you arrived?</h4>
+            <h4 class=" form-label fs-5"><%= lang=='En' ? 'Was it easy for you to get vaccinated as soon as you arrived?' : "هل كان من السهل عليك التطعيم بمجرد وصولك؟" %></h4>
             <div class="form-check">
               <input class="form-check-input" type="radio"
               name="review[is_easy_to_get_vaccinated]" id="flexRadioDefault11" checked value="true">
               <label class="form-check-label" for="flexRadioDefault11">
-                Yes
+                <%= lang=='En' ? 'Yes' : "نعم" %>
               </label>
               <div class="valid-feedback">valid</div>
             </div>
@@ -95,18 +94,18 @@
               <input class="form-check-input" type="radio"
                 name="review[is_easy_to_get_vaccinated]" id="flexRadioDefault21" value="false">
               <label class="form-check-label" for="flexRadioDefault21">
-                No
+                <%= lang=='En' ? 'No' : "لا" %>
               </label>
               <div class="valid-feedback">valid</div>
             </div>
           </div>
           <div class=" mb-4">
-            <h4 class=" form-label fs-5">Was it easy to find this center?</h4>
+            <h4 class=" form-label fs-5"><%= lang=='En' ? 'Was it easy to find this center?' : "هل كان من السهل العثور على هذا المركز؟" %></h4>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="review[is_easy_to_find]"
                 id="flexRadioDefault12" checked value="true">
               <label class="form-check-label" for="flexRadioDefault12">
-                Yes
+                <%= lang=='En' ? 'Yes' : "نعم" %>
               </label>
               <div class="valid-feedback">valid</div>
             </div>
@@ -114,26 +113,25 @@
               <input class="form-check-input" type="radio" name="review[is_easy_to_find]"
                 id="flexRadioDefault22" value="false">
               <label class="form-check-label" for="flexRadioDefault22">
-                No
+                <%= lang=='En' ? 'No' : "لا" %>
               </label>
               <!-- <div class="valid-feedback">valid</div> -->
             </div>
 
           </div>
           <div class="mb-4">
-            <label for="exampleFormControlTextarea2" class="form-label fs-4" style="color: #925D8A;">Review Title</label>
+            <label for="exampleFormControlTextarea2" class="form-label fs-4" style="color: #925D8A;"><%= lang=='En' ? 'Review Title' : "عنوان التقييم" %></label>
             <textarea name="review[title]" class="form-control" id="exampleFormControlTextarea2" rows="1"required></textarea>
             <div class="valid-feedback">valid</div>
           </div>
           <div class="mb-4">
-            <label for="exampleFormControlTextarea1" class="form-label fs-4" style="color: #925D8A;">Leave a
-              comment</label>
+            <label for="exampleFormControlTextarea1" class="form-label fs-4" style="color: #925D8A;"><%= lang=='En' ? 'Leave a comment' : "اترك تعليقا" %></label>
             <textarea name="review[comment]" class="form-control" id="exampleFormControlTextarea1" rows="3"required></textarea>
             <div class="valid-feedback">valid</div>
           </div>
           <div class=" row">
             <div class="mb-4">
-              <h4 class="form-label fs-4" style="color: #925D8A;">Rate your experience</h4>
+              <h4 class="form-label fs-4" style="color: #925D8A;"><%= lang=='En' ? 'Rate your experience' : "قيم تجربتك" %></h4>
               <div class="rate ">
                 <input hidden  type="radio" id="star5" name="review[rating]" value="5" />
                 <label for="star5" title="text">5 stars</label>
@@ -151,7 +149,7 @@
           </div>
 
           <div class="d-flex justify-content-end mb-4 ">
-            <button class="btn btn-lg  btn-r ">Submit</button>
+            <button class="btn btn-lg  btn-r "><%= lang=='En' ? 'Submit' : "إرسال" %></button>
           </div>
         </div>
       </div>
