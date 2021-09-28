@@ -91,7 +91,7 @@ app.use((req, res, next) => {
     next();
 });
 
- app.locals.lang = 'En';
+app.locals.lang = 'En';
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {

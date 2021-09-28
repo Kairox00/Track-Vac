@@ -1,7 +1,7 @@
 <%- include ("partials/header") %>
 
 <div class="container">
-    <h1 class="text-center">Edit Center <%=center.name%> </h1>
+    <h1 class="text-center">Edit Center: <%=center.name%> </h1>
     <hr>
     <form class="container-fluid" id='centerForm' action="/centers/editCenter/<%=center._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="row align-items-top justify-content-around d-flex justify-content-center box5">
