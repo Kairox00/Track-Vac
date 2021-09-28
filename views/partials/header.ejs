@@ -53,14 +53,29 @@
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "آراء المركز" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Center Reviews' : "تقييمات المركز" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب رأي" %></a>
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول التطعيم" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
                     </li>
+                   
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%= lang=='En' ? 'Language' : "اللغة" %>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="language">
+                        <li><form action="/en" method="POST">
+                            <button class="dropdown-item " type="submit"> English </button>
+                        </form></li>
+                        <li><form action="/ar" method="POST">
+                            <button class="dropdown-item" type="submit"> عربى </button>
+                        </form></li>
+                      </ul>
+                    </li>
+                   
                 </ul>
             </div>
         </div>
