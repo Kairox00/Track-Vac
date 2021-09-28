@@ -617,6 +617,7 @@ input[type='radio']:checked:after {
   border: #925D8A;
 }
 
+
 .fst {
   margin-left: 15px;
 }
@@ -637,3 +638,4 @@ input[type='radio']:checked:after {
 .arabicLang {
   font-family: 'Cairo', 'Be Vietnam Pro';
 }
+
