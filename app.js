@@ -133,16 +133,26 @@ app.get('/', (req, res) => {
 //Choose Center Page
 app.get('/centers', catchAsync(async (req, res) => {
     const centers = await Center.find({});
-    const gov = 'Select a governorate';
-    const district = 'Select a district';
+    const gov = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة";
+    const district = app.locals.lang === 'En' ? 'Select a District' : "اختر المنطقة";
     res.render('centers', { cityNames: cityNames, page: 'centers', centers, gov, district, page: 'centers', filter: 'false' })
 }))
 
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
+    console.log(req.body.govSelect);
     if (req.body.action == 'filter') {
-        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
-        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
+        let govName ='govname'
+        if(req.body.govSelect){
+            //   govName = req.body.govSelect;
+              if(app.locals.lang === 'Ar')
+                govName = helper.getArabicNameGov(govName);
+        }
+         else{
+             govName = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة"
+         } 
+        const gov = govName;
+        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a District';
         const { govSelect, districtSelect } = req.body;
         const centers = await Center.find({ governorate: govSelect, district: districtSelect });
         if (centers.length == 0) {
@@ -153,8 +163,8 @@ app.post('/centers', catchAsync(async (req, res, next) => {
         res.render('centers', { cityNames: cityNames, centers, gov, district, filter: 'true', page: 'centers' });
     }
     else {
-        const gov = 'Select a governorate';
-        const district = 'Select a district';
+        const gov = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة";
+        const district = app.locals.lang === 'En' ? 'Select a District' : "اختر المنطقة";
         const centers = await Center.find({});
         res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'centers', filter: 'true' });
     }
@@ -212,16 +222,16 @@ app.get('/centers/:centerId/addReview', catchAsync(async (req, res) => {
 
 app.get('/chooseCenter', catchAsync(async (req, res) => {
     const centers = await Center.find({});
-    const gov = 'Select a governorate';
-    const district = 'Select a district';
+    const gov = 'Select a Governorate';
+    const district = 'Select a District';
     res.render('centers', { cityNames: cityNames, page: 'addReview', centers, gov, district, filter: 'false' })
 }))
 
 //filtering
 app.post('/chooseCenter', catchAsync(async (req, res, next) => {
     if (req.body.action == 'filter') {
-        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
-        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
+        const gov = req.body.govSelect ? req.body.govSelect : 'Select a Governorate ';
+        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a District';
         const { govSelect, districtSelect } = req.body;
         const centers = await Center.find({ governorate: govSelect, district: districtSelect });
         if (centers.length == 0) {
@@ -231,8 +241,8 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
         res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'addReview', filter: 'true' });
     }
     else {
-        const gov = 'Select a governorate';
-        const district = 'Select a district';
+        const gov = 'Select a Governorate';
+        const district = 'Select a District';
         const centers = await Center.find({});
         res.render('centers', { cityNames: cityNames, centers, gov, district });
     }

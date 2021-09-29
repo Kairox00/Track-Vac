@@ -47,7 +47,7 @@ function getArabicNameGov(govName){
     }
 }
 
-console.log(getArabicNameDis('El Nozha','Cairo'))
+// console.log(getArabicNameDis('El Nozha','Cairo'))
 
 module.exports = {
     getCityDistricts: getCityDistricts,
