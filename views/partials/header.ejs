@@ -53,7 +53,7 @@
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Center Reviews' : "تقييمات المركز" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Centers Reviews' : "تقييمات المراكز" %></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
