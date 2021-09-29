@@ -2,7 +2,7 @@
     <div class="container-fluid centers">
         <form id='filter' action='/<%= page == ' centers' ? 'centers' : 'chooseCenter ' %>' method='POST'>
             <div class="container">
-                <h1 class="text-center title" style="margin-bottom: 1.5rem;">
+                <h1 class="<%= lang=='En' ? 'text-center title' : 'text-center title arabicLang' %>" style="margin-bottom: 1.5rem;">
                     <% if(page=='addReview' ){ %>
                         <%= lang=='En' ? 'Choose Center' : 'اختر المركز' %>
 
@@ -76,7 +76,7 @@
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST">
                                     <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>"
-                                        class="btn btn-primary goBtn">
+                                        class="<%= lang=='En' ? 'btn btn-primary goBtn' : 'btn btn-primary goBtn arabicLang' %>">
                                         <%if(page=='addReview'){ %>
                                             <%= lang=='En' ? 'Choose Center' : 'اذهب للمركز' %>
                                                 <% }else{ %>

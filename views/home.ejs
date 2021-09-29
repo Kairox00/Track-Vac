@@ -3,11 +3,11 @@
 
 
         <h1 class="text-center subtitle" style="font-size: 600% ; font-weight: 400;">Track-Vac</h1>
-        <p class="text-center fs-3 subtitle"> <%= lang=='En' ? 'Your guide for a better vaccination experience' : "دليلك لتجربة تلقى لقاح أفضل" %> </p>
+        <p class="<%= lang=='En' ? 'text-center fs-3 subtitle' : 'text-center fs-3 subtitle arabicLang' %>"> <%= lang=='En' ? 'Your guide for a better vaccination experience' : "دليلك لتجربة تلقى لقاح أفضل" %> </p>
         <hr>
         <div class="row align-items-center justify-content-around">
             <div class="col-10 col-lg-4 box p-2" style="background-color: #f5edfc;">
-                <h2 class="subtitle "> <%= lang=='En' ? 'Are you vaccinated?' :"هل تلقيت لقاح كورونا ؟" %> </h2>
+                <h2 class="<%= lang=='En' ? 'subtitle' : 'subtitle arabicLang' %>"> <%= lang=='En' ? 'Are you vaccinated?' :"هل تلقيت لقاح كورونا ؟" %> </h2>
                 <p>
                     <%= lang=='En' ? 'Help others by telling us more about your experience.' : "ساعد الأخرين من خلال مشاركة تجربتك حول تلقي اللقاح" %><br>
                     <a href="/chooseCenter"><%= lang=='En' ? 'Give a feedback about your vaccination experience' : "قييم تجربتك لتلقي اللقاح" %> >></a>
@@ -22,7 +22,7 @@
                 <img src="\Images\vac6.jpg" alt="" class="img-thumbnail float-end">
             </div>
             <div class="col-10 col-lg-5 box" style="background-color: #f5edfc;">
-                <h2 class="subtitle"><%= lang=='En' ? 'Thinking about getting vaccinated?' : "هل تريد أن تتلقى لقاح كورونا ؟" %></h2>
+                <h2 class="<%= lang=='En' ? 'subtitle' : 'subtitle arabicLang' %>"><%= lang=='En' ? 'Thinking about getting vaccinated?' : "هل تريد أن تتلقى لقاح كورونا ؟" %></h2>
                 <p> <%= lang=='En' ? 'Read multiple feedbacks about any vaccination center and get to know which vaccines are available in each center? how long will you wait till you get vaccinated? and many other answers for any question in your mind.' : "اقرأ تعليقات متعددة حول أي مركز تطعيم وتعرف على اللقاحات المتوفرة في كل مركز و كم من الوقت ستنتظر حتى يتم تطعيمك والعديد من الإجابات الأخرى لأي سؤال يدور في ذهنك" %> <br>
 
                     <a href="centers"><%= lang=='En' ? 'Read reviews about vaccination centers' : "اقرأ آراء حول مراكز التطعيم" %> >></a>
@@ -33,10 +33,10 @@
         <div class="row align-items-center justify-content-around">
 
             <div class="col-10 col-lg-11 box" style="background-color: #f5edfc;">
-                <h2 class="subtitle"><%= lang=='En' ? 'About Us' : "معلومات عنا" %></h2>
+                <h2 class="<%= lang=='En' ? 'subtitle' : 'subtitle arabicLang' %>"><%= lang=='En' ? 'About Us' : "معلومات عنا" %></h2>
                 <p class="mb-4 "> <%= lang=='En' ? "We are a group of engineering students at The German University  in Cairo taking part in a web developement internship by IEEE HAC. Our aim is to utilize the technology in order to provide solutions for some problems facing the world in the age of Covid-19. We built Track-Vac in order to provide a better vaccination experience through collecting feedbacks from vaccinated users about different vaccination centers all over egypt, so those who didn't get vaccinated yet can benefit from them." 
                     : "نحن مجموعة من طلاب الهندسة في الجامعة الألمانية بالقاهرة نشارك في تدريب تطوير الويب من قبل IEEE HAC. هدفنا هو الاستفادة من التكنولوجيا لتقديم حلول لبعض المشاكل التي تواجه العالم في عصر فيروس كورونا. لقد قمنا ببناء Track-Vac من أجل توفير تجربة تطعيم أفضل من خلال جمع التعليقات من المستخدمين الذين تم تطعيمهم حول مراكز التطعيم المختلفة في جميع أنحاء مصر ، بحيث يمكن لأولئك الذين لم يتم تطعيمهم بعد الاستفادة منها." %></p>
-                <h2 class="subtitle"><%= lang=='En' ? 'Founders' : "المؤسسون" %></h2>
+                <h2 class="<%= lang=='En' ? 'subtitle' : 'subtitle arabicLang' %>"><%= lang=='En' ? 'Founders' : "المؤسسون" %></h2>
                 <p class="mb-2"> <b><%= lang=='En' ? 'Dr. Eman Azab' : "د. إيمان عزب" %> </b>
                     -<%= lang=='En' ? ' Assistant Professor at the German University in Cairo, Faculty of Information Engineering & Technology, IEEE Senior Member, WIE Egypt Board Member.' :" أستاذ مساعد في الجامعة الألمانية بالقاهرة ، كلية هندسة وتكنولوجيا المعلومات ، عضو أول في IEEE ، عضو مجلس إدارة WIE Egypt." %> <br>
                 </p>
