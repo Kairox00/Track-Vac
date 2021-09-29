@@ -435,6 +435,10 @@ app.get('/cities', (req, res) => {
     res.json(cities);
 })
 
+app.get('/lang',(req,res)=>{
+    res.json([{lang: app.locals.lang}]);
+})
+
 app.use((err, req, res, next) => {
     const { message = 'Something went wrong', statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh No, Something Went Wrong!'
