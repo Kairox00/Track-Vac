@@ -88,6 +88,7 @@ app.use(require("express-session")({
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.session.user;
+    res.locals.helper = helper;
     next();
 });
 
