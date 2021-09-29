@@ -106,7 +106,7 @@
                     <% if(lang=="En"){ %> 
                         <small class="text-muted"><%= review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
                         <% } else{ %> 
-                            <small class="text-muted"><%= review.vaccine%> |<span> إعجاب <%= review.upvotes %>|</span><span> <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></span> </small>
+                            <small class="text-muted"><%= review.vaccine%> | إعجاب <%= review.upvotes %>   | <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %> </small>
                             <% } %> 
                     </div>
                     <p class="starability-result mt-2" data-rating=<%=review.rating%>>
@@ -118,10 +118,10 @@
                     <div class="d-flex w-100 justify-content-between">
                         <span class="d-flex w-100 gap-3 justify-content-end">
                             <form   action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn  bs-d"><i class="far fa-thumbs-up"></i> <%= lang=='En' ? 'Upvote' : 'إعجاب' %></button>
+                                <button type="submit" class="btn  bs-d"><i class="far fa-thumbs-up"></i> <%= lang=='En' ? 'Upvote' : 'أعجبني' %></button>
                             </form>
                             <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn  bs-s"><i class="far fa-flag"></i><%= lang=='En' ? 'Report' :' إبلاغ' %> </button>
+                                <button type="submit" class="btn  bs-s"><i class="far fa-flag"></i><%= lang=='En' ? ' Report' :' إبلاغ' %> </button>
                             </form>
                         </span>
                     </div> 

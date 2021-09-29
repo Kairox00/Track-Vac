@@ -9,7 +9,7 @@ function getCityDistricts(cityName) {
             return cities[i]['districts']
         }
     }
-    return false;
+    return 'false';
 }
 
 function getCityNames(){
@@ -47,7 +47,7 @@ function getArabicNameGov(govName){
     }
 }
 
-console.log(getArabicNameGov('Cairo'))
+// console.log(getArabicNameDis('El Nozha','Cairo'))
 
 module.exports = {
     getCityDistricts: getCityDistricts,

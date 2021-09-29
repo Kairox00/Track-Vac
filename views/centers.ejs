@@ -71,7 +71,7 @@
                                 <%=center.name%>
                             </h5>
                             <p class="card-text">
-                                <%= lang =='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> - <%=center.district %>
+                                <%= lang =='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> - <%= lang == 'En' ?center.district : helper.getArabicNameDis(center.district, center.governorate) %>
                             </p>
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST">

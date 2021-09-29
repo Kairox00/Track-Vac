@@ -99,7 +99,10 @@ function loadDistricts() {
     let districts0 = getCityDistricts(value);
     let districts = [...districts0].sort()
     console.log("Districts [" + districts + "]");
-    districtDrop.innerHTML = '' + '<option value="" disabled selected>Select a district</option>' + map(districts,value) + '';
+    let text = 'Select a District';
+    if(language === 'Ar')
+        text = 'اختر المنطقة'
+    districtDrop.innerHTML = '' + `<option value="" disabled selected>${text}</option>` + map(districts,value) + '';
     // console.log("html " + districtDrop.innerHTML)
 }
 
