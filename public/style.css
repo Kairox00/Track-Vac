@@ -639,3 +639,7 @@ input[type='radio']:checked:after {
   font-family: 'Cairo', 'Be Vietnam Pro';
 }
 
+.activeLang{
+  text-decoration: none;
+}
+

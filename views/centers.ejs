@@ -78,9 +78,9 @@
                                     <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>"
                                         class="<%= lang=='En' ? 'btn btn-primary goBtn' : 'btn btn-primary goBtn arabicLang' %>">
                                         <%if(page=='addReview'){ %>
-                                            <%= lang=='En' ? 'Choose Center' : 'اذهب للمركز' %>
+                                            <%= lang=='En' ? 'Choose Center' : 'اختار المركز' %>
                                                 <% }else{ %>
-                                                    <%= lang=='En' ? 'View Center' : 'اظهر المركز' %>
+                                                    <%= lang=='En' ? 'View Center' : 'اذهب للمركز' %>
                                                         <% } %>
                                     </a>
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger
