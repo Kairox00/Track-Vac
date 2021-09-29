@@ -5,8 +5,7 @@
     <title>TrackVac</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&family=Raleway&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&family=Cairo:wght@300&family=Raleway&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
@@ -22,7 +21,6 @@
     <nav class="navbar  fixed-top navbar-expand-lg navbar-dark " style="background-color: 
     #000b2e;">
         <div class="container-fluid">
-           
             <a class="navbar-brand m-0 p-0" href="/">
                 <p class=" fs-2 fw-bold m-0 p-0" style="color: #ffffff;">
                     <img src="/Images/logo2.png" alt="logo" width="80" height="70"
@@ -30,6 +28,13 @@
                     Track Vac
                 </p>
             </a>
+            <form action="/ar" method="POST">
+                <button type="submit" class="<%= lang=='Ar' ? 'fst langBtn newActive' : 'fst langBtn' %>"> Ar </button>
+            </form>
+            <b style="color: #925d8aa8;"> / </b>
+            <form action="/en" method="POST">
+                <button type="submit" class="<%= lang=='En' ? 'langBtn newActive' : 'langBtn' %>"> En </button>
+            </form>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,23 +47,23 @@
                     </li>
                 
                     <li class="nav item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
                     </li>
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Center Reviews' : "تقييمات المركز" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Center Reviews' : "تقييمات المركز" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
                     </li>
                    
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <%= lang=='En' ? '' : 'arabicLang' %>" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <%= lang=='En' ? 'Language' : "اللغة" %>
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="language">
