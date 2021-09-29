@@ -71,7 +71,7 @@ function getArabicDistricts(cityName) {
     return false;
 }
 
-function getArabicName(disName,govName){
+function getArabicNameDis(disName,govName){
     let arabDistricts = getArabicDistricts(govName);
     let engDistricts = getCityDistricts(govName);
     // console.log(arabDistricts);
@@ -84,7 +84,7 @@ function map(array,govName) {
     let result = ""
     for (let i = 0; i < array.length; i++) {
         let district = array[i];
-        let ar_district = getArabicName(district,govName)
+        let ar_district = getArabicNameDis(district,govName)
         console.log(district +" / "+ ar_district);
         let nameShown = district;
         console.log(language)
