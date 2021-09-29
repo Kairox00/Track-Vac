@@ -23,7 +23,7 @@
                             </option>
                             <% for(let i=0; i<cityNames.length; i++) { %>
                                 <option value="<%=cityNames[i] %>">
-                                    <%= cityNames[i] %>
+                                    <%= lang == 'En' ? cityNames[i] : helper.getArabicNameGov(cityNames[i]) %>
                                 </option>
                                 <% } %>
                         </select>
@@ -71,7 +71,7 @@
                                 <%=center.name%>
                             </h5>
                             <p class="card-text">
-                                <%=center.governorate%> - <%=center.district %>
+                                <%= lang =='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> - <%=center.district %>
                             </p>
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST">
