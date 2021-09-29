@@ -171,7 +171,7 @@
     },
     {
         "name": "South Sinai",
-        "ar_name": "الإسماعيلية",
+        "ar_name": "جنوب سينا",
         "districts": [
             "Sharm El Sheikh"
         ],
@@ -255,8 +255,12 @@
     },
     {
         "name": "Behira",
+        "ar_name": "البحيرة",
         "districts": [
             "Damanhour"
+        ],
+        "ar_districts":[
+            "دمنهور"
         ]
     },
     {
@@ -345,7 +349,7 @@
     },
     {
         "name": "Sohag",
-        "ar_name": "أسيوط",
+        "ar_name": "سوهاج",
         "districts": [
             "Sohag"
         ],
