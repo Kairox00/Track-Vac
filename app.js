@@ -106,6 +106,7 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+
     next();
 })
 
@@ -133,40 +134,37 @@ app.get('/', (req, res) => {
 //Choose Center Page
 app.get('/centers', catchAsync(async (req, res) => {
     const centers = await Center.find({});
-    const gov = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة";
-    const district = app.locals.lang === 'En' ? 'Select a District' : "اختر المنطقة";
-    res.render('centers', { cityNames: cityNames, page: 'centers', centers, gov, district, page: 'centers', filter: 'false' })
+    const govEN = 'Select a governorate';
+    const districtEN = 'Select a district';
+    const govAR = 'اختر المحافظة';
+    const districtAR = 'اختر المنطقة';
+    res.render('centers', { cityNames: cityNames, page: 'centers', centers, govEN,govAR,districtAR, districtEN, page: 'centers', filter: 'false' })
 }))
 
 //filtering
 app.post('/centers', catchAsync(async (req, res, next) => {
-    console.log(req.body.govSelect);
     if (req.body.action == 'filter') {
-        let govName ='govname'
-        if(req.body.govSelect){
-            //   govName = req.body.govSelect;
-              if(app.locals.lang === 'Ar')
-                govName = helper.getArabicNameGov(govName);
-        }
-         else{
-             govName = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة"
-         } 
-        const gov = govName;
-        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a District';
+        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
+        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
         const { govSelect, districtSelect } = req.body;
         const centers = await Center.find({ governorate: govSelect, district: districtSelect });
         if (centers.length == 0) {
-            req.flash('error', "Sorry, there is no centers available in this area");
+            var msgs=[];
+            msgs.push("Sorry, there is no centers available in this area");
+            msgs.push("نأسف لعدم توافر مركز فى هذا النطاق الجغرافى على موقعنا حاليا !")
+            req.flash('error', msgs);
             // res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
             res.redirect('/centers')
         }
         res.render('centers', { cityNames: cityNames, centers, gov, district, filter: 'true', page: 'centers' });
     }
     else {
-        const gov = app.locals.lang === 'En' ? 'Select a Governorate' : "اختر المحافظة";
-        const district = app.locals.lang === 'En' ? 'Select a District' : "اختر المنطقة";
+        const govEN = 'Select a governorate';
+        const districtEN = 'Select a district';
+        const govAR = 'اختر المحافظة';
+    const districtAR = 'اختر المنطقة';
         const centers = await Center.find({});
-        res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'centers', filter: 'true' });
+        res.render('centers', { cityNames: cityNames, centers, govEN,govAR, districtEN,districtAR, page: 'centers', filter: 'true' });
     }
 }))
 
@@ -222,30 +220,46 @@ app.get('/centers/:centerId/addReview', catchAsync(async (req, res) => {
 
 app.get('/chooseCenter', catchAsync(async (req, res) => {
     const centers = await Center.find({});
-    const gov = 'Select a Governorate';
-    const district = 'Select a District';
-    res.render('centers', { cityNames: cityNames, page: 'addReview', centers, gov, district, filter: 'false' })
+    const govEN = 'Select a governorate';
+    const districtEN = 'Select a district';
+    const govAR = 'اختر المحافظة';
+    const districtAR = 'اختر المنطقة';
+    res.render('centers', { cityNames: cityNames, page: 'addReview', centers, govEN, districtEN,govAR,districtAR, filter: 'false' })
 }))
 
 //filtering
 app.post('/chooseCenter', catchAsync(async (req, res, next) => {
+    var govEN = 'Select a governorate';
+    var districtEN = 'Select a district';
+    var govAR = 'اختر المحافظة';
+    var districtAR = 'اختر المنطقة';
     if (req.body.action == 'filter') {
-        const gov = req.body.govSelect ? req.body.govSelect : 'Select a Governorate ';
-        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a District';
+        if(req.body.govSelect){
+            govEN = req.body.govSelect;
+            govAR=req.body.govSelect;
+        } 
+        if(req.body.districtSelect){
+            console.log(govAR,districtAR);
+            districtEN = req.body.districtSelect;
+            districtAR = req.body.districtSelect
+        }
         const { govSelect, districtSelect } = req.body;
         const centers = await Center.find({ governorate: govSelect, district: districtSelect });
         if (centers.length == 0) {
-            req.flash('error', "Sorry, there is no centers available in this area");
+            const messages = [];
+            messages.push("Sorry, there is no centers available in this area");
+            messages.push("نأسف لعدم وجود مراكز بهذا النطاق الجغرافى على موقعنا حاليا !")
+            req.flash('error', messages);
             res.redirect('/chooseCenter');
         }
-        res.render('centers', { cityNames: cityNames, centers, gov, district, page: 'addReview', filter: 'true' });
+        console.log(govAR,districtAR);
+        res.render('centers', { cityNames: cityNames, centers, page: 'addReview', filter: 'true' ,govAR,govEN,districtAR,districtEN});
     }
     else {
-        const gov = 'Select a Governorate';
-        const district = 'Select a District';
         const centers = await Center.find({});
-        res.render('centers', { cityNames: cityNames, centers, gov, district });
+        res.render('centers', { cityNames: cityNames,govAR,govEN,districtAR,districtEN, centers });
     }
+
 }))
 
 //post review
@@ -255,7 +269,10 @@ app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, 
     const user = await Vaccinated.find({ vaccination_code: vaccination_code });
     console.log(user.length);
     if (user.length == 0) {
-        req.flash('error', 'You must be vaccinated');
+        var msgs = [];
+        msgs.push('You must be vaccinated first to be able to add a review !')
+        msgs.push('يجب أن تكون حاصلا على اللقاح أولا لكى تتمكن من إضافة تقييم !')
+        req.flash('error', msgs);
         res.redirect(`/centers/${req.params.centerId}/addReview`);
     }
     const centerId = req.params.centerId;
@@ -266,7 +283,10 @@ app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, 
     center.reviews.push(addedReview);
     await addedReview.save();
     await center.save();
-    req.flash('success', 'Review added successfully !')
+    var msgs = [];
+    msgs.push('Review added successfully !');
+    msgs.push('تم إضافة التقييم بنجاح');
+    req.flash('success', msgs);
     res.redirect(`/centers/${center._id}`);
 
 }));
@@ -277,7 +297,11 @@ app.put('/centers/:centerId/report/:reviewId', (req, res) => {
         if (err)
             res.send(err);
         else {
-            req.flash('success', 'Review successfully reported');
+            var msgs =[];
+            msgs.push('Review successfully reported');
+            msgs.push('تم الإبلاغ عن التقييم');
+            req.flash('success', msgs);
+            
             res.redirect(`/centers/${req.params.centerId}`);
         }
 

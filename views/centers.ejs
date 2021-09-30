@@ -2,7 +2,8 @@
     <div class="container-fluid centers">
         <form id='filter' action='/<%= page == ' centers' ? 'centers' : 'chooseCenter ' %>' method='POST'>
             <div class="container">
-                <h1 class="<%= lang=='En' ? 'text-center title' : 'text-center title arabicLang' %>" style="margin-bottom: 1.5rem;">
+                <h1 class="<%= lang=='En' ? 'text-center title' : 'text-center title arabicLang' %>"
+                    style="margin-bottom: 1.5rem;">
                     <% if(page=='addReview' ){ %>
                         <%= lang=='En' ? 'Choose Center' : 'اختر المركز' %>
 
@@ -19,11 +20,19 @@
                             class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example"
                             required>
                             <option value="" disabled selected>
-                                <%=gov%>
+                                <% if (lang=="En") { %>
+                                    <%=govEN%>
+                                        <% }else { %>
+                                            <% if(govEN=="Select a governorate"){ %> 
+                                                <%=govAR%>
+                                                <% }else{ %> 
+                                            <%= helper.getArabicNameGov(govEN)%>
+                                                <% }} %>
+
                             </option>
                             <% for(let i=0; i<cityNames.length; i++) { %>
                                 <option value="<%=cityNames[i] %>">
-                                    <%= lang == 'En' ? cityNames[i] : helper.getArabicNameGov(cityNames[i]) %>
+                                    <%= lang=='En' ? cityNames[i] : helper.getArabicNameGov(cityNames[i]) %>
                                 </option>
                                 <% } %>
                         </select>
@@ -32,7 +41,14 @@
                         <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3 mb-lg-0"
                             aria-label=".form-select-sm example" required>
                             <option value="" disabled selected>
-                                <%=district%>
+                                <% if (lang=="En") { %>
+                                    <%=districtEN%>
+                                        <% }else { %>
+                                            <% if(govEN=="Select a governorate"){ %> 
+                                                <%=districtAR%>
+                                                <% }else{ %> 
+                                            <%= helper.getArabicNameDis(districtEN,govEN)%>
+                                                <% }} %>
                             </option>
                         </select>
                     </div>
@@ -71,14 +87,16 @@
                                 <%=center.name%>
                             </h5>
                             <p class="card-text">
-                                <%= lang =='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> - <%= lang == 'En' ?center.district : helper.getArabicNameDis(center.district, center.governorate) %>
+                                <%= lang=='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> -
+                                    <%= lang=='En' ?center.district : helper.getArabicNameDis(center.district,
+                                        center.governorate) %>
                             </p>
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST">
                                     <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>"
                                         class="<%= lang=='En' ? 'btn btn-primary goBtn' : 'btn btn-primary goBtn arabicLang' %>">
                                         <%if(page=='addReview'){ %>
-                                            <%= lang=='En' ? 'Choose Center' : 'اختار المركز' %>
+                                            <%= lang=='En' ? 'Choose Center' : 'اختر المركز' %>
                                                 <% }else{ %>
                                                     <%= lang=='En' ? 'View Center' : 'اذهب للمركز' %>
                                                         <% } %>
