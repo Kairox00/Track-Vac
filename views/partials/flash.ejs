@@ -1,22 +1,22 @@
 <% if(success && success.length) {%>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show <%= lang=='Ar' ? 'arabicLang' : '' %>" role="alert">
         <%if (lang=="En" ){ %>
             <%= success[0] %>
                 <%} else {%>
                     <%= success[1] %>
                         <% } %>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close <%= lang=='Ar' ? 'arabicLang' : '' %>" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <% } %>
 
         <% if(error && error.length) {%>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show <%= lang=='Ar' ? 'arabicLang' : '' %>" role="alert">
                 <%if (lang=="En" ){ %>
                     <%= error[0] %>
                         <%} else {%>
                             <%= error[1] %>
                                 <% } %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close <%= lang=='Ar' ? 'arabicLang' : '' %>" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <% } %>
