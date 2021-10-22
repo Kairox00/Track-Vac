@@ -89,10 +89,9 @@ app.use(require("express-session")({
 app.use((req, res, next) => {
     res.locals.currentUser = req.session.user;
     res.locals.helper = helper;
+    res.locals.lang = req.session.lang;
     next();
 });
-
-app.locals.lang = 'En';
 
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
@@ -106,7 +105,6 @@ mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/Tr
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-
     next();
 })
 
@@ -116,18 +114,24 @@ app.use((req, res, next) => {
 //===============
 
 app.post('/ar',(req,res)=>{
-    app.locals.lang = 'Ar';
-    res.redirect('/');
+    req.session.lang = 'Ar';
+    // console.log("Applocal "+app.locals.lang);
+    console.log(`Session ${req.sessionID} lang: `+req.session.lang);
+    const ref = req.get('Referrer');
+    console.log(ref);
+    res.redirect(ref);
 })
 
 app.post('/en',(req,res)=>{
-    app.locals.lang = 'En';
-    res.redirect('/');
+    req.session.lang = 'En';
+     const ref = req.get('Referrer');
+    console.log(ref);
+    res.redirect(ref);
 })
 
 //Home Page
 app.get('/', (req, res) => {
-    // console.log(req.session.user);
+    console.log("Session lang: "+req.session.lang);
     res.render('home', { page: "home" })
 })
 
@@ -471,7 +475,8 @@ app.get('/cities', (req, res) => {
 })
 
 app.get('/lang',(req,res)=>{
-    res.json([{lang: app.locals.lang}]);
+    const lang = req.session.lang !== undefined ? req.session.lang : 'Ar';
+    res.json([{lang: lang}]);
 })
 
 app.use((err, req, res, next) => {
