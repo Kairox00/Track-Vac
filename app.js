@@ -93,8 +93,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.locals.lang = 'En';
-
 mongoose.connect("mongodb+srv://trackapp:trackpass@trackvac.8zfh7.mongodb.net/TrackVac?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
@@ -119,12 +117,16 @@ app.post('/ar',(req,res)=>{
     req.session.lang = 'Ar';
     // console.log("Applocal "+app.locals.lang);
     console.log(`Session ${req.sessionID} lang: `+req.session.lang);
-    res.redirect('/');
+    const ref = req.get('Referrer');
+    console.log(ref);
+    res.redirect(ref);
 })
 
 app.post('/en',(req,res)=>{
     req.session.lang = 'En';
-    res.redirect('/');
+     const ref = req.get('Referrer');
+    console.log(ref);
+    res.redirect(ref);
 })
 
 //Home Page
