@@ -145,11 +145,15 @@ app.get('/centers', catchAsync(async (req, res) => {
     res.render('centers', { cityNames: cityNames, page: 'centers', centers, govEN,govAR,districtAR, districtEN, page: 'centers', filter: 'false' })
 }))
 
-//filtering
+//filtering to view the center
 app.post('/centers', catchAsync(async (req, res, next) => {
+    var govEN = 'Select a governorate';
+        var districtEN = 'Select a district';
+        var govAR = 'اختر المحافظة';
+    var districtAR = 'اختر المنطقة';
     if (req.body.action == 'filter') {
-        const gov = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
-        const district = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
+         govEN = req.body.govSelect ? req.body.govSelect : 'Select a governorate ';
+         districtEN = req.body.districtSelect ? req.body.districtSelect : 'Select a district';
         const { govSelect, districtSelect } = req.body;
         const centers = await Center.find({ governorate: govSelect, district: districtSelect });
         if (centers.length == 0) {
@@ -160,17 +164,17 @@ app.post('/centers', catchAsync(async (req, res, next) => {
             // res.render('centers', { cityNames: cityNames, centers,gov,district,filter:'true', page:'centers'});
             res.redirect('/centers')
         }
-        res.render('centers', { cityNames: cityNames, centers, gov, district, filter: 'true', page: 'centers' });
+        res.render('centers', { cityNames: cityNames, centers, govEN, districtEN,govAR,districtAR, filter: 'true', page: 'centers' });
     }
     else {
-        const govEN = 'Select a governorate';
-        const districtEN = 'Select a district';
-        const govAR = 'اختر المحافظة';
-    const districtAR = 'اختر المنطقة';
+         govEN = 'Select a governorate';
+         districtEN = 'Select a district';
+         govAR = 'اختر المحافظة';
+     districtAR = 'اختر المنطقة';
         const centers = await Center.find({});
         res.render('centers', { cityNames: cityNames, centers, govEN,govAR, districtEN,districtAR, page: 'centers', filter: 'true' });
     }
-}))
+})) 
 
 //Center Page
 app.get('/centers/:centerId', catchAsync(async (req, res) => {
@@ -231,7 +235,7 @@ app.get('/chooseCenter', catchAsync(async (req, res) => {
     res.render('centers', { cityNames: cityNames, page: 'addReview', centers, govEN, districtEN,govAR,districtAR, filter: 'false' })
 }))
 
-//filtering
+//filtering choose center to add review
 app.post('/chooseCenter', catchAsync(async (req, res, next) => {
     var govEN = 'Select a governorate';
     var districtEN = 'Select a district';
@@ -268,7 +272,7 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
 
 //post review
 app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, res, next) => {
-    const { id_digits, vaccination_code } = req.body.review;
+    /*const { id_digits, vaccination_code } = req.body.review;
     console.log(vaccination_code);
     const user = await Vaccinated.find({ vaccination_code: vaccination_code });
     console.log(user.length);
@@ -278,7 +282,7 @@ app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, 
         msgs.push('يجب أن تكون حاصلا على اللقاح أولا لكى تتمكن من إضافة تقييم !')
         req.flash('error', msgs);
         res.redirect(`/centers/${req.params.centerId}/addReview`);
-    }
+    }*/
     const centerId = req.params.centerId;
     const center = await Center.findById(centerId);
     req.body.review.vaccination_center = centerId;
