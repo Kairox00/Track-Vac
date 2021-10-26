@@ -637,5 +637,10 @@ input[type='radio']:checked:after {
 
 .arabicLang {
   font-family: 'Cairo', 'Be Vietnam Pro';
+  direction: rtl;
+}
+
+.activeLang{
+  text-decoration: none;
 }
 

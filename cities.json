@@ -1,6 +1,7 @@
 [
     {
         "name": "Cairo",
+        "ar_name": "القاهرة",
         "districts": [
             "El Nozha",
             "New Cairo",
@@ -28,10 +29,39 @@
             "Tora",
             "15th of May",
             "Helwan"
+        ],
+        "ar_districts": [
+            "النزهة",
+            "القاهرة الجديدة",
+            "شبرا",
+            "مصر الجديدة",
+            "مطرية",
+            "زيتون",
+            "السلام الأول",
+            "السلام الثاني",
+            "المرج",
+            "عين شمس",
+            "القبة",
+            "مدينة نصر",
+            "بدر",
+            "الشروق",
+            "الوايلي",
+            "عبدين",
+            "المقطم",
+            "الساحل",
+            "الخليفة",
+            "السيدة زينب",
+            "مصر القديمة",
+            "البساتين",
+            "معادي",
+            "طرة",
+            "15 مايو",
+            "حلوان"
         ]
     },
     {
         "name": "Giza",
+        "ar_name": "الجيزة",
         "districts": [
             "Mohandiseen",
             "Sheikh Zayed",
@@ -53,11 +83,33 @@
             "Awseem",
             "El Wahat",
             "Gharb El Qanater"
-
+        ],
+        "ar_districts": [
+            "المهندسين",
+            "الشيخ زايد",
+            "ميت عقبة",
+            "السادس من أكتوبر",
+            "الصف",
+            "الهرم",
+            "بولاق",
+            "جنوب الجيزة",
+            "شمال الجيزة",
+            "الوراق",
+            "العمرانية",
+            "كرداسة",
+            "أبو النمرس",
+            "أطفيح",
+            "شمال العياط",
+            "البدرشين",
+            "القناطر",
+            "أوسيم",
+            "الواحات",
+            "غرب القناطر"
         ]
     },
     {
         "name": "Alexandria",
+        "ar_name": "الإسكندرية",
         "districts": [
             "Al Atareen",
             "Mena El Basal",
@@ -69,51 +121,93 @@
             "El Amreya",
             "El Agamy",
             "Borg El Arab"
+        ],
+        "ar_districts": [
+            "العطارين",
+            "منيا البصل",
+            "المنتزه",
+            "شرق",
+            "وسط الإسكندرية",
+            "الجمرك",
+            "غرب الإسكندرية",
+            "العامرية",
+            "العجمي",
+            "برج العرب"
         ]
     },
     {
-        "name":"Qalyubia",
-        "districts":[
+        "name": "Qalyubia",
+        "ar_name": "القليوبية",
+        "districts": [
             "Shobra",
             "Kafr Shokr",
             "Sindiyun"
+        ],
+        "ar_districts": [
+            "شبرا",
+            "كفر شكر",
+            "سنديون"
         ]
     },
     {
         "name": "Port Said",
+        "ar_name": "بور سعيد",
         "districts": [
             "Port Said"
+        ],
+        "ar_districts": [
+            " بور سعيد"
         ]
     },
     {
         "name": "Ismailia",
+        "ar_name": "الإسماعيلية",
         "districts": [
             "Ismailia"
+        ],
+        "ar_districts": [
+            " الإسماعيلية"
         ]
     },
     {
         "name": "South Sinai",
+        "ar_name": "جنوب سينا",
         "districts": [
             "Sharm El Sheikh"
+        ],
+        "ar_districts": [
+            "شرم الشيخ"
         ]
     },
     {
         "name": "North Sinai",
+        "ar_name": "شمال سيناء",
         "districts": [
             "El Areesh"
+        ],
+        "ar_districts": [
+            "العريش"
         ]
     },
     {
         "name": "Monofeya",
+        "ar_name": "المنوفية",
         "districts": [
             "Shbeen El Koum",
             "Ashmoon",
             "El Sadat",
             "Minuf"
+        ],
+        "ar_districts": [
+            "شبين الكوم",
+            "أشمون",
+            "السادات",
+            "منوف"
         ]
     },
     {
         "name": "Gharbeya",
+        "ar_name": "الغربية",
         "districts": [
             "Tanta Thany",
             "Zifta",
@@ -122,94 +216,164 @@
             "Samannoud",
             "Kafr Zayat",
             "Mahla Thany"
+        ],
+        "ar_districts": [
+            "طنطا ثاني",
+            "زفتى",
+            "قطور",
+            "بسيون",
+            "سمنود",
+            "كفر الزيات",
+            "المحلة ثاني"
         ]
     },
     {
         "name": "Kafr El Sheikh",
+        "ar_name": "كفر الشيخ",
         "districts": [
             "El Hamoul",
             "Kafr El Sheikh",
             "Desouk",
             "Qilin"
+        ],
+        "ar_districts": [
+            "الحامول",
+            "كفر الشيخ",
+            "دسوق",
+            "قلين"
         ]
     },
     {
         "name": "Marsa Matrouh",
+        "ar_name": "مرسى مطروح",
         "districts": [
             "Marsa Matrouh"
+        ],
+        "ar_districts": [
+            "مرسى مطروح"
         ]
     },
     {
         "name": "Behira",
+        "ar_name": "البحيرة",
         "districts": [
             "Damanhour"
+        ],
+        "ar_districts":[
+            "دمنهور"
         ]
     },
     {
         "name": "Damietta",
+        "ar_name": "دمياط",
         "districts": [
             "Damietta"
+        ],
+        "ar_districts": [
+            "دمياط"
         ]
     },
     {
         "name": "Dakahlia",
+        "ar_name": "الدقهلية",
         "districts": [
             "Meet Ghamr",
             "El Senbellawein"
+        ],
+        "ar_districts": [
+            "ميت غمر",
+            "السنبلاوبن"
         ]
     },
     {
         "name": "Fayoum",
+        "ar_name": "الفيوم",
         "districts": [
             "Bandar El Fayoum"
+        ],
+        "ar_districts": [
+            "بندر الفيوم"
         ]
     },
     {
         "name": "Beni Suef",
+        "ar_name": "بني سويف",
         "districts": [
-            "Bandar El Fayoum"
+            "Bani suef"
+        ],
+        "ar_districts": [
+            "بني سويف"
         ]
     },
     {
         "name": "Suez",
+        "ar_name": "السويس",
         "districts": [
             "Faisal"
+        ],
+        "ar_districts": [
+            "فيصل"
         ]
     },
     {
         "name": "Minya",
+        "ar_name": "المنيا",
         "districts": [
             "New Minya",
             "Mallawi",
             "Beni Mazar",
             "Samalout"
+        ],
+        "ar_districts": [
+            "المنيا الجديدة",
+            "ملوي",
+            "بني مزار",
+            "سملوط"
         ]
     },
     {
         "name": "Asyut",
+        "ar_name": "أسيوط",
         "districts": [
             "Gharb Asyut",
             "Sharq Asyut",
             "El Kawseya",
             "Abo Tig"
+        ],
+        "ar_districts": [
+            "غرب أسيوط",
+            "شرق أسيوط",
+            "القوصية",
+            "أبو تيج"
         ]
     },
     {
         "name": "Sohag",
+        "ar_name": "سوهاج",
         "districts": [
             "Sohag"
+        ],
+        "ar_districts": [
+            "سوهاج"
         ]
     },
     {
         "name": "Qina",
+        "ar_name": "قنا",
+
         "districts": [
             "Qina"
+        ]
+        ,
+        "ar_districts": [
+            "قنا"
         ]
     },
     {
         "name": "Sharqia",
+        "ar_name": "الشرقية",
         "districts": [
-            "Sharqia",
+            "Zagazig",
             "Faqous",
             "Bilbeis",
             "Abo Hamad",
@@ -217,38 +381,66 @@
             "Hihya",
             "Al Sadeen"
         ]
+        ,
+        "ar_districts": [
+            "الزقازيق",
+            "فاقوس",
+            "بلبيس",
+            "أبو حماد",
+            "العاشر من رمضان",
+            "ههيا",
+            "السعديين"
+        ]
     },
     {
         "name": "Luxor",
+        "ar_name": "الأقصر",
+
         "districts": [
             "Luxor"
+        ]
+        ,
+        "ar_districts": [
+            "الأقصر"
         ]
     },
     {
         "name": "Aswan",
+        "ar_name": "أسوان",
         "districts": [
             "Aswan"
+        ]
+        ,
+        "ar_districts": [
+            "أسوان"
         ]
     },
     {
         "name": "Bahr El Ahmar",
+        "ar_name": "البحر الأحمر",
+
         "districts": [
             "Hurghada"
+        ]
+        ,
+        "ar_districts": [
+            "الغردقة"
         ]
     },
     {
         "name": "El Wady El Gdeed",
+        "ar_name": "الوادي الجديد",
+
         "districts": [
-            "El Khargeya",
-            "El Dakhleya",
+            "El Kharga",
+            "El Dakhla",
             "El Farafra"
         ]
+        ,
+        "ar_districts": [
+            "الخارجة",
+            "الداخلة",
+            "الفرافرة"
+        ]
     }
-    
-
-    
-
-    
-
-
 ]

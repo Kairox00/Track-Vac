@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
@@ -28,13 +29,13 @@
                     Track Vac
                 </p>
             </a>
-            <form action="/ar" method="POST">
+            <!-- <form action="/ar" method="POST">
                 <button type="submit" class="<%= lang=='Ar' ? 'fst langBtn newActive' : 'fst langBtn' %>"> Ar </button>
             </form>
             <b style="color: #925d8aa8;"> / </b>
             <form action="/en" method="POST">
                 <button type="submit" class="<%= lang=='En' ? 'langBtn newActive' : 'langBtn' %>"> En </button>
-            </form>
+            </form> -->
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,31 +48,31 @@
                     </li>
                 
                     <li class="nav item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
                     </li>
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Center Reviews' : "تقييمات المركز" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Centers Reviews' : "تقييمات المراكز" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
+                        <a class="nav-link  <%= typeof page !== 'undefined' && page === 'addReview' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/chooseCenter" id="write"><%= lang=='En' ? 'Write Review' : "اكتب تقييم" %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
                     </li>
                    
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <%= lang=='En' ? '' : 'arabicLang' %>" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <%= lang=='En' ? 'Language' : "اللغة" %>
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="language">
                         <li><form action="/en" method="POST">
-                            <button class="dropdown-item " type="submit"> English </button>
+                            <button id='engBtn' class="dropdown-item activeLang " type="submit"> English <i class="flag flag-united-states"></i></button>
                         </form></li>
                         <li><form action="/ar" method="POST">
-                            <button class="dropdown-item" type="submit"> عربى </button>
+                            <button id='arabBtn' class="dropdown-item" type="submit"> عربى </button>
                         </form></li>
                       </ul>
                     </li>

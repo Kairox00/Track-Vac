@@ -1,11 +1,11 @@
 <%- include ("partials/header") %>
 
     <div class="container" style="width: 100%;">
-        <h1 style="font-weight: 300;"><b>
+        <h1 style="font-weight: 300;" class="<%= lang=='Ar' ? 'arabicLang' : '' %> "><b>
             <%=center.name %>
         </b></h1>
     <hr>
-        <div class="row justify-content-between align-items-end centerInfo">
+        <div class="row justify-content-between align-items-end centerInfo <%= lang=='Ar' ? 'arabicLang' : '' %>">
             <div class="col-lg-4">
              
                 <ul class="list-group mb-3">
@@ -25,11 +25,13 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         <%= lang == 'En' ? 'Easy to Reach' : 'سهولة الوصول للمركز' %>
                         <span>
-                            <span> Yes </span>
+                            <span> <%= lang=='En' ? 'Yes' : 'نعم' %> </span>
                             <span class="badge bg-success rounded-pill">
                                 <%=easyToFind %> 
                                </span>
-                            <span> No </span>
+                            <span>
+                                <%= lang=='En' ? 'No' : 'لا' %>
+                            </span>
                             <span class="badge bg-danger rounded-pill">
                                 <%=notEasyToFind %> 
                             </span>
@@ -38,11 +40,15 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center subtitle">
                         <%= lang == 'En' ? 'Not Crowded' : 'غير مزدحم' %>
                         <span>
-                            <span> Yes </span>
+                            <span>
+                                <%= lang=='En' ? 'Yes' : 'نعم' %>
+                            </span>
                             <span class="badge bg-success rounded-pill">
                                 <%=notCrowded %>
                             </span>
-                            <span> No </span>
+                            <span>
+                                <%= lang=='En' ? 'No' : 'لا' %>
+                            </span>
                             <span class="badge bg-danger rounded-pill">
                                 <%=Crowded %>
                             </span>
@@ -55,8 +61,8 @@
             </div>
         </div>
 
-        <div class="row justify-content-between align-items-center">
-            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="btn btn-primary"><i class="fas fa-plus"></i><span style="padding-left: 4px"><%= lang=='En' ? 'Add Review' : 'إضافة تعليق' %></span> </a>
+        <div class="row justify-content-between align-items-center <%= lang=='Ar' ? 'arabicLang' : '' %>">
+            <div class="col-5"><a href="/centers/<%=center._id %>/addReview" class="<%= lang=='En' ? 'btn btn-primary' : 'btn btn-primary arabicLang' %>"><i class="fas fa-plus"></i><span style="padding: 4px"><%= lang=='En' ? 'Add Review' : 'إضافة تعليق' %></span> </a>
                 <% if (currentUser){ %> 
                     <a href="/centers/<%=center._id %>/editCenter" class="btn btn-warning"><i class="fas fa-edit"></i><span style="padding-left: 4px">Edit Center</span> </a>
                     <% } %>
@@ -70,10 +76,10 @@
             <%if(center.reviews.length==0){%> 
 
                 <div class="list-group-item list-group-item-action" aria-current="true">
-                    <div class="d-flex w-100 justify-content-between">
+                    <div class="d-flex w-100 justify-content-between <%= lang=='Ar' ? 'arabicLang' : '' %>">
 
-                        <h5 class="mb-1 title">
-                            <%= lang=='En' ? 'No reviews available yet !' : 'لا يوجد تقييمات حاليا' %>
+                        <h5 class="<%= lang=='En' ? 'mb-1 title' : 'mb-1 title arabicLang' %>">
+                            <%= lang=='En' ? 'No reviews available yet !' : 'لا يوجد تقييمات حاليًا' %>
                            
                         </h5>
 
@@ -83,7 +89,7 @@
                 </div>
                     <% }%> 
             <% for(let review of center.reviews){ %>
-                <div class="list-group-item list-group-item-action" aria-current="true">
+                <div class="list-group-item list-group-item-action <%= lang=='Ar' ? 'arabicLang' : '' %>" aria-current="true">
                     <form action="/centers/<%= review.vaccination_center %>/delete/<%= review._id %>?_method=DELETE" method="POST" <%= currentUser == 'mod' ? '' : 'hidden' %>>
                         <button class="btn bs-s" type='submit'> 
                             <i type='submit' class="far fa-times-circle"></i>
@@ -100,7 +106,7 @@
                     <% if(lang=="En"){ %> 
                         <small class="text-muted"><%= review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
                         <% } else{ %> 
-                            <small class="text-muted"><%= review.vaccine%> |<span> إعجاب <%= review.upvotes %>|</span><span> <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></span> </small>
+                            <small class="text-muted"><%= review.vaccine%> | إعجاب <%= review.upvotes %>   | <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %> </small>
                             <% } %> 
                     </div>
                     <p class="starability-result mt-2" data-rating=<%=review.rating%>>
@@ -112,10 +118,10 @@
                     <div class="d-flex w-100 justify-content-between">
                         <span class="d-flex w-100 gap-3 justify-content-end">
                             <form   action="/centers/<%= center._id %>/upvote/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn  bs-d"><i class="far fa-thumbs-up"></i> <%= lang=='En' ? 'Upvote' : 'إعجاب' %></button>
+                                <button type="submit" class="btn  bs-d"><i class="far fa-thumbs-up"></i> <%= lang=='En' ? 'Upvote' : 'أعجبني' %></button>
                             </form>
                             <form action="/centers/<%= center._id %>/report/<%= review._id %>?_method=PUT" method="POST">
-                                <button type="submit" class="btn  bs-s"><i class="far fa-flag"></i><%= lang=='En' ? 'Report' :'إبلاغ' %> </button>
+                                <button type="submit" class="btn  bs-s"><i class="far fa-flag"></i><%= lang=='En' ? ' Report' :' إبلاغ' %> </button>
                             </form>
                         </span>
                     </div> 

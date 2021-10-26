@@ -1,29 +1,38 @@
 <%- include ("partials/header") %>
     <div class="container-fluid centers">
-        <form id='filter' action='/<%= page == ' centers' ? 'centers' : 'chooseCenter ' %>' method='POST'>
+        <form id='filter' action='/<%= page == 'centers' ? 'centers' : 'chooseCenter ' %>' method='POST'>
             <div class="container">
-                <h1 class="text-center title" style="margin-bottom: 1.5rem;">
+                <h1 class="<%= lang=='En' ? 'text-center title' : 'text-center title arabicLang' %>"
+                    style="margin-bottom: 1.5rem;">
                     <% if(page=='addReview' ){ %>
                         <%= lang=='En' ? 'Choose Center' : 'اختر المركز' %>
 
                             <% } else{ %>
                                 <% if(currentUser=='mod' ) {%>
-                                    'Manage Centers'
+                                    Manage Centers
                                     <% } else{ %>
                                         <%= lang=='En' ? 'Available Centers' : 'المراكز المتاحة' %>
                                             <%} } %>
                 </h1>
-                <div class="row align-items-center justify-content-start">
+                <div class="row align-items-center justify-content-start <%= lang=='Ar' ? 'arabicLang' : '' %>">
                     <div class="col-md-12 col-lg-5">
                         <select id="govSelect" name="govSelect" onchange=getValue();
                             class="form-select form-select my-3 govSelect" aria-label=".form-select-lg example"
                             required>
                             <option value="" disabled selected>
-                                <%=gov%>
+                                <% if (lang=="En") { %>
+                                    <%=govEN%>
+                                        <% }else { %>
+                                            <% if(govEN=="Select a governorate"){ %> 
+                                                <%=govAR%>
+                                                <% }else{ %> 
+                                            <%= helper.getArabicNameGov(govEN)%>
+                                                <% }} %>
+
                             </option>
                             <% for(let i=0; i<cityNames.length; i++) { %>
                                 <option value="<%=cityNames[i] %>">
-                                    <%= cityNames[i] %>
+                                    <%= lang=='En' ? cityNames[i] : helper.getArabicNameGov(cityNames[i]) %>
                                 </option>
                                 <% } %>
                         </select>
@@ -32,7 +41,14 @@
                         <select id="districtSelect" name="districtSelect" class="form-select form-select mb-3 mb-lg-0"
                             aria-label=".form-select-sm example" required>
                             <option value="" disabled selected>
-                                <%=district%>
+                                <% if (lang=="En") { %>
+                                    <%=districtEN%>
+                                        <% }else { %>
+                                            <% if(govEN=="Select a governorate"){ %> 
+                                                <%=districtAR%>
+                                                <% }else{ %> 
+                                            <%= helper.getArabicNameDis(districtEN,govEN)%>
+                                                <% }} %>
                             </option>
                         </select>
                     </div>
@@ -53,7 +69,7 @@
     </div>
 
 
-    <div class="container">
+    <div class="container <%= lang=='Ar' ? 'arabicLang' : '' %>">
         <div>
             <a href="/addCenter" <%=currentUser=='mod' ? '' : 'hidden' %> class='btn btn-primary addCenter'><i
                     class="fas fa-plus"></i> Add Center</a>
@@ -66,23 +82,30 @@
                         <div class="imgBx">
                             <img src="<%= center.image %>" alt="...">
                         </div>
-                        <div class="card-body cardBx">
+                        <div class="card-body cardBx <%= lang=='Ar' ? 'arabicLang' : '' %>">
                             <h5 class="card-title subtitle">
                                 <%=center.name%>
                             </h5>
                             <p class="card-text">
-                                <%=center.governorate%> - <%=center.district %>
+                                <%= lang=='En' ? center.governorate : helper.getArabicNameGov(center.governorate) %> -
+                                    <%= lang=='En' ?center.district : helper.getArabicNameDis(center.district,
+                                        center.governorate) %>
                             </p>
                             <div>
                                 <form action="/centers/<%=center._id%>?_method=DELETE" method="POST">
-                                    <a href="/centers/<%=center._id%>/<%= page=='addReview'? 'addReview' : '' %>"
-                                        class="btn btn-primary goBtn">
+                                   
                                         <%if(page=='addReview'){ %>
-                                            <%= lang=='En' ? 'Choose Center' : 'اذهب للمركز' %>
+                                            <a href="/centers/<%=center._id%>/addReview"
+                                                class="<%= lang=='En' ? 'btn btn-primary goBtn' : 'btn btn-primary goBtn arabicLang' %>"> 
+                                            <%= lang=='En' ? 'Choose Center' : 'اختر المركز' %>
+                                        </a>
                                                 <% }else{ %>
-                                                    <%= lang=='En' ? 'View Center' : 'اظهر المركز' %>
+                                                    <a href="/centers/<%=center._id%>"
+                                                        class="<%= lang=='En' ? 'btn btn-primary goBtn' : 'btn btn-primary goBtn arabicLang' %>"> 
+                                                    <%= lang=='En' ? 'View Center' : 'اذهب للمركز' %>
+                                                </a>
                                                         <% } %>
-                                    </a>
+                                    
                                     <button <%=currentUser=='mod' ? '' : 'hidden' %> type='submit' class="btn btn-danger
                                         goBtn2"><i class="fas fa-trash"></i> Remove</button>
                                 </form>

@@ -5,6 +5,19 @@ fetch("/cities")
     })
     .then(data => cities = data);
 
+let language = [];
+fetch("/lang")
+    .then(response =>{
+        return response.json()
+    }).then(
+        data => {
+            language = data[0].lang;
+            console.log(data[0].lang);
+        }
+    );
+console.log(language);
+
+
 
 // const districtList = document.getElementById("districtList");
 const districtDrop = document.getElementById("districtSelect");
@@ -32,20 +45,64 @@ function getCityDistricts(cityName) {
     return false;
 }
 
-function map(array) {
+function getRef(cityName) {
+    districtDrop.value = "";
+    for (let i = 0; i < cities.length; i++) {
+        let name = cities[i]["name"];
+        // console.log(name);
+        // console.log("value:"+ cityName);
+        if (cityName.toLowerCase() === name.toLowerCase()) {
+            return cities[i]['ref']
+        }
+    }
+    return false;
+}
+
+function getArabicDistricts(cityName) {
+    districtDrop.value = "";
+    for (let i = 0; i < cities.length; i++) {
+        let name = cities[i]["name"];
+        // console.log(name);
+        // console.log("value:"+ cityName);
+        if (cityName.toLowerCase() === name.toLowerCase()) {
+            return cities[i]['ar_districts']
+        }
+    }
+    return false;
+}
+
+function getArabicNameDis(disName,govName){
+    let arabDistricts = getArabicDistricts(govName);
+    let engDistricts = getCityDistricts(govName);
+    // console.log(arabDistricts);
+    // console.log(engDistricts);
+    let index = engDistricts.indexOf(disName);
+    return arabDistricts[index];
+}
+
+function map(array,govName) {
     let result = ""
     for (let i = 0; i < array.length; i++) {
-        district = array[i];
-        // console.log(district);
-        result += `<option value= "${district}">${district}</option>`
+        let district = array[i];
+        let ar_district = getArabicNameDis(district,govName)
+        console.log(district +" / "+ ar_district);
+        let nameShown = district;
+        console.log(language)
+        if(language === 'Ar')
+            nameShown = ar_district;
+        result += `<option value= "${district}">${nameShown}</option>`
     }
     return result;
 }
 
 function loadDistricts() {
-    let districts = getCityDistricts(value).sort();
+    let districts0 = getCityDistricts(value);
+    let districts = [...districts0].sort()
     console.log("Districts [" + districts + "]");
-    districtDrop.innerHTML = '' + '<option value="" disabled selected>Select a district</option>' + map(districts) + '';
+    let text = 'Select a district';
+    if(language === 'Ar')
+        text = 'اختر المنطقة'
+    districtDrop.innerHTML = '' + `<option value="" disabled selected>${text}</option>` + map(districts,value) + '';
     // console.log("html " + districtDrop.innerHTML)
 }
 
