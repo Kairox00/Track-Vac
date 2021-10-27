@@ -116,7 +116,7 @@ app.use((req, res, next) => {
 app.post('/ar',(req,res)=>{
     req.session.lang = 'Ar';
     // console.log("Applocal "+app.locals.lang);
-    console.log(`Session ${req.sessionID} lang: `+req.session.lang);
+    // console.log(`Session ${req.sessionID} lang: `+req.session.lang);
     const ref = req.get('Referrer');
     console.log(ref);
     res.redirect(ref);
@@ -131,11 +131,16 @@ app.post('/en',(req,res)=>{
 
 //Home Page
 app.get('/', (req, res) => {
-    console.log("Session lang: "+req.session.lang);
-    if(req.session.lang == undefined){
+    // console.log("Session lang: "+req.session.lang);
+    if(req.session.lang != 'En' && req.session.lang != 'Ar'){
         req.session.lang = 'En';
+        res.render('home', { page: "home" ,lang: 'En'});
     }
-    res.render('home', { page: "home" })
+    else{
+        console.log("Session lang: "+req.session.lang);
+        res.render('home', { page: "home" })
+    }  
+    
 })
 
 //Choose Center Page
