@@ -140,7 +140,6 @@ app.get('/', (req, res) => {
         console.log("Session lang: "+req.session.lang);
         res.render('home', { page: "home" })
     }  
-    
 })
 
 //Choose Center Page
