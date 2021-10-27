@@ -132,6 +132,9 @@ app.post('/en',(req,res)=>{
 //Home Page
 app.get('/', (req, res) => {
     console.log("Session lang: "+req.session.lang);
+    if(req.session.lang == undefined){
+        req.session.lang = 'En';
+    }
     res.render('home', { page: "home" })
 })
 
