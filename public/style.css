@@ -30,6 +30,9 @@ h1{
     font-weight: 400;
 
 }
+.h1v2 {
+  padding-top: 0%;
+}
 h3{
     margin-top: 7%;
     color: #3A3556;
@@ -48,9 +51,21 @@ h2 {
 a{
     text-decoration: none;
 }
+.av2{
+  color: #925D8A;
+  font-weight: 600; 
+  font-size:100% ;
+}
 
 p {
     color: #66788A;
+}
+
+.pv2 {
+  color: #66788aad;
+  font-weight: 550; 
+  font-size:140% ;
+  margin-bottom: 10%;
 }
 
 footer {

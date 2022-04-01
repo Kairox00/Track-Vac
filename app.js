@@ -5,6 +5,9 @@ const express = require('express'),
     mongoose = require('mongoose'),
     flash = require('connect-flash'),
     mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+    bcrypt = require("bcrypt");
+    
+    
 
 
 const port = 3000 || process.env.PORT;
@@ -17,6 +20,7 @@ const cityNames = helper.getCityNames().sort();
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const Review = require('./models/review');
+const user=require('./models/user');
 
 
 
@@ -108,6 +112,15 @@ app.use((req, res, next) => {
     next();
 })
 
+//===============
+// Logged in user
+//===============
+const requireLogin = (req, res, next) => {
+    if (!req.session.user_id) {
+      return res.redirect("/login");
+    }
+    next();
+  };
 
 //===============
 // PUBLIC ROUTES
@@ -142,8 +155,100 @@ app.get('/', (req, res) => {
     }  
 })
 
+//Register
+app.post( "/register",catchAsync(async (req, res) => {
+      const userSchema = Joi.object({
+        email: Joi.string().required(),
+        password: Joi.string().min(6).max(20).required(),
+      });
+      const { error } = userSchema.validate(req.body);
+      if (error) {
+        const msg = error.details.map((el) => el.message).join(",");
+        req.flash("error", msg);
+        res.redirect("/register");
+      } else {
+        const { email, password } = req.body;
+        const otherUser = await user.findOne({ email });
+        if (otherUser) {
+          const msg = "You Have Already Signed Up!";
+          req.flash("error", msg);
+          res.redirect("/register");
+        } else {
+          const pass = await bcrypt.hash(password, 12);
+          const newUser = new user({
+            email: `${email}`,
+            password: `${pass}`,
+          });
+          await newUser.save();
+          req.session.user_id = newUser._id;
+          var day = 86400000;
+          req.session.cookie.expires = new Date(Date.now() + day);
+          req.session.cookie.maxAge = day;
+  
+          req.flash("success", "Registeration completed successfully!");
+          res.redirect("/");
+        }
+      }
+    })
+  );
+ 
+app.get('/register', (req, res) => {
+    // console.log("Session lang: "+req.session.lang);
+    if(req.session.lang != 'En' && req.session.lang != 'Ar'){
+        req.session.lang = 'En';
+        res.render('register', { page: "SignUp" ,lang: 'En'});
+    }
+    else{
+        console.log("Session lang: "+req.session.lang);
+        res.render('register', { page: "SignUp" })
+    }  
+})
+
+//Login
+
+app.post("/login",catchAsync(async (req, res) => {
+    const { email, password } = req.body;
+    const currUser = await user.findOne({ email });
+    if (currUser) {
+      const valid = await bcrypt.compare(password, currUser.password);
+      if (valid) {
+        req.session.user_id = currUser._id;
+        var day = 86400000;
+        req.session.cookie.expires = new Date(Date.now() + day);
+        req.session.cookie.maxAge = day;
+
+        req.flash("success", "sucessfully logged in!");
+        res.redirect("/");
+      } else {
+        req.flash("error", "wrong password!");
+        res.redirect("/login");
+      }
+    } else {
+      req.flash("error", "You need to register!");
+      res.redirect("/register");
+    }
+  })
+);
+app.get('/login', (req, res) => {
+    if(req.session.lang != 'En' && req.session.lang != 'Ar'){
+        req.session.lang = 'En';
+        if(req.session.user_id) res.render('home', { page: "home" ,lang: 'En'});
+        else res.render('login', { page: "login" ,lang: 'En'});
+    }
+    else{
+        console.log("Session lang: "+req.session.lang);
+        if(req.session.user_id) res.render('home', { page: "home" });
+        else res.render('login', { page: "login" })
+    }  
+});
+
+app.post('/logout',requireLogin, (req, res) => {
+   req.session.user_id=null;
+   res.redirect("/");
+})
+
 //Choose Center Page
-app.get('/centers', catchAsync(async (req, res) => {
+app.get('/centers', requireLogin, catchAsync(async (req, res) => {
     const centers = await Center.find({});
     const govEN = 'Select a governorate';
     const districtEN = 'Select a district';
@@ -153,7 +258,7 @@ app.get('/centers', catchAsync(async (req, res) => {
 }))
 
 //filtering to view the center
-app.post('/centers', catchAsync(async (req, res, next) => {
+app.post('/centers', requireLogin, catchAsync(async (req, res, next) => {
     var govEN = 'Select a governorate';
         var districtEN = 'Select a district';
         var govAR = 'اختر المحافظة';
@@ -184,7 +289,7 @@ app.post('/centers', catchAsync(async (req, res, next) => {
 })) 
 
 //Center Page
-app.get('/centers/:centerId', catchAsync(async (req, res) => {
+app.get('/centers/:centerId', requireLogin, catchAsync(async (req, res) => {
     let centerId = req.params.centerId;
     const center = await Center.findById(req.params.centerId).populate('reviews');
     let totalRating = 0;
@@ -207,12 +312,12 @@ app.get('/centers/:centerId', catchAsync(async (req, res) => {
     res.render('center_page', { center, avgRating, Crowded, notCrowded, easyToGetVaccinated, noteasyToGetVaccinated, notEasyToFind, easyToFind, page: 'centers' });
 }))
 
-app.post('/centers/:centerId', (req, res) => {
+app.post('/centers/:centerId', requireLogin, (req, res) => {
     let centerId = req.params.centerId
     res.render('center_page')
 })
 
-app.delete('/centers/:centerId', (req, res) => {
+app.delete('/centers/:centerId', requireLogin, (req, res) => {
     Review.deleteMany({ vaccination_center: req.params.centerId }).then(
         () => console.log('reviews deleted')
     ).catch((err) => { console.log(err) });
@@ -227,13 +332,13 @@ app.delete('/centers/:centerId', (req, res) => {
 
 
 //Create Review Page
-app.get('/centers/:centerId/addReview', catchAsync(async (req, res) => {
+app.get('/centers/:centerId/addReview', requireLogin, catchAsync(async (req, res) => {
     const center = await Center.findById(req.params.centerId);
     res.render('addReview', { cityNames: cityNames, page: "addReview", center: center })
 
 }))
 
-app.get('/chooseCenter', catchAsync(async (req, res) => {
+app.get('/chooseCenter', requireLogin, catchAsync(async (req, res) => {
     const centers = await Center.find({});
     const govEN = 'Select a governorate';
     const districtEN = 'Select a district';
@@ -243,7 +348,7 @@ app.get('/chooseCenter', catchAsync(async (req, res) => {
 }))
 
 //filtering choose center to add review
-app.post('/chooseCenter', catchAsync(async (req, res, next) => {
+app.post('/chooseCenter', requireLogin, catchAsync(async (req, res, next) => {
     var govEN = 'Select a governorate';
     var districtEN = 'Select a district';
     var govAR = 'اختر المحافظة';
@@ -278,7 +383,7 @@ app.post('/chooseCenter', catchAsync(async (req, res, next) => {
 }))
 
 //post review
-app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, res, next) => {
+app.post('/centers/:centerId/addReview', requireLogin, validateReview, catchAsync(async (req, res, next) => {
     /*const { id_digits, vaccination_code } = req.body.review;
     console.log(vaccination_code);
     const user = await Vaccinated.find({ vaccination_code: vaccination_code });
@@ -307,7 +412,7 @@ app.post('/centers/:centerId/addReview', validateReview, catchAsync(async (req, 
 }));
 
 //REPORTING
-app.put('/centers/:centerId/report/:reviewId', (req, res) => {
+app.put('/centers/:centerId/report/:reviewId', requireLogin, (req, res) => {
     Review.findByIdAndUpdate(req.params.reviewId, { is_reported: true }, (err, review) => {
         if (err)
             res.send(err);
@@ -324,7 +429,7 @@ app.put('/centers/:centerId/report/:reviewId', (req, res) => {
 })
 
 //UPVOTING
-app.put('/centers/:centerId/upvote/:reviewId', (req, res) => {
+app.put('/centers/:centerId/upvote/:reviewId', requireLogin, (req, res) => {
     let centerId = req.params.centerId;
     let review = Review.findById(req.params.reviewId, (err, review) => {
         if (err) {

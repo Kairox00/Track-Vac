@@ -1,0 +1,76 @@
+<%- include ("partials/header") %>
+
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0" nonce="dQnI0bnO"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  
+
+  <div class="container <%= lang=='Ar' ? 'arabicLang' : '' %>">
+  <form class="container-fluid needs-validation" action="/login" method="POST" novalidate >
+     
+    <div class="row align-items-top justify-content-around box2">
+      <div class="col-13 col-lg-4">
+
+        <h1 style="font-size:350% ; font-weight: 450;" class="h1v2 text-center <%= lang=='En' ? ' subtitle' : ' subtitle arabicLang' %>"><%= lang=='En' ? 'Log In' :"تسجيل الدخول" %></h1>
+          <p  class="pv2  <%= lang=='En' ? 'text-center subtitle' : 'text-center subtitle arabicLang' %>"> <%= lang=='En' ? "Don't Have an Account?": "ليس لديك حساب؟"%>
+           
+            <a class="av2 " href="/register"><%= lang=='En' ? ' Sign Up' : "إنشاء حساب " %> </a> </p>
+        
+            <div class="mb-4 <%= lang=='Ar' ? 'arabicLang' : '' %>">
+
+              <input name="email" id="email" required class="form-control" type="email" 
+                placeholder='<%= lang == 'En' ? "Enter your email" :"أدخل بريدك الألكتروني"  %>' aria-label=" Write your Email" >
+                <div class="valid-feedback">Looks Good</div>
+              <div class="invalid-feedback" id='email'>
+                Please Enter a Valid Email!
+              </div>
+            </div>
+            <div class="mb-4 <%= lang=='Ar' ? 'arabicLang' : '' %>">
+
+              <input name="password" id="password" required class="form-control" type="password" 
+                placeholder='<%= lang == 'En' ? "Enter Your Password" :"أدخل كلمة السر" %>' aria-label="Write Your Password" >
+                <div class="valid-feedback">Looks Good</div>
+              <div class="invalid-feedback" id='password'>
+                Please Enter a Valid Password!
+              </div>
+            </div>
+            
+        </div>
+
+
+
+            <div class="d-grid gap-3 mx-auto justify-content-center">
+              <button style="height: fit-content;"  class="btn-lg <%= lang=='En' ? 'btn  btn-r ' : 'btn   btn-r arabicLang' %>"><%= lang=='En' ? 'Log in' : "تسجيل الدخول" %></button>
+              <button style="height: fit-content;"  class="btn-lg <%= lang=='En' ? 'btn  btn-r ' : 'btn   btn-r arabicLang' %>"><%= lang=='En' ? 'Forgot Password':"نسيت كلمة السر" %></button>
+              <div class="fb-login-button" data-width="800" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+            <div class="g-signin2" data-width="240" data-height="40" data-longtitle="true"></div>
+            <script>
+              function onSuccess(googleUser) {
+                console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+              }
+              function onFailure(error) {
+                console.log(error);
+              }
+              function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                  'scope': 'profile email',
+                  'width': 240,
+                  'height': 50,
+                  'longtitle': true,
+                  'theme': 'dark',
+                  'onsuccess': onSuccess,
+                  'onfailure': onFailure
+                });
+              }
+            </script>
+            </div>
+        
+      </div>
+    </div>
+  </form>
+
+</div>
+
+
+
+<%- include ("partials/footer") %>
