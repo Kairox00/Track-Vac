@@ -14,6 +14,7 @@ const reviewSchema = new mongoose.Schema({
     comment:String,
     rating: Number,
     title: String,
+    dose: String,
     date: {type: Date, default: Date.now},
     is_reported: {type: Boolean, default: false},
     upvotes: {type: Number, default: 0}
