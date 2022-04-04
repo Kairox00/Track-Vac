@@ -154,6 +154,10 @@ footer {
     font-family: 'Raleway', sans-serif;
 }   
 
+.homeTitle {
+  font-weight: 400;
+  font-size: 600%;
+}
 
 .about {
     background-image: 
@@ -329,6 +333,24 @@ input[type='radio']:checked:after {
 @media (min-width: 752px) and (max-width:980px) {  
     .card {width: 20rem; }
   }
+
+@media (min-width: 320px) and (max-width:410px) {  
+    .card {width: 20rem; 
+           height: 18rem;}
+    .homeTitle{
+      font-size: 400%;
+    }       
+  }
+
+@media (min-width: 412px) and (max-width:425px) {  
+    .card {width: 21rem; 
+           height: 19rem;}
+    .homeTitle{
+            font-size: 450%;
+    }       
+  }
+
+
 .bs{
     background-color: rgba(255, 235, 205, 0);
 }
