@@ -104,7 +104,7 @@
                         </h5>
                         
                     <% if(lang=="En"){ %> 
-                        <small class="text-muted"><%= review.vaccine%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
+                        <small class="text-muted"><%= review.vaccine%> | Dose Number <%= review.dose%> | <%= review.upvotes %> Upvotes | Posted <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %></small>
                         <% } else{ %> 
                             <small class="text-muted"><%= review.vaccine%> | إعجاب <%= review.upvotes %>   | <%= review.date.getDate() %>/<%= review.date.getMonth() %>/<%= review.date.getFullYear() %> </small>
                             <% } %> 
