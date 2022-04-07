@@ -338,13 +338,38 @@
             "Gharb Asyut",
             "Sharq Asyut",
             "El Kawseya",
-            "Abo Tig"
+            "Abo Tig",
+            "El Fath",
+            "Asyut",
+            "New Asyut",
+            "Asyut University",
+            "AlAzhar University Asyut branch",
+            "Dyrout",
+            "Sahel Slim",
+            "Abanob center",
+            "ElBadary center",
+            "ElGhanayem center",
+            "Sadfa center",
+            "Manfalout center"
         ],
         "ar_districts": [
             "غرب أسيوط",
             "شرق أسيوط",
             "القوصية",
-            "أبو تيج"
+            "أبو تيج",
+            "الفتح",
+            "اسيوط",
+            "اسيوط الجديدة",
+            "جامعه اسيوط للطلاب والعاملين",
+            "جامعه الازهر فرع اسيوط",
+            "ديروط",
+            "ساحل سليم",
+            "مركز ابنوب",
+            "مركز البداري",
+            "مركز الغنايم",
+            "مركز صدفا",
+            "مركز منفلوط"
+
         ]
     },
     {
@@ -397,22 +422,56 @@
         "ar_name": "الأقصر",
 
         "districts": [
-            "Luxor"
+            "Luxor",
+            "Armant",
+            "Esna",
+            "Elbayadya",
+            "Elzanina",
+            "ElTood",
+            "ElKarana",
+            "AlHilal AlAhmar",
+            "Bandar Luxor",
+            "AlAksur University"
         ]
         ,
         "ar_districts": [
-            "الأقصر"
+            "الأقصر",
+            "ارمنت",
+            "اسنا",
+            "البياضية",
+            "الزنينة",
+            "الطود",
+            "القرنة",
+            "الهلال الاحمر",
+            "بندر الاقصر",
+            "جامعة الاقصر للطلاب والعاملين"
         ]
     },
     {
         "name": "Aswan",
         "ar_name": "أسوان",
         "districts": [
-            "Aswan"
+            "Aswan",
+            "Abu Simbil",
+            "Edfu east",
+            "Edfu west",
+            "AlHilal AlAhmar",
+            "AlAzhar University Aswan branch",
+            "Koom Embo",
+            "Drau center",
+            "Nasr ElNoba center"
         ]
         ,
         "ar_districts": [
-            "أسوان"
+            "أسوان",
+            "أبو سمبل",
+            "إدفو شرق",
+            "إدفو غرب",
+            "الهلال الأحمر",
+            "جامعه الازهر فرع اسوان",
+            "كوم امبو",
+            "مركز دراو",
+            "مركز نصر النوبه"
         ]
     },
     {
