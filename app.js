@@ -200,6 +200,13 @@ app.get('/register', (req, res) => {
     }  
 })
 
+//Continue with facebook
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
 //Login
 
 app.post("/login",catchAsync(async (req, res) => {
