@@ -65,9 +65,8 @@
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
                     </li>
                     <li class="nav-item">
-                        <form action="/logout" method="POST">
-                            <a type="submit" href="" class="nav-link <%= typeof page !== 'undefined' && page === 'logout' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" id="logout"><%= lang=='En' ? 'Log Out' : "تسجيل الخروج" %></a>
-                        </form>
+                            <a href="/logout" class="nav-link <%= typeof page !== 'undefined' && page === 'logout' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" id="logout"><%= lang=='En' ?(userId ? 'Log Out' : 'Sign In/Up' )  :(userId ?  "تسجيل الخروج"  :  "تسجيل الدخول") %></a>
+                        
                        
                     </li>
                     

@@ -92,6 +92,7 @@ app.use(require("express-session")({
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.session.user;
+    res.locals.userId = req.session.user_id;
     res.locals.helper = helper;
     res.locals.lang = req.session.lang;
     next();
@@ -241,9 +242,10 @@ app.get('/login', (req, res) => {
     }  
 });
 
-app.post('/logout',requireLogin, (req, res) => {
-   req.session.user_id=null;
-   res.redirect("/");
+//logout
+app.get('/logout',requireLogin, (req, res) => {
+   req.session.user_id=undefined;
+   res.redirect("/login");
 })
 
 //Choose Center Page
