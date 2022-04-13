@@ -46,14 +46,14 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %>" aria-current="page" href="/modHome" id="modHome"><%= lang=='En' ? 'Admin Dashboard' : 'لوحة تحكم المسؤول' %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'modHome' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" aria-current="page" href="/modHome" id="modHome"><%= lang=='En' ? 'Admin Dashboard' : 'لوحة تحكم المسؤول' %></a>
                     </li>
                 
                     <li class="nav item">
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" aria-current="page" href="/" id="home"><%= lang == 'En' ? 'Home' : 'الصفحة الرئيسية' %></a>
                     </li>
                     <li class="nav item" <%=currentUser=='mod' ? '' : 'hidden' %> >
-                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
+                        <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" aria-current="page" href="/centers" id="allCenters"><%= lang=='En' ? 'Manage Centers' : "إدارة المراكز" %></a>
                     </li>
                     <li class="nav-item" <%=currentUser!='mod' ? '' : 'hidden' %> >
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'centers' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/centers" id="allCenters"><%= lang=='En' ? 'Centers Reviews' : "تقييمات المراكز" %></a>
@@ -65,9 +65,8 @@
                         <a class="nav-link <%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" href="/about" id="aboutVac"><%= lang=='En' ? 'About Vaccination' : "حول اللقاح" %></a>
                     </li>
                     <li class="nav-item">
-                        <form action="/logout" method="POST">
-                            <a type="submit" href="" class="nav-link <%= typeof page !== 'undefined' && page === 'logout' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" id="logout"><%= lang=='En' ? 'Log Out' : "تسجيل الخروج" %></a>
-                        </form>
+                            <a href="/logout" class="nav-link <%= typeof page !== 'undefined' && page === 'logout' ? 'active' : '' %> <%= lang=='En' ? '' : 'arabicLang' %>" id="logout"><%= lang=='En' ?(userId ? 'Log Out' : 'Sign In/Up' )  :(userId ?  "تسجيل الخروج"  :  "تسجيل الدخول") %></a>
+                        
                        
                     </li>
                     
