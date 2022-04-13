@@ -120,8 +120,9 @@ app.use((req, res, next) => {
 // Logged in user
 //===============
 const requireLogin = (req, res, next) => {
-    if (req.isAuthenticated())
-      return next();
+    if (req.isAuthenticated()){
+        req.session.user_id=1;
+      return next();}
     if (!req.session.user_id) {
       return res.redirect("/login");
     }
@@ -145,7 +146,7 @@ passport.serializeUser(function(user, done) {
 passport.use(new FacebookStrategy({
     clientID: "5283337938401135",
     clientSecret:"9500ead83487ba5ef3a574d5183e0250",
-    callbackURL: "http://localhost:3000/auth/facebook"
+    callbackURL: "http://localhost:3000/facebook/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     const email= profile.id;
@@ -165,7 +166,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
     clientID: "963604943689-438i7cqjo7j52hfme9d16rhu6bed43ct",
     clientSecret: "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",
-    callbackURL: "http://localhost:3000/auth/google"
+    callbackURL: "http://localhost:3000/google/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     const email= profile.id;
@@ -293,24 +294,32 @@ app.get('/login', (req, res) => {
         else res.render('login', { page: "login" })
     }  
 });
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/facebook',
+     passport.authenticate('facebook')
+    );
 
-app.get('/auth/facebook/callback',
+app.get('/facebook/callback',
   passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
 
-  app.get('/auth/google', passport.authenticate('google',{scope:'email'}));
 
-app.get('/auth/google/callback',
+app.get('/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+app.get('/google/callback',
   passport.authenticate('google', { successRedirect : '/', failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
 
+
 //logout
 app.get('/logout',requireLogin, (req, res) => {
+    if (req.isAuthenticated())
+        req.logOut();
+    
    req.session.user_id=undefined;
    res.redirect("/login");
 })
