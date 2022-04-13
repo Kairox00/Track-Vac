@@ -301,6 +301,7 @@ app.get('/facebook',
 app.get('/facebook/callback',
   passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
   function(req, res) {
+      req.session.id=1;
     res.redirect('/');
   });
 
@@ -311,6 +312,7 @@ app.get('/google',
 app.get('/google/callback',
   passport.authenticate('google', { successRedirect : '/', failureRedirect: '/login' }),
   function(req, res) {
+    req.session.id=1;
     res.redirect('/');
   });
 
