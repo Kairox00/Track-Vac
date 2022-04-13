@@ -21,6 +21,9 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const Review = require('./models/review');
 const user=require('./models/user');
+const  passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 
 
@@ -117,11 +120,65 @@ app.use((req, res, next) => {
 // Logged in user
 //===============
 const requireLogin = (req, res, next) => {
+    if (req.isAuthenticated())
+      return next();
     if (!req.session.user_id) {
       return res.redirect("/login");
     }
     next();
   };
+
+// Passport session setup.
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
+
+//===============
+// Facebook Login
+//===============
+passport.use(new FacebookStrategy({
+    clientID: "5283337938401135",
+    clientSecret:"9500ead83487ba5ef3a574d5183e0250",
+    callbackURL: "http://localhost:3000/auth/facebook"
+  },
+  async function(accessToken, refreshToken, profile, done) {
+    const email= profile.id;
+    const exist= await user.findOne({ email });
+    if(exist){
+        return  done(null, exist);
+    }
+  const userData = {email };
+  await new user(userData).save();
+  done(null, userData);
+  }
+));
+
+//===============
+// Google Login
+//===============
+passport.use(new GoogleStrategy({
+    clientID: "963604943689-438i7cqjo7j52hfme9d16rhu6bed43ct",
+    clientSecret: "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",
+    callbackURL: "http://localhost:3000/auth/google"
+  },
+  async function(accessToken, refreshToken, profile, done) {
+    const email= profile.id;
+    const exist= await user.findOne({ email });
+    if(exist){
+        return  done(null, exist);
+    }
+  const userData = {email };
+  await new user(userData).save();
+  done(null, userData);
+  }
+));
+
 
 //===============
 // PUBLIC ROUTES
@@ -201,12 +258,7 @@ app.get('/register', (req, res) => {
     }  
 })
 
-//Continue with facebook
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+
 
 //Login
 
@@ -241,6 +293,21 @@ app.get('/login', (req, res) => {
         else res.render('login', { page: "login" })
     }  
 });
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+  app.get('/auth/google', passport.authenticate('google',{scope:'email'}));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { successRedirect : '/', failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 //logout
 app.get('/logout',requireLogin, (req, res) => {
