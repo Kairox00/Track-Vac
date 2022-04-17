@@ -146,7 +146,7 @@ passport.serializeUser(function(user, done) {
 passport.use(new FacebookStrategy({
     clientID: "5283337938401135",
     clientSecret:"9500ead83487ba5ef3a574d5183e0250",
-    callbackURL: "http://localhost:3000/facebook/callback"
+    callbackURL: "http://www.track-vac.com/facebook/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     const email= profile.id;
@@ -166,7 +166,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
     clientID: "963604943689-438i7cqjo7j52hfme9d16rhu6bed43ct",
     clientSecret: "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",
-    callbackURL: "http://localhost:3000/google/callback"
+    callbackURL: "http://www.track-vac.com/google/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     const email= profile.id;
