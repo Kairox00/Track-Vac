@@ -6,7 +6,6 @@
             "El Nozha",
             "New Cairo",
             "Shobra",
-            "Heliopolis",
             "Mataria",
             "Zaytoun",
             "El Salam Al-Awl",
@@ -28,13 +27,52 @@
             "Maadi",
             "Tora",
             "15th of May",
-            "Helwan"
+            "Helwan",
+            "El Tabyan",
+            "The German University",
+            "The British University",
+            "The Egyptian Russian University",
+            "Cairo University",
+            "Al Maarefa University",
+            "Helwan University",
+            "Heliopolis University",
+            "Mansheyet Naser Administration",
+            "Al Sadat Academy",
+            "Al Azbkya",
+            "Modern University for Technology & Information",
+            "Arabic Open University",
+            "The French University",
+            "The Canadian University",
+            "The Egyptian Chineese University",
+            "El Gamaleya",
+            "El Darb El Ahmar",
+            "El Zawya El Hamra",
+            "El Sharabya",
+            "El Matareya",
+            "El Maasera",
+            "El Mokattam",
+            "El Mosky",
+            "Al Hillal Al Ahmar",
+            "Awram Dar Al Salam",
+            "Awram Madinet Al Salam",
+            "Bab El Sheereya",
+            "Boulaa",
+            "Thany Nasr City",
+            "Al Azhar University",
+            "Future University",
+            "Badr University",
+            "Ain Shams University",
+            "Misr International University",
+            "Hadayee Al Obba",
+            "Dar Al Salam",
+            "Rood El Farag",
+            "Masr El Gedida",
+            "Wasat"
         ],
         "ar_districts": [
             "النزهة",
             "القاهرة الجديدة",
             "شبرا",
-            "مصر الجديدة",
             "مطرية",
             "زيتون",
             "السلام الأول",
@@ -56,7 +94,47 @@
             "معادي",
             "طرة",
             "15 مايو",
-            "حلوان"
+            "حلوان",
+            "التبين",
+            "الجامعة الالمانية للطلاب والعاملين",
+            "الجامعة البريطانية للطلاب والعاملين",
+            "الجامعة المصرية الروسية للطلاب والعاملين",
+            "جامعة القاهرة للطلاب والعاملين",
+            "جامعة المعرفة للطلاب والعاملين",
+            "جامعة حلوان للطلاب والعاملين",
+            "جامعة هليوبوليس للطلاب والعاملين",
+            "ادارة منشية ناصر",
+            "اكاديمية السادات للطلاب والعاملين",
+            "الازبكية",
+            "الجامعة الحديثة لتكنولوجيا والمعلومات طلاب وعاملين",
+            "الجامعة العربية المفتوحة للطلاب والعاملين",
+            "الجامعة الفرنسية للطلاب والعاملين",
+            "الجامعة الكندية للطلاب والعاملين",
+            "الجامعة المصرية الصينية للطلاب والعاملين",
+            "الجمالية",
+            "الدرب الاحمر",
+            "الزاوية الحمراء",
+            "الشربية",
+            "المطرية",
+            "المعصرة",
+            "المقطم",
+            "الموسكي",
+            "الهلال الاحمر",
+            "اورام دار السلام",
+            "اورام مدينة السلام",
+            "باب الشعرية",
+            "بولاق",
+            "ثاني مدينة نصر",
+            "جامعة الازهر للطلاب والعاملين",
+            "جامعة المستقبل للطلاب والعاملين",
+            "جامعة بدر للطلاب والعاملين",
+            "جامعة عين شمس للطلاب والعاملين",
+            "جامعة مصر الدولية للطلاب والعاملين",
+            "حدائق القبة",
+            "دار السلام",
+            "روض الفرج",
+            "مصر الجديدة",
+            "وسط"                                                      
         ]
     },
     {
@@ -120,7 +198,9 @@
             "Gharb",
             "El Amreya",
             "El Agamy",
-            "Borg El Arab"
+            "Borg El Arab",
+            "Karmouz",
+            "Moharam Beek"
         ],
         "ar_districts": [
             "العطارين",
@@ -132,7 +212,9 @@
             "غرب الإسكندرية",
             "العامرية",
             "العجمي",
-            "برج العرب"
+            "برج العرب",
+            "كررموز",
+            "محرم بك"
         ]
     },
     {
@@ -141,42 +223,111 @@
         "districts": [
             "Shobra",
             "Kafr Shokr",
-            "Sindiyun"
+            "Sindiyun",
+            "Qeha Administration",
+            "Al Khanka",
+            "El Obour",
+            "Al Hilal Al Ahmar",
+            "Banha",
+            "Bahteem",
+            "Banha University",
+            "Shobra East",
+            "Shbeen El Kanater",
+            "Toukh",
+            "Gharb",
+            "Qalyoub",
+            "Kafr Shokr",
+            "Al Qanater Al Khayrya Center"
+
         ],
         "ar_districts": [
             "شبرا",
             "كفر شكر",
-            "سنديون"
+            "سنديون",
+            "ادارة قها",
+            "الخانكة",
+            "العبور",
+            "الهلال الاحمر",
+            "بنها",
+            "بهتيم",
+            "جامعة بنها للطلاب والعاملين",
+            "شبرا شرق",
+            "شبين القناطر",
+            "طوخ",
+            "غرب",
+            "قليوب",
+            "كفر شكر",
+            "مركز القناطر الخيرية"
         ]
     },
     {
         "name": "Port Said",
         "ar_name": "بور سعيد",
         "districts": [
-            "Port Said"
+            "Port Said",
+            "Port Said University",
+            "Al Ganoub",
+            "AlReaya Al Awalya",
+            "Al Zohoor",
+            "Al Arab",
+            "Port Foad"
         ],
         "ar_districts": [
-            " بور سعيد"
+            " بور سعيد",
+            "جامعة بورسعيد للطلاب والعاملين",
+            "الجنوب",
+            "الرعاية الاولية",
+            "الزهور",
+            "العرب",
+            "بور فؤاد"
         ]
     },
     {
         "name": "Ismailia",
         "ar_name": "الإسماعيلية",
         "districts": [
-            "Ismailia"
+            "Ismailia",
+            "Suez Canal University",
+            "Abo Soueer",
+            "El Kasaseen",
+            "El Kantara West",
+            "Al Hilal Al Ahmar",
+            "Sinai University Al Kantara Branch",
+            "Fayed",
+            "Al Tal Al Kebeer",
+            "El Kantara East"
         ],
         "ar_districts": [
-            " الإسماعيلية"
+            " الإسماعيلية",
+            "جامعه قناه السويس للطلاب و العاملين",
+            "ابوصوير ",
+            "القصاصين",
+            "القنطرة غرب",
+            "الهلال الاحمر",
+            "جامعة سيناء فرع القنطرة الطلاب و العاملين",
+            "فايد",
+            "التل الكبير",
+            "قنطرة شرق"
         ]
     },
     {
         "name": "South Sinai",
         "ar_name": "جنوب سينا",
         "districts": [
-            "Sharm El Sheikh"
+            "Sharm El Sheikh",
+            "Abo Znima",
+            "Al Malek Salman University",
+            "Dahab",
+            "Saint Catherine",
+            "Nouebaa"
         ],
         "ar_districts": [
-            "شرم الشيخ"
+            "شرم الشيخ",
+            "ابوزنيمة",
+            "جامعة الملك سلمان للطلاب والعاملين",
+            "دهب",
+            "سانت كاترين",
+            "نوبيع"
         ]
     },
     {
@@ -289,10 +440,24 @@
         "name": "Fayoum",
         "ar_name": "الفيوم",
         "districts": [
-            "Bandar El Fayoum"
+            "Bandar El Fayoum",
+            "Al Fayoum University",
+            "Abshoy Center",
+            "Attsa Center",
+            "Al Fayoum Center",
+            "Snouras Center",
+            "Tamya Center",
+            "Youssof Al Sediq Center"
         ],
         "ar_districts": [
-            "بندر الفيوم"
+            "بندر الفيوم",
+            "جامعة الفيوم للطلاب والعاملين",
+            "مركز ابشواي",
+            "مركز اطسا",
+            "مركز الفيوم",
+            "مركز سنورس",
+            "مركز طامية",
+            "يوسف الصديق"
         ]
     },
     {
@@ -459,7 +624,8 @@
             "AlAzhar University Aswan branch",
             "Koom Embo",
             "Drau center",
-            "Nasr ElNoba center"
+            "Nasr ElNoba center",
+            "Aswan University"
         ]
         ,
         "ar_districts": [
@@ -471,7 +637,8 @@
             "جامعه الازهر فرع اسوان",
             "كوم امبو",
             "مركز دراو",
-            "مركز نصر النوبه"
+            "مركز نصر النوبه",
+            "جامعه اسوان للطلاب و العاملين"
         ]
     },
     {
@@ -479,11 +646,19 @@
         "ar_name": "البحر الأحمر",
 
         "districts": [
-            "Hurghada"
+            "Hurghada",
+            "Al Qoseer",
+            "Al Bahr Al Ahmar",
+            "Ras Ghareb",
+            "Safaga"
         ]
         ,
         "ar_districts": [
-            "الغردقة"
+            "الغردقة",
+            "القصير",
+            "البحر الأحمر",
+            "راس غارب",
+            "سفاجا"
         ]
     },
     {
