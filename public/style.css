@@ -153,17 +153,16 @@ footer {
     
 }
 .box31 {
-  padding: 0px;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding: 4%;
+  padding-top: 8%;
+  padding-bottom: 8%;
   background-color: rgba(255, 255, 255, 0.637);
   border: white;
   
 
-  margin-top: 60px;
-  margin-bottom: 60px;
-  margin-left:7% ;
-  margin-right:7% ;
+  margin: 7%;
+  margin-left: 3%;
+  margin-right: 3%;
   border-radius: 20px;
   
 }
