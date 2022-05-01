@@ -147,7 +147,7 @@
             "6th of October",
             "El Saf",
             "Al Haram",
-            "Boulaq",
+            "Boulaq El Dakrour",
             "South Giza",
             "North Giza",
             "Al Waraq",
@@ -159,8 +159,22 @@
             "El Badr Sheen",
             "Sharq El Qanater",
             "Awseem",
-            "El Wahat",
-            "Gharb El Qanater"
+            "El Wahat EL Baharya",
+            "Gharb El Qanater",
+            "Al Ahram Canadian University",
+            "Al Giza",
+            "Al Howamdya",
+            "El Dokki",
+            "El Agouza",
+            "El Ayyat",
+            "Al Hilal Al Ahmar",
+            "Embaba",
+            "Asleska University",
+            "Modern Science and Art University",
+            "New Giza University",
+            "6th of October University",
+            "Shamal El Ayyat"
+
         ],
         "ar_districts": [
             "المهندسين",
@@ -182,7 +196,19 @@
             "القناطر",
             "أوسيم",
             "الواحات",
-            "غرب القناطر"
+            "غرب القناطر",
+            "مركز جامعة الاهرام الكندية ",
+            "الجيزة ",
+            "الحوامدية ",
+            "الدقي",
+            "العجوزة",
+            "العياط",
+            "الهلال الاحمر",
+            "امبابة",
+            "جامعة اسلسكا للطلاب و العاملين",
+            "جامعة اكتوبر للعلوم الحديثة و الاداب طلاب و عاملين ",
+            "جامعة السادس من اكتوبر للطلاب و العاملين ",
+            "شمال العياط "
         ]
     },
     {
@@ -334,10 +360,25 @@
         "name": "North Sinai",
         "ar_name": "شمال سيناء",
         "districts": [
-            "El Areesh"
+            "El Areesh",
+            "El Sheekh Zowayd",
+            "Al Hilal Al Ahmar",
+            "Beaar Al Abd",
+            "Al Areesh University",
+            "Sinai University",
+            "North Sinai",
+            "Nakhl"
         ],
         "ar_districts": [
-            "العريش"
+            "العريش",
+            "الشيخ زويد",
+            "الهلال الاحمر",
+            "بئر العبد ",
+            "جامعة العريش للطلاب والعاملين",
+            "جامعة سيناء فرع العريش للطلاب والعاملين",
+            "شمال سيناء",
+            "نخل"
+            
         ]
     },
     {
@@ -347,13 +388,33 @@
             "Shbeen El Koum",
             "Ashmoon",
             "El Sadat",
-            "Minuf"
+            "Minuf",
+            "Al Bagour Administration",
+            "Al Hilal Al Ahmar",
+            "Berket El Sabaa",
+            "Al Azhar University Shebeen El Koum",
+            "Al Monofeya University",
+            "Madinet Al Sadat University",
+            "Sers El Layan",
+            "Al Shohada Center",
+            "Tella Center",
+            "Qouesna Center"
         ],
         "ar_districts": [
             "شبين الكوم",
             "أشمون",
             "السادات",
-            "منوف"
+            "منوف",
+            "ادارة الباجور",
+            " الهلال الاحمر ",
+            "بركة السبع",
+            "جامعة الازهر فرع شبين الكوم",
+            "جامعة المنوفية للطلاب والعاملين",
+            "جامعة مدينة السادات للطلاب والعاملين",
+            "سرس الليان",
+            "مركز الشهداء",
+            "مركز تلا",
+            "مركز قويسنا"
         ]
     },
     {
@@ -366,7 +427,16 @@
             "Basyun",
             "Samannoud",
             "Kafr Zayat",
-            "Mahla Thany"
+            "Mahla Thany",
+            "Tanta University",
+            "Tanta",
+            "Awel El Mahala El Kobra",
+            "Al Santa",
+            "Al Gharbeya",
+            "Al Hilal Al Ahmar",
+            "Awram Tanta",
+            "Al Azhar University Tanta" 
+            
         ],
         "ar_districts": [
             "طنطا ثاني",
@@ -375,7 +445,15 @@
             "بسيون",
             "سمنود",
             "كفر الزيات",
-            "المحلة ثاني"
+            "المحلة ثاني",
+            "جامعة طنطا للطلاب والعاملين",
+            "طنطا",
+            "اول المحلة الكبري",
+            "السنطة",
+            "الغربية",
+            "الهلال الاحمر",
+            "اورام طنطا",
+            "جامعة الازهر فرع طنطا"
         ]
     },
     {
@@ -385,43 +463,143 @@
             "El Hamoul",
             "Kafr El Sheikh",
             "Desouk",
-            "Qilin"
+            "Qilin",
+            "Kafr El Sheikh University",
+            "Al Reyad",
+            "Al Hilal Al Ahmar",
+            "Bela",
+            "Al Azhar University Desouk",
+            "Seedi Salem",
+            "Seedi Ghazi",
+            "Al Borols Center",
+            "Qilin Center",
+            "Matbous"
         ],
         "ar_districts": [
             "الحامول",
             "كفر الشيخ",
             "دسوق",
-            "قلين"
+            "قلين",
+            "جامعة كفر الشيخ للطلاب والعاملين",
+            "الرياض",
+            "الهلال الاحمر",
+            "بيلا",
+            "جامعة الازهر فرع دسوق",
+            "سيدي سالم",
+            "سيدي غازي",
+            "مركز البرلس",
+            "مركز قلين",
+            "مطوبس"
         ]
     },
     {
         "name": "Marsa Matrouh",
         "ar_name": "مرسى مطروح",
         "districts": [
-            "Marsa Matrouh"
+            "Marsa Matrouh",
+            "Al Hamam",
+            "Al Saloum",
+            "Al Dabaa",
+            "Al Alameen",
+            "Al Ngila",
+            "Al Alameen University",
+            "Matrouh University",
+            "Seedi Brani",
+            "Siwa"
         ],
         "ar_districts": [
-            "مرسى مطروح"
+            "مرسى مطروح",
+            "الحمام",
+            "السلوم",
+            "الضبعة",
+            "العلمين ",
+            "النجيلة",
+            "جامعة العلمين للطلاب والعاملين",
+            "جامعة مطروح للطلاب والعاملين",
+            "سيدي براني",
+            "سيوه"
         ]
     },
     {
         "name": "Behira",
         "ar_name": "البحيرة",
         "districts": [
-            "Damanhour"
+            "Damanhour",
+            "Itay El Baroud",
+            "Al Tahrir",
+            "Awram Damanhour",
+            "Badr",
+            "Damanhour University",
+            "El Behira",
+            "Rasheed",
+            "Gharb El Nobarya",
+            "Kafr El Dawar",
+            "Abo El Matameer Center",
+            "Abo Hummus Center",
+            "Edko Center",
+            "El Dalangat Center",
+            "El Rahmanya Center",
+            "El Mahmodya Center",
+            "Hoosh Eissa Center",
+            "Shabrakhit Center",
+            "Koum Hamada Center",
+            "Wady El Natroun Center"
         ],
         "ar_districts":[
-            "دمنهور"
+            "دمنهور",
+            "إيتاي البارود",
+            "التحرير",
+            "اورام دمنهور",
+            "بدر",
+            "جامعة دمنهور للطلاب والعاملين",
+            "البحيرة",
+            "رشيد",
+            "غرب النوبارية",
+            "كفر الدوار",
+            "مركز ابوالمطامير",
+            "مركز ابوحمص",
+            "مركز ادكو",
+            "مركز الدلنجات",
+            "مركز الرحمانية",
+            "مركز المحمودية",
+            "مركز حوش عيسي",
+            "مركز شبراخيت",
+            "مركز كوم حمادة",
+            "مركز وادي النطرون"
         ]
     },
     {
         "name": "Damietta",
         "ar_name": "دمياط",
         "districts": [
-            "Damietta"
+            "Damietta",
+            "Damietta University",
+            "Al Hilal Al Ahmar",
+            "Awram Damietta",
+            "Al Azhar University Damiette",
+            "Houras University",
+            "New Damietta",
+            "Ras El Bar",
+            "Al Zarqa Center",
+            "Farskour Center",
+            "Kafr El Bateekh Center",
+            "Kafr Saad Center",
+            "Meet Abo Ghaleb" 
         ],
         "ar_districts": [
-            "دمياط"
+            "دمياط",
+            "جامعة دمياط للطلاب والعاملين",
+            "الهلال الاحمر",
+            "اورام دمياط",
+            "جامعة الازهر فرع دمياط الجديدة",
+            "جامعة حورس للطلاب والعاملين",
+            "دمياط الجديدة",
+            "راس البر",
+            "مركز الزرقا",
+            "مركز فارسكور",
+            "مركز كفر البطيخ",
+            "مركز كفر سعد",
+            "ميت ابوغالب"
         ]
     },
     {
@@ -429,11 +607,55 @@
         "ar_name": "الدقهلية",
         "districts": [
             "Meet Ghamr",
-            "El Senbellawein"
+            "El Senbellawein",
+            "Delta University",
+            "Al Mansoura University",
+            "El Manzala",
+            "El Mansoura",
+            "Al Hilal Al Ahmar",
+            "Awram Meet Ghamr",
+            "Belqas",
+            "Al Azhar University Mansoura",
+            "Gamasa",
+            "Dakarns",
+            "Sherbin",
+            "Talkha",
+            "Mahalet El Dmna",
+            "Travellers Vaccination Centers Dakahlya",
+            "Aga Center",
+            "Al Gamalya Center",
+            "Al Matarya Center",
+            "Bani Ebid Center",
+            "Tami El Amdid Center",
+            "Menyet El Nasr Center",
+            "Meet Salseel Center",
+            "Nabroh Center"
         ],
         "ar_districts": [
             "ميت غمر",
-            "السنبلاوبن"
+            "السنبلاوبن",
+            "جامعة  الدلتا للعاوم و التكنولوجيا للطلاب و العامليز",
+            "جامعة المنصورة للطلاب و العاملين ",
+            "المنزلة ",
+            "المنصوره ",
+            "الهلال الاحمر",
+            "اورام ميت غمر",
+            "بلقاس",
+            "جامعه الازهر فرع المنصوره ",
+            "جمصه",
+            "دكرنس",
+            "شربين",
+            "طلخا",
+            "محله الدمنا",
+            "مراكز تطعيم المسافرين بالدقهليه",
+            "مركزاجا",
+            "مركز الجاملية",
+            "مركز المطرية ",
+            "مركز بني عبيد",
+            "مركز تمي الامديد",
+            "مركز منيه النصر",
+            "مركز ميت سلسيل",
+            "مركز نبروه"
         ]
     },
     {
@@ -464,20 +686,50 @@
         "name": "Beni Suef",
         "ar_name": "بني سويف",
         "districts": [
-            "Bani suef"
+            "Bani suef",
+            "Al Nahda University",
+            "Beni Suef University",
+            "Al Foshn",
+            "Al Hilal Al Ahmar",
+            "El Wasty",
+            "Ahnasya",
+            "Beba",
+            "Samsta Center",
+            "Naser Center"
         ],
         "ar_districts": [
-            "بني سويف"
+            "بني سويف",
+            "جامعة النهضة للطلاب والعاملين",
+            "جامعة بني سويف للطلاب والعاملين",
+            "الفشن",
+            "الهلال الاحمر",
+            "الواسطي",
+            "اهناسيا",
+            "ببا",
+            "مركز سمسطا",
+            "مركز ناصر"
         ]
     },
     {
         "name": "Suez",
         "ar_name": "السويس",
         "districts": [
-            "Faisal"
+            "Faisal",
+            "Al Arbaeen",
+            "El Gananeen",
+            "Suez",
+            "Al Galala University",
+            "Suez University",
+            "Ataka"
         ],
         "ar_districts": [
-            "فيصل"
+            "فيصل",
+            "الاربعين",
+            "الجنانين",
+            "السويس",
+            "جامعة الجلالة للطلاب والعاملين",
+            "جامعة السويس للطلاب والعاملين",
+            "عتاقة"
         ]
     },
     {
@@ -487,13 +739,31 @@
             "New Minya",
             "Mallawi",
             "Beni Mazar",
-            "Samalout"
+            "Samalout",
+            "Deraya University",
+            "Al Minya Administration",
+            "Abo Qorqas",
+            "Al Adwa",
+            "Awram Al Minya",
+            "Al Minya University",
+            "Deer Mowas",
+            "Matay Center",
+            "Maghagha"
         ],
         "ar_districts": [
             "المنيا الجديدة",
             "ملوي",
             "بني مزار",
-            "سملوط"
+            "سملوط",
+            "جامعة دراية للطلاب والعاملين",
+            "ادارة المنيا",
+            "ابو قرقاص",
+            "العدوه",
+            "اورام المنيا",
+            "جامعة المنيا للطلاب والعاملين",
+            "دير مواس",
+            "مركز مطاي",
+            "مغاغه"
         ]
     },
     {
@@ -541,10 +811,40 @@
         "name": "Sohag",
         "ar_name": "سوهاج",
         "districts": [
-            "Sohag"
+            "Sohag",
+            "Akhmeem",
+            "Al Balina",
+            "Al Maragha",
+            "Al Hilal Al Ahmar",
+            "Awram Sohag",
+            "Sohag University",
+            "Garga",
+            "Juhayna",
+            "Dar El Salam",
+            "Saqlta",
+            "Tama",
+            "Tahta",
+            "Al Osyrat Center",
+            "Al Maragha Center",
+            "Al Monshah Center"
         ],
         "ar_districts": [
-            "سوهاج"
+            "سوهاج",
+            "اخميم",
+            "البلينا",
+            "المراغة",
+            "الهلال الاحمر",
+            "اورام سوهاج",
+            "جامعة سوهاج للطلاب والعاملين",
+            "جرجا",
+            "جهينة",
+            "دار السلام",
+            "ساقلته",
+            "طما",
+            "طهطا",
+            "مركز العسيرات",
+            "مركز المراغة",
+            "مركز المنشاه"
         ]
     },
     {
@@ -552,11 +852,35 @@
         "ar_name": "قنا",
 
         "districts": [
-            "Qina"
+            "Qina",
+            "Fakat Administration",
+            "Abo Tesht",
+            "Al Hilal Al Ahmar",
+            "Awram Qina",
+            "Al Azhar University Qina",
+            "Ganoub El Wady University",
+            "Deshta",
+            "Al Waqf Center",
+            "Farshout Center",
+            "Qous Center",
+            "Nagaa Hamady",
+            "Naqada"
         ]
         ,
         "ar_districts": [
-            "قنا"
+            "قنا",
+            "ادارة فقط",
+            "ابو تشت",
+            "الهلال الاحمر",
+            "اورام قنا",
+            "جامعة الازهر فرع قنا",
+            "جامعة جنوب الوادي للطلاب والعاملين",
+            "دشتا",
+            "مركز الوقف",
+            "مركز فرشوط",
+            "مركز قوص",
+            "نجع حمادي",
+            "نقادة"
         ]
     },
     {
@@ -668,13 +992,19 @@
         "districts": [
             "El Kharga",
             "El Dakhla",
-            "El Farafra"
+            "El Farafra",
+            "Al Wady Al Gdeed University",
+            "Barees",
+            "Balat"
         ]
         ,
         "ar_districts": [
             "الخارجة",
             "الداخلة",
-            "الفرافرة"
+            "الفرافرة",
+            "جامعة الوادي الجديد للطلاب والعاملين",
+            "باريس",
+            "بلاط"
         ]
     }
 ]
