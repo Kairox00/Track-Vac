@@ -690,7 +690,7 @@ function isMod(req, res, next) {
 
 }
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Server running on port ${port}`)
 })
 
