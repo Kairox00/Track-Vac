@@ -63,7 +63,7 @@ app.use(flash());
 // Error validation
 //=================
 const ExpressError = require('./utils/ExpressError')
-const { reviewSchema } = require('./schemas.js')
+const { reviewSchema } = require('./Schemas.js')
 const Joi = require('joi');
 // const review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
