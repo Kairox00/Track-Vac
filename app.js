@@ -190,14 +190,14 @@ app.post('/ar',(req,res)=>{
     // console.log("Applocal "+app.locals.lang);
     // console.log(`Session ${req.sessionID} lang: `+req.session.lang);
     const ref = req.get('Referrer');
-    console.log(ref);
+    // console.log(ref);
     res.redirect(ref);
 })
 
 app.post('/en',(req,res)=>{
     req.session.lang = 'En';
-     const ref = req.get('Referrer');
-    console.log(ref);
+    const ref = req.get('Referrer');
+    // console.log(ref);
     res.redirect(ref);
 })
 
@@ -209,7 +209,7 @@ app.get('/', (req, res) => {
         res.render('home', { page: "home" ,lang: 'En'});
     }
     else{
-        console.log("Session lang: "+req.session.lang);
+        // console.log("Session lang: "+req.session.lang);
         res.render('home', { page: "home" })
     }  
 })
@@ -254,7 +254,7 @@ app.get('/register', (req, res) => {
         res.render('register', { page: "SignUp" ,lang: 'En'});
     }
     else{
-        console.log("Session lang: "+req.session.lang);
+        // console.log("Session lang: "+req.session.lang);
         res.render('register', { page: "SignUp" })
     }  
 })
@@ -289,7 +289,7 @@ app.get('/login', (req, res) => {
         else res.render('login', { page: "login" ,lang: 'En'});
     }
     else{
-        console.log("Session lang: "+req.session.lang);
+        // console.log("Session lang: "+req.session.lang);
         if(req.session.user_id) res.render('home', { page: "home" });
         else res.render('login', { page: "login" })
     }  
